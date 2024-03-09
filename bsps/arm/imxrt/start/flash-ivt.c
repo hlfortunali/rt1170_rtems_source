@@ -1,3 +1,13 @@
+/*
+ * @Author: LiHeng
+ * @Date: 2024-03-08 21:39:31
+ * @LastEditors: LiHeng
+ * @LastEditTime: 2024-03-09 14:03:44
+ * @FilePath: /rt1170_rtems_source/bsps/arm/imxrt/start/flash-ivt.c
+ * @Description:
+ *
+ * Copyright (c) 2024 by LiHeng, All Rights Reserved.
+ */
 /* SPDX-License-Identifier: BSD-2-Clause */
 
 /*
@@ -31,9 +41,20 @@
 void _start(void);
 
 const ivt imxrt_image_vector_table = {
-  .hdr = IVT_HEADER,
-  .entry = (uint32_t) _start - 1, /* remove thumb mode flag! */
-  .dcd = (uint32_t) &imxrt_dcd_data,
-  .boot_data = (uint32_t) &imxrt_boot_data,
-  .self = (uint32_t) &imxrt_image_vector_table,
+    .hdr = IVT_HEADER,
+    .entry = (uint32_t)_start - 1, /* remove thumb mode flag! */
+    .dcd = (uint32_t)&imxrt_dcd_data,
+    .boot_data = (uint32_t)&imxrt_boot_data,
+    .self = (uint32_t)&imxrt_image_vector_table,
 };
+
+// const ivt imxrt_image_vector_table = {
+//     IVT_HEADER,                  /* IVT Header */
+//     IMAGE_ENTRY_ADDRESS,         /* Image Entry Function */
+//     IVT_RSVD,                    /* Reserved = 0 */
+//     (uint32_t)DCD_ADDRESS,       /* Address where DCD information is stored */
+//     (uint32_t)BOOT_DATA_ADDRESS, /* Address where BOOT Data Structure is stored */
+//     (uint32_t)IVT_ADDRESS,       /* Pointer to IVT Self (absolute address) */
+//     (uint32_t)CSF_ADDRESS,       /* Address where CSF file is stored */
+//     IVT_RSVD                     /* Reserved = 0 */
+// };
