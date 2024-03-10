@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
-**     Version:             rev. 0.1, 2020-12-29
-**     Build:               b220929
+**     Version:             rev. 1.0, 2020-12-29
+**     Build:               b220802
 **
 **     Abstract:
 **         Chip specific module features.
@@ -16,14 +16,16 @@
 **     mail:                 support@nxp.com
 **
 **     Revisions:
-**     - rev. 0.1 (2020-12-29)
+**     - rev. 0.1 (2018-03-05)
 **         Initial version.
+**     - rev. 1.0 (2020-12-29)
+**         Update feature files to align with IMXRT1170RM Rev.0.
 **
 ** ###################################################################
 */
 
-#ifndef _MIMXRT1166_cm7_FEATURES_H_
-#define _MIMXRT1166_cm7_FEATURES_H_
+#ifndef _MIMXRT1176_cm7_FEATURES_H_
+#define _MIMXRT1176_cm7_FEATURES_H_
 
 /* SOC module features */
 
@@ -55,6 +57,8 @@
 #define FSL_FEATURE_SOC_ENC_COUNT (4)
 /* @brief ENET availability on the SoC. */
 #define FSL_FEATURE_SOC_ENET_COUNT (2)
+/* @brief ENET_QOS availability on the SoC. */
+#define FSL_FEATURE_SOC_ENET_QOS_COUNT (1)
 /* @brief EWM availability on the SoC. */
 #define FSL_FEATURE_SOC_EWM_COUNT (1)
 /* @brief FLEXCAN availability on the SoC. */
@@ -353,16 +357,13 @@
 #define FSL_FEATURE_ENET_INSTANCE_HAS_INTERRUPT_COALESCEn(x) (1)
 /* @brief Queue Size for each instance. */
 #define FSL_FEATURE_ENET_INSTANCE_QUEUEn(x) \
-    (((x) == ENET) ? (1) : \
-    (((x) == ENET_1G) ? (3) : (-1)))
+    (((x) == ENET) ? (1) : (((x) == ENET_1G) ? (3) : (-1)))
 /* @brief Has AVB Support for each instance. */
 #define FSL_FEATURE_ENET_INSTANCE_HAS_AVBn(x) \
-    (((x) == ENET) ? (0) : \
-    (((x) == ENET_1G) ? (1) : (-1)))
+    (((x) == ENET) ? (0) : (((x) == ENET_1G) ? (1) : (-1)))
 /* @brief Has Timer Pulse Width control for each instance. */
 #define FSL_FEATURE_ENET_INSTANCE_HAS_TIMER_PWCONTROLn(x) \
-    (((x) == ENET) ? (1) : \
-    (((x) == ENET_1G) ? (0) : (-1)))
+    (((x) == ENET) ? (1) : (((x) == ENET_1G) ? (0) : (-1)))
 /* @brief Has Extend MDIO Support for each instance. */
 #define FSL_FEATURE_ENET_INSTANCE_HAS_EXTEND_MDIOn(x) (1)
 /* @brief Has Additional 1588 Timer Channel Interrupt for each instance. */
@@ -377,6 +378,10 @@
 #define FSL_FEATURE_ENET_TIMESTAMP_CAPTURE_BIT_INVALID (0)
 /* @brief ENET Has Extra Clock Gate.(RW610). */
 #define FSL_FEATURE_ENET_HAS_EXTRA_CLOCK_GATE (0)
+
+/* ENET_QOS module features */
+
+/* No feature definitions */
 
 /* EWM module features */
 
@@ -407,8 +412,6 @@
 #define FSL_FEATURE_FLEXIO_VERID_RESET_VALUE (0x2000001)
 /* @brief Reset value of the FLEXIO_PARAM register */
 #define FSL_FEATURE_FLEXIO_PARAM_RESET_VALUE (0x2200808)
-/* @brief Represent the bit width of the TIMDCE field (FLEXIO_TIMCFGLn[TIMDEC]) */
-#define FSL_FEATURE_FLEXIO_TIMCFG_TIMDCE_FIELD_WIDTH (3)
 /* @brief Flexio DMA request base channel */
 #define FSL_FEATURE_FLEXIO_DMA_REQUEST_BASE_CHANNEL (0)
 
@@ -730,16 +733,11 @@
 
 /* SAI module features */
 
-/* @brief SAI has FIFO in this soc (register bit fields TCR1[TFW]. */
-#define FSL_FEATURE_SAI_HAS_FIFO (1)
 /* @brief Receive/transmit FIFO size in item count (register bit fields TCSR[FRDE], TCSR[FRIE], TCSR[FRF], TCR1[TFW], RCSR[FRDE], RCSR[FRIE], RCSR[FRF], RCR1[RFW], registers TFRn, RFRn). */
-#define FSL_FEATURE_SAI_FIFO_COUNTn(x) (32)
+#define FSL_FEATURE_SAI_FIFO_COUNT (32)
 /* @brief Receive/transmit channel number (register bit fields TCR3[TCE], RCR3[RCE], registers TDRn and RDRn). */
 #define FSL_FEATURE_SAI_CHANNEL_COUNTn(x) \
-    (((x) == SAI1) ? (4) : \
-    (((x) == SAI2) ? (1) : \
-    (((x) == SAI3) ? (1) : \
-    (((x) == SAI4) ? (1) : (-1)))))
+    (((x) == SAI1) ? (4) : (((x) == SAI2) ? (1) : (((x) == SAI3) ? (1) : (((x) == SAI4) ? (1) : (-1)))))
 /* @brief Maximum words per frame (register bit fields TCR3[WDFL], TCR4[FRSZ], TMR[TWM], RCR3[WDFL], RCR4[FRSZ], RMR[RWM]). */
 #define FSL_FEATURE_SAI_MAX_WORDS_PER_FRAME (32)
 /* @brief Has support of combining multiple data channel FIFOs into single channel FIFO (register bit fields TCR3[CFR], TCR4[FCOMB], TFR0[WCP], TFR1[WCP], RCR3[CFR], RCR4[FCOMB], RFR0[RCP], RFR1[RCP]). */
@@ -830,11 +828,6 @@
 /* @brief L1 DCACHE line size in byte. */
 #define FSL_FEATURE_L1DCACHE_LINESIZE_BYTE (32)
 
-/* TMPSNS module features */
-
-/* @brief The basic settings for access to the temperature sensor through Analog IP (AI) Interface. */
-#define FSL_FEATURE_TMPSNS_HAS_AI_INTERFACE (1)
-
 /* USBPHY module features */
 
 /* @brief USBPHY contain DCD analog module */
@@ -867,8 +860,7 @@
 #define FSL_FEATURE_USDHC_HAS_NO_RW_BURST_LEN (1)
 /* @brief If USDHC instance support 8 bit width */
 #define FSL_FEATURE_USDHC_INSTANCE_SUPPORT_8_BIT_WIDTHn(x) \
-    (((x) == USDHC1) ? (0) : \
-    (((x) == USDHC2) ? (1) : (-1)))
+    (((x) == USDHC1) ? (0) : (((x) == USDHC2) ? (1) : (-1)))
 /* @brief If USDHC instance support HS400 mode */
 #define FSL_FEATURE_USDHC_INSTANCE_SUPPORT_HS400_MODEn(x) (1)
 /* @brief If USDHC instance support 1v8 signal */
@@ -887,4 +879,3 @@
 #define FSL_FEATURE_XRDC2_DOMAIN_COUNT (16)
 
 #endif /* _MIMXRT1166_cm7_FEATURES_H_ */
-

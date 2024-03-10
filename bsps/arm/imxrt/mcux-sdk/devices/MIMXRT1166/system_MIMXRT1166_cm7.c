@@ -50,8 +50,6 @@
 #include <stdint.h>
 #include "fsl_device_registers.h"
 
-
-
 /* ----------------------------------------------------------------------------
    -- Core clock
    ---------------------------------------------------------------------------- */
@@ -62,26 +60,27 @@ uint32_t SystemCoreClock = DEFAULT_SYSTEM_CLOCK;
    -- SystemInit()
    ---------------------------------------------------------------------------- */
 
-void SystemInit (void) {
+void SystemInit(void)
+{
 #if ((__FPU_PRESENT == 1) && (__FPU_USED == 1))
-  SCB->CPACR |= ((3UL << 10*2) | (3UL << 11*2));    /* set CP10, CP11 Full Access */
-#endif /* ((__FPU_PRESENT == 1) && (__FPU_USED == 1)) */
+    SCB->CPACR |= ((3UL << 10 * 2) | (3UL << 11 * 2)); /* set CP10, CP11 Full Access */
+#endif                                                 /* ((__FPU_PRESENT == 1) && (__FPU_USED == 1)) */
 
 #if defined(__MCUXPRESSO)
-    extern uint32_t g_pfnVectors[];  // Vector table defined in startup code
+    extern uint32_t g_pfnVectors[]; // Vector table defined in startup code
     SCB->VTOR = (uint32_t)g_pfnVectors;
 #endif
 
-/* Watchdog disable */
+    /* Watchdog disable */
 
 #if (DISABLE_WDOG)
     if ((WDOG1->WCR & WDOG_WCR_WDE_MASK) != 0U)
     {
-        WDOG1->WCR &= ~(uint16_t) WDOG_WCR_WDE_MASK;
+        WDOG1->WCR &= ~(uint16_t)WDOG_WCR_WDE_MASK;
     }
     if ((WDOG2->WCR & WDOG_WCR_WDE_MASK) != 0U)
     {
-        WDOG2->WCR &= ~(uint16_t) WDOG_WCR_WDE_MASK;
+        WDOG2->WCR &= ~(uint16_t)WDOG_WCR_WDE_MASK;
     }
     if ((RTWDOG3->CS & RTWDOG_CS_CMD32EN_MASK) != 0U)
     {
@@ -93,7 +92,7 @@ void SystemInit (void) {
         RTWDOG3->CNT = 0xD928U;
     }
     RTWDOG3->TOVAL = 0xFFFF;
-    RTWDOG3->CS = (uint32_t) ((RTWDOG3->CS) & ~RTWDOG_CS_EN_MASK) | RTWDOG_CS_UPDATE_MASK;
+    RTWDOG3->CS = (uint32_t)((RTWDOG3->CS) & ~RTWDOG_CS_EN_MASK) | RTWDOG_CS_UPDATE_MASK;
     if ((RTWDOG4->CS & RTWDOG_CS_CMD32EN_MASK) != 0U)
     {
         RTWDOG4->CNT = 0xD928C520U; /* 0xD928C520U is the update key */
@@ -104,7 +103,7 @@ void SystemInit (void) {
         RTWDOG4->CNT = 0xD928U;
     }
     RTWDOG4->TOVAL = 0xFFFF;
-    RTWDOG4->CS = (uint32_t) ((RTWDOG4->CS) & ~RTWDOG_CS_EN_MASK) | RTWDOG_CS_UPDATE_MASK;
+    RTWDOG4->CS = (uint32_t)((RTWDOG4->CS) & ~RTWDOG_CS_EN_MASK) | RTWDOG_CS_UPDATE_MASK;
 #endif /* (DISABLE_WDOG) */
 
     /* Disable Systick which might be enabled by bootrom */
@@ -115,7 +114,8 @@ void SystemInit (void) {
 
 /* Enable instruction and data caches */
 #if defined(__ICACHE_PRESENT) && __ICACHE_PRESENT
-    if (SCB_CCR_IC_Msk != (SCB_CCR_IC_Msk & SCB->CCR)) {
+    if (SCB_CCR_IC_Msk != (SCB_CCR_IC_Msk & SCB->CCR))
+    {
         SCB_EnableICache();
     }
 #endif
@@ -136,24 +136,24 @@ void SystemInit (void) {
     __DSB();
     __ISB();
 
-  SystemInitHook();
+    SystemInitHook();
 }
 
 /* ----------------------------------------------------------------------------
    -- SystemCoreClockUpdate()
    ---------------------------------------------------------------------------- */
 
-void SystemCoreClockUpdate (void) {
+void SystemCoreClockUpdate(void)
+{
 
-/* TBD */
-
+    /* TBD */
 }
 
 /* ----------------------------------------------------------------------------
    -- SystemInitHook()
    ---------------------------------------------------------------------------- */
 
-__attribute__ ((weak)) void SystemInitHook (void) {
-  /* Void implementation of the weak function. */
+__attribute__((weak)) void SystemInitHook(void)
+{
+    /* Void implementation of the weak function. */
 }
-

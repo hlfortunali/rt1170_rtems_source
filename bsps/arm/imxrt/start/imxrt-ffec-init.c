@@ -1,3 +1,13 @@
+/*
+ * @Author: LiHeng
+ * @Date: 2024-03-08 21:39:31
+ * @LastEditors: LiHeng
+ * @LastEditTime: 2024-03-09 22:57:10
+ * @FilePath: /rt1170_rtems_source/bsps/arm/imxrt/start/imxrt-ffec-init.c
+ * @Description:
+ *
+ * Copyright (c) 2024 by LiHeng, All Rights Reserved.
+ */
 /* SPDX-License-Identifier: BSD-2-Clause */
 
 /*
@@ -35,6 +45,7 @@
 
 void imxrt_ffec_init(void)
 {
+
   volatile IOMUXC_GPR_Type *iomuxc_gpr = IOMUXC_GPR;
   const void *fdt;
   int node;
@@ -43,10 +54,9 @@ void imxrt_ffec_init(void)
 
 #if IMXRT_IS_MIMXRT10xx
   const clock_enet_pll_config_t config = {
-    .enableClkOutput = true,
-    .enableClkOutput25M = false,
-    .loopDivider = 1
-  };
+      .enableClkOutput = true,
+      .enableClkOutput25M = false,
+      .loopDivider = 1};
 
   CLOCK_InitEnetPll(&config);
 
@@ -56,7 +66,8 @@ void imxrt_ffec_init(void)
 #endif
 
   node = fdt_node_offset_by_compatible(fdt, -1, "fsl,imxrt-fec");
-  if (node >= 0) {
+  if (node >= 0)
+  {
     struct imx_gpio_pin reset;
     struct imx_gpio_pin interrupt;
     rtems_status_code sc;
@@ -65,13 +76,15 @@ void imxrt_ffec_init(void)
         &reset, node, "phy-reset-gpios",
         IMX_GPIO_MODE_OUTPUT, 0);
 
-    if (sc == RTEMS_SUCCESSFUL) {
+    if (sc == RTEMS_SUCCESSFUL)
+    {
       sc = imx_gpio_init_from_fdt_property(
           &interrupt, node, "rtems,phy-interrupt-gpios",
           IMX_GPIO_MODE_INPUT, 0);
 
       imx_gpio_set_output(&reset, 0);
-      if (sc == RTEMS_SUCCESSFUL) {
+      if (sc == RTEMS_SUCCESSFUL)
+      {
         /* Force interrupt GPIO to high. Otherwise we
          * get NAND_TREE mode of the PHY. */
         interrupt.mode = IMX_GPIO_MODE_OUTPUT;
@@ -81,7 +94,8 @@ void imxrt_ffec_init(void)
       rtems_counter_delay_nanoseconds(100000);
       imx_gpio_set_output(&reset, 1);
       rtems_counter_delay_nanoseconds(5);
-      if (sc == RTEMS_SUCCESSFUL) {
+      if (sc == RTEMS_SUCCESSFUL)
+      {
         interrupt.mode = IMX_GPIO_MODE_INPUT;
         imx_gpio_init(&interrupt);
       }

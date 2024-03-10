@@ -1,3 +1,13 @@
+/***
+ * @Author: LiHeng
+ * @Date: 2024-03-08 21:39:31
+ * @LastEditors: LiHeng
+ * @LastEditTime: 2024-03-10 20:54:13
+ * @FilePath: /rt1170_rtems_source/bsps/arm/imxrt/boards/saltshaker/dcd.h
+ * @Description:
+ * @
+ * @Copyright (c) 2024 by LiHeng, All Rights Reserved.
+ */
 /* SPDX-License-Identifier: BSD-2-Clause */
 
 /*
@@ -30,6 +40,21 @@
 
 #include <bsp/flash-headers.h>
 #include <stdint.h>
+
+/*! @name Driver version */
+/*@{*/
+/*! @brief XIP_BOARD driver version 2.0.1. */
+#define FSL_XIP_BOARD_DRIVER_VERSION (MAKE_VERSION(2, 0, 1))
+/*@}*/
+
+/*************************************
+ *  DCD Data
+ *************************************/
+#define DCD_TAG_HEADER (0xD2)
+#define DCD_VERSION (0x41)
+#define DCD_TAG_HEADER_SHIFT (24)
+#define DCD_ARRAY_SIZE 1
+
 #define XIP_BOOT_HEADER_ENABLE 1
 #define XIP_BOOT_HEADER_DCD_ENABLE 1
 #define dcd_data imxrt_dcd_data

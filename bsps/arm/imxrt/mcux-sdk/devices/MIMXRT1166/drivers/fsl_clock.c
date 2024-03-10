@@ -54,16 +54,16 @@ typedef uint64_t clock_64b_t;
 typedef uint64_t clock_64b_t;
 #endif
 
-#define PLL_AI_CTRL0_REG     kAI_PLL1G_CTRL0
+#define PLL_AI_CTRL0_REG kAI_PLL1G_CTRL0
 #define PLL_AI_CTRL0_SET_REG kAI_PLL1G_CTRL0_SET
 #define PLL_AI_CTRL0_CLR_REG kAI_PLL1G_CTRL0_CLR
-#define PLL_AI_CTRL1_REG     kAI_PLL1G_CTRL1
+#define PLL_AI_CTRL1_REG kAI_PLL1G_CTRL1
 #define PLL_AI_CTRL1_SET_REG kAI_PLL1G_CTRL1_SET
 #define PLL_AI_CTRL1_CLR_REG kAI_PLL1G_CTRL1_CLR
-#define PLL_AI_CTRL2_REG     kAI_PLL1G_CTRL2
+#define PLL_AI_CTRL2_REG kAI_PLL1G_CTRL2
 #define PLL_AI_CTRL2_SET_REG kAI_PLL1G_CTRL2_SET
 #define PLL_AI_CTRL2_CLR_REG kAI_PLL1G_CTRL2_CLR
-#define PLL_AI_CTRL3_REG     kAI_PLL1G_CTRL3
+#define PLL_AI_CTRL3_REG kAI_PLL1G_CTRL3
 #define PLL_AI_CTRL3_SET_REG kAI_PLL1G_CTRL3_SET
 #define PLL_AI_CTRL3_CLR_REG kAI_PLL1G_CTRL3_CLR
 
@@ -87,7 +87,7 @@ static void ANATOP_PllSetPower(anatop_ai_itf_t itf, bool enable);
 static void ANATOP_PllBypass(anatop_ai_itf_t itf, bool bypass);
 static void ANATOP_PllEnablePllReg(anatop_ai_itf_t itf, bool enable);
 static void ANATOP_PllHoldRingOff(anatop_ai_itf_t itf, bool off);
-static void ANATOP_PllToggleHoldRingOff(anatop_ai_itf_t itf, uint32_t delay_us);
+static void ANATOP_PllToggleHoldRingOff(anatop_ai_itf_t itf, uint32_t delayUsValue);
 static void ANATOP_PllEnableClk(anatop_ai_itf_t itf, bool enable);
 static void ANATOP_PllConfigure(anatop_ai_itf_t itf,
                                 uint8_t div,
@@ -234,12 +234,12 @@ void CLOCK_InitSysPll2(const clock_sys_pll2_config_t *config)
     if ((config != NULL) && (config->ssEnable) && (config->ss != NULL))
     {
         ANADIG_PLL->SYS_PLL2_MFD = ANADIG_PLL_SYS_PLL2_MFD_MFD(config->mfd);
-        ANADIG_PLL->SYS_PLL2_SS  = (ANADIG_PLL_SYS_PLL2_SS_ENABLE_MASK | ANADIG_PLL_SYS_PLL2_SS_STOP(config->ss->stop) |
+        ANADIG_PLL->SYS_PLL2_SS = (ANADIG_PLL_SYS_PLL2_SS_ENABLE_MASK | ANADIG_PLL_SYS_PLL2_SS_STOP(config->ss->stop) |
                                    ANADIG_PLL_SYS_PLL2_SS_STEP(config->ss->step));
     }
 
     /* REG_EN = 1, GATE = 1, DIV_SEL = 0, POWERUP = 0 */
-    reg                       = ANADIG_PLL_SYS_PLL2_CTRL_PLL_REG_EN(1) | ANADIG_PLL_SYS_PLL2_CTRL_SYS_PLL2_GATE(1);
+    reg = ANADIG_PLL_SYS_PLL2_CTRL_PLL_REG_EN(1) | ANADIG_PLL_SYS_PLL2_CTRL_SYS_PLL2_GATE(1);
     ANADIG_PLL->SYS_PLL2_CTRL = reg;
     /* Wait until LDO is stable */
     SDK_DelayAtLeastUs(30, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
@@ -311,20 +311,19 @@ void CLOCK_InitPfd(clock_pll_t pll, clock_pfd_t pfd, uint8_t frac)
 
     switch (pll)
     {
-        case kCLOCK_PllSys2:
-            pfdCtrl   = &ANADIG_PLL->SYS_PLL2_PFD;
-            pfdUpdate = &ANADIG_PLL->SYS_PLL2_UPDATE;
-            break;
-        case kCLOCK_PllSys3:
-            pfdCtrl   = &ANADIG_PLL->SYS_PLL3_PFD;
-            pfdUpdate = &ANADIG_PLL->SYS_PLL3_UPDATE;
-            break;
-        default:
-            /* Wrong input parameter pll. */
-            assert(false);
-            break;
+    case kCLOCK_PllSys2:
+        pfdCtrl = &ANADIG_PLL->SYS_PLL2_PFD;
+        pfdUpdate = &ANADIG_PLL->SYS_PLL2_UPDATE;
+        break;
+    case kCLOCK_PllSys3:
+        pfdCtrl = &ANADIG_PLL->SYS_PLL3_PFD;
+        pfdUpdate = &ANADIG_PLL->SYS_PLL3_UPDATE;
+        break;
+    default:
+        /* Wrong input parameter pll. */
+        assert(false);
+        break;
     }
-
     regFracVal = ((*pfdCtrl) & ((uint32_t)ANADIG_PLL_SYS_PLL2_PFD_PFD0_FRAC_MASK << (8UL * (uint32_t)pfd))) >>
                  (8UL * (uint32_t)pfd);
     pfdGated =
@@ -362,22 +361,22 @@ void CLOCK_DeinitPfd(clock_pll_t pll, clock_pfd_t pfd)
 
     switch (pll)
     {
-        case kCLOCK_PllSys2:
-        {
-            pfdCtrl = &ANADIG_PLL->SYS_PLL2_PFD;
-            break;
-        }
-        case kCLOCK_PllSys3:
-        {
-            pfdCtrl = &ANADIG_PLL->SYS_PLL3_PFD;
-            break;
-        }
-        default:
-        {
-            /* Wrong input parameter pll. */
-            assert(false);
-            break;
-        }
+    case kCLOCK_PllSys2:
+    {
+        pfdCtrl = &ANADIG_PLL->SYS_PLL2_PFD;
+        break;
+    }
+    case kCLOCK_PllSys3:
+    {
+        pfdCtrl = &ANADIG_PLL->SYS_PLL3_PFD;
+        break;
+    }
+    default:
+    {
+        /* Wrong input parameter pll. */
+        assert(false);
+        break;
+    }
     }
 
     /* Clock gate the selected pfd. */
@@ -392,20 +391,20 @@ uint32_t CLOCK_GetPfdFreq(clock_pll_t pll, clock_pfd_t pfd)
 
     switch (pll)
     {
-        case kCLOCK_PllSys2:
-            frac    = (ANADIG_PLL->SYS_PLL2_PFD &
-                    ((uint32_t)ANADIG_PLL_SYS_PLL2_PFD_PFD0_FRAC_MASK << (8UL * (uint32_t)pfd)));
-            pllFreq = (uint32_t)SYS_PLL2_FREQ;
-            break;
-        case kCLOCK_PllSys3:
-            frac    = (ANADIG_PLL->SYS_PLL3_PFD &
-                    ((uint32_t)ANADIG_PLL_SYS_PLL3_PFD_PFD0_FRAC_MASK << (8UL * (uint32_t)pfd)));
-            pllFreq = (uint32_t)SYS_PLL3_FREQ;
-            break;
-        default:
-            /* Wrong input parameter pll. */
-            assert(false);
-            break;
+    case kCLOCK_PllSys2:
+        frac = (ANADIG_PLL->SYS_PLL2_PFD &
+                ((uint32_t)ANADIG_PLL_SYS_PLL2_PFD_PFD0_FRAC_MASK << (8UL * (uint32_t)pfd)));
+        pllFreq = (uint32_t)SYS_PLL2_FREQ;
+        break;
+    case kCLOCK_PllSys3:
+        frac = (ANADIG_PLL->SYS_PLL3_PFD &
+                ((uint32_t)ANADIG_PLL_SYS_PLL3_PFD_PFD0_FRAC_MASK << (8UL * (uint32_t)pfd)));
+        pllFreq = (uint32_t)SYS_PLL3_FREQ;
+        break;
+    default:
+        /* Wrong input parameter pll. */
+        assert(false);
+        break;
     }
 
     frac = frac >> (8UL * (uint32_t)pfd);
@@ -421,16 +420,16 @@ uint32_t CLOCK_GetPfdFreq(clock_pll_t pll, clock_pfd_t pfd)
 
     switch (pll)
     {
-        case kCLOCK_PllSys2:
-            /* SYS_PLL2_PFD0 OBS index starts from 234 */
-            freq = CLOCK_GetFreqFromObs(pfd + 234, 2);
-            break;
-        case kCLOCK_PllSys3:
-            /* SYS_PLL3_PFD0 OBS index starts from 241 */
-            freq = CLOCK_GetFreqFromObs(pfd + 241, 2);
-            break;
-        default:
-            assert(false);
+    case kCLOCK_PllSys2:
+        /* SYS_PLL2_PFD0 OBS index starts from 234 */
+        freq = CLOCK_GetFreqFromObs(pfd + 234, 2);
+        break;
+    case kCLOCK_PllSys3:
+        /* SYS_PLL3_PFD0 OBS index starts from 241 */
+        freq = CLOCK_GetFreqFromObs(pfd + 241, 2);
+        break;
+    default:
+        assert(false);
     }
     return freq;
 }
@@ -471,7 +470,7 @@ void CLOCK_InitSysPll3(void)
      * 6. Wait PLL lock
      * 7. Enable clock output, release pfd_gate
      */
-    reg                       = ANADIG_PLL_SYS_PLL3_CTRL_PLL_REG_EN(1) | ANADIG_PLL_SYS_PLL3_CTRL_SYS_PLL3_GATE(1);
+    reg = ANADIG_PLL_SYS_PLL3_CTRL_PLL_REG_EN(1) | ANADIG_PLL_SYS_PLL3_CTRL_SYS_PLL3_GATE(1);
     ANADIG_PLL->SYS_PLL3_CTRL = reg;
     SDK_DelayAtLeastUs(30, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
 
@@ -525,30 +524,27 @@ void CLOCK_SetPllBypass(clock_pll_t pll, bool bypass)
 {
     switch (pll)
     {
-        case kCLOCK_PllArm:
-            ANADIG_PLL->ARM_PLL_CTRL = bypass ? (ANADIG_PLL->ARM_PLL_CTRL | ANADIG_PLL_ARM_PLL_CTRL_BYPASS_MASK) :
-                                                (ANADIG_PLL->ARM_PLL_CTRL & ~ANADIG_PLL_ARM_PLL_CTRL_BYPASS_MASK);
-            break;
-        case kCLOCK_PllSys1:
-            ANATOP_PllBypass(kAI_Itf_1g, bypass);
-            break;
-        case kCLOCK_PllSys2:
-            ANADIG_PLL->SYS_PLL2_CTRL = bypass ? (ANADIG_PLL->SYS_PLL2_CTRL | ANADIG_PLL_SYS_PLL2_CTRL_BYPASS_MASK) :
-                                                 (ANADIG_PLL->SYS_PLL2_CTRL & ~ANADIG_PLL_SYS_PLL2_CTRL_BYPASS_MASK);
-            break;
-        case kCLOCK_PllSys3:
-            ANADIG_PLL->SYS_PLL3_CTRL = bypass ? (ANADIG_PLL->SYS_PLL3_CTRL | ANADIG_PLL_SYS_PLL3_CTRL_BYPASS_MASK) :
-                                                 (ANADIG_PLL->SYS_PLL3_CTRL & ~ANADIG_PLL_SYS_PLL3_CTRL_BYPASS_MASK);
-            break;
-        case kCLOCK_PllAudio:
-            ANATOP_PllBypass(kAI_Itf_Audio, bypass);
-            break;
-        case kCLOCK_PllVideo:
-            ANATOP_PllBypass(kAI_Itf_Video, bypass);
-            break;
-        default:
-            assert(false);
-            break;
+    case kCLOCK_PllArm:
+        ANADIG_PLL->ARM_PLL_CTRL = bypass ? (ANADIG_PLL->ARM_PLL_CTRL | ANADIG_PLL_ARM_PLL_CTRL_BYPASS_MASK) : (ANADIG_PLL->ARM_PLL_CTRL & ~ANADIG_PLL_ARM_PLL_CTRL_BYPASS_MASK);
+        break;
+    case kCLOCK_PllSys1:
+        ANATOP_PllBypass(kAI_Itf_1g, bypass);
+        break;
+    case kCLOCK_PllSys2:
+        ANADIG_PLL->SYS_PLL2_CTRL = bypass ? (ANADIG_PLL->SYS_PLL2_CTRL | ANADIG_PLL_SYS_PLL2_CTRL_BYPASS_MASK) : (ANADIG_PLL->SYS_PLL2_CTRL & ~ANADIG_PLL_SYS_PLL2_CTRL_BYPASS_MASK);
+        break;
+    case kCLOCK_PllSys3:
+        ANADIG_PLL->SYS_PLL3_CTRL = bypass ? (ANADIG_PLL->SYS_PLL3_CTRL | ANADIG_PLL_SYS_PLL3_CTRL_BYPASS_MASK) : (ANADIG_PLL->SYS_PLL3_CTRL & ~ANADIG_PLL_SYS_PLL3_CTRL_BYPASS_MASK);
+        break;
+    case kCLOCK_PllAudio:
+        ANATOP_PllBypass(kAI_Itf_Audio, bypass);
+        break;
+    case kCLOCK_PllVideo:
+        ANATOP_PllBypass(kAI_Itf_Video, bypass);
+        break;
+    default:
+        assert(false);
+        break;
     }
 }
 
@@ -573,10 +569,10 @@ static void ANATOP_PllHoldRingOff(anatop_ai_itf_t itf, bool off)
     ANATOP_AI_Write(itf, off ? PLL_AI_CTRL0_SET_REG : PLL_AI_CTRL0_CLR_REG, PLL_AI_CTRL0_HOLD_RING_OFF_MASK);
 }
 
-static void ANATOP_PllToggleHoldRingOff(anatop_ai_itf_t itf, uint32_t delay_us)
+static void ANATOP_PllToggleHoldRingOff(anatop_ai_itf_t itf, uint32_t delayUsValue)
 {
     ANATOP_PllHoldRingOff(itf, true);
-    SDK_DelayAtLeastUs(delay_us, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
+    SDK_DelayAtLeastUs(delayUsValue, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
     ANATOP_PllHoldRingOff(itf, false);
 }
 
@@ -642,7 +638,7 @@ static void ANATOP_AudioPllSwEnClk(bool enable)
 status_t CLOCK_InitAudioPllWithFreq(uint32_t freqInMhz, bool ssEnable, uint32_t ssRange, uint32_t ssMod)
 {
     clock_audio_pll_config_t config = {0};
-    config.ssEnable                 = ssEnable;
+    config.ssEnable = ssEnable;
 
     if (kStatus_Success == CLOCK_CalcAvPllFreq(&config, freqInMhz))
     {
@@ -723,8 +719,8 @@ void CLOCK_GPC_SetAudioPllOutputFreq(const clock_audio_pll_gpc_config_t *config)
 {
     assert(config != NULL);
 
-    ANADIG_PLL->PLL_AUDIO_DIV_SELECT  = config->loopDivider;
-    ANADIG_PLL->PLL_AUDIO_NUMERATOR   = config->numerator;
+    ANADIG_PLL->PLL_AUDIO_DIV_SELECT = config->loopDivider;
+    ANADIG_PLL->PLL_AUDIO_NUMERATOR = config->numerator;
     ANADIG_PLL->PLL_AUDIO_DENOMINATOR = config->denominator;
     if ((config->ss != NULL) && config->ssEnable)
     {
@@ -762,33 +758,48 @@ static void ANATOP_VideoPllSwEnClk(bool enable)
 status_t CLOCK_CalcArmPllFreq(clock_arm_pll_config_t *config, uint32_t freqInMhz)
 {
     assert(config != NULL);
-    uint32_t refFreq = ((XTAL_FREQ / 1000000UL) * 104UL / 4UL); /* MHz */
+    uint32_t refFreq = (XTAL_FREQ / 1000000UL) * 104UL; /* MHz */
     assert((freqInMhz <= refFreq) && (freqInMhz >= 156UL));
 
     /*
-     * ARM_PLL  (156Mhz - 624MHz configureable )
+     * ARM_PLL  (156Mhz - 2496Mhz configureable )
      * freqInMhz = osc_freq * loopDivider / (2 * postDivider)
      *   - loopDivider:  104 - 208
+     *   - postDivider:  0 - 3
      *   postDivider:
-     *     0 - divide by 8; 1 - divide by 4
+     *     0 - divide by 2; 1 - divide by 4; 2 - divide by 8; 3 - divide by 1
      */
 
     if (freqInMhz >= refFreq)
     {
+        config->postDivider = kCLOCK_PllPostDiv1;
         config->loopDivider = 208;
-        config->postDivider = kCLOCK_PllPostDiv4;
     }
-    else if (freqInMhz >= (refFreq >> 1UL))
+    else if (freqInMhz >= (refFreq >> 1))
+    {
+        config->postDivider = kCLOCK_PllPostDiv1;
+        config->loopDivider = freqInMhz / 12UL;
+    }
+    else if (freqInMhz >= (refFreq >> 2))
+    {
+        config->postDivider = kCLOCK_PllPostDiv2;
+        config->loopDivider = freqInMhz / 6UL;
+    }
+    else if (freqInMhz >= (refFreq >> 3))
     {
         config->postDivider = kCLOCK_PllPostDiv4;
         config->loopDivider = freqInMhz / 3UL;
     }
+    else if (freqInMhz > (refFreq >> 4))
+    {
+        config->postDivider = kCLOCK_PllPostDiv8;
+        config->loopDivider = 2UL * freqInMhz / 3UL;
+    }
     else
     {
         config->postDivider = kCLOCK_PllPostDiv8;
-        config->loopDivider = freqInMhz * 2UL / 3UL;
+        config->loopDivider = 104;
     }
-
     return kStatus_Success;
 }
 
@@ -828,43 +839,43 @@ status_t CLOCK_CalcAvPllFreq(clock_av_pll_config_t *config, uint32_t freqInMhz)
     {
         config->postDivider = 0;
         config->loopDivider = 54;
-        config->numerator   = 0;
+        config->numerator = 0;
     }
     else if (freqInMhz >= (refFreq >> 1))
     {
         config->postDivider = 0;
         config->loopDivider = (uint8_t)(freqInMhz / 24UL);
-        config->numerator   = (config->denominator / 24UL) * (freqInMhz % 24UL);
+        config->numerator = (config->denominator / 24UL) * (freqInMhz % 24UL);
     }
     else if (freqInMhz >= (refFreq >> 2))
     {
         config->postDivider = 1;
         config->loopDivider = (uint8_t)(freqInMhz / 12UL);
-        config->numerator   = (config->denominator / 12UL) * (freqInMhz % 12UL);
+        config->numerator = (config->denominator / 12UL) * (freqInMhz % 12UL);
     }
     else if (freqInMhz >= (refFreq >> 3))
     {
         config->postDivider = 2;
         config->loopDivider = (uint8_t)(freqInMhz / 6UL);
-        config->numerator   = (config->denominator / 6UL) * (freqInMhz % 6UL);
+        config->numerator = (config->denominator / 6UL) * (freqInMhz % 6UL);
     }
     else if (freqInMhz >= (refFreq >> 4))
     {
         config->postDivider = 3;
         config->loopDivider = (uint8_t)(freqInMhz / 3UL);
-        config->numerator   = (config->denominator / 3UL) * (freqInMhz % 3UL);
+        config->numerator = (config->denominator / 3UL) * (freqInMhz % 3UL);
     }
     else if (freqInMhz >= (refFreq >> 5))
     {
         config->postDivider = 4;
         config->loopDivider = (uint8_t)(freqInMhz * 2UL / 3UL);
-        config->numerator   = (config->denominator * 2UL / 3UL) * (freqInMhz * 2UL % 3UL);
+        config->numerator = (config->denominator * 2UL / 3UL) * (freqInMhz * 2UL % 3UL);
     }
     else if (freqInMhz > (refFreq >> 6))
     {
         config->postDivider = 5;
         config->loopDivider = (uint8_t)(freqInMhz * 4UL / 3UL);
-        config->numerator   = (config->denominator * 4UL / 3UL) * (freqInMhz * 4UL % 3UL);
+        config->numerator = (config->denominator * 4UL / 3UL) * (freqInMhz * 4UL % 3UL);
     }
     else
     {
@@ -876,7 +887,7 @@ status_t CLOCK_CalcAvPllFreq(clock_av_pll_config_t *config, uint32_t freqInMhz)
 status_t CLOCK_InitVideoPllWithFreq(uint32_t freqInMhz, bool ssEnable, uint32_t ssRange, uint32_t ssMod)
 {
     clock_video_pll_config_t config = {0};
-    config.ssEnable                 = ssEnable;
+    config.ssEnable = ssEnable;
 
     if (kStatus_Success == CLOCK_CalcAvPllFreq(&config, freqInMhz))
     {
@@ -957,8 +968,8 @@ void CLOCK_GPC_SetVideoPllOutputFreq(const clock_video_pll_gpc_config_t *config)
 {
     assert(config != NULL);
 
-    ANADIG_PLL->PLL_VIDEO_DIV_SELECT  = config->loopDivider;
-    ANADIG_PLL->PLL_VIDEO_NUMERATOR   = config->numerator;
+    ANADIG_PLL->PLL_VIDEO_DIV_SELECT = config->loopDivider;
+    ANADIG_PLL->PLL_VIDEO_NUMERATOR = config->numerator;
     ANADIG_PLL->PLL_VIDEO_DENOMINATOR = config->denominator;
 
     if ((config->ss != NULL) && config->ssEnable)
@@ -1042,8 +1053,8 @@ void CLOCK_InitSysPll1(const clock_sys_pll1_config_t *config)
     ANATOP_SysPll1SwEnClk(true);
 
     denominator = 0x0FFFFFFF;
-    div         = 41U;
-    numerator   = 178956970UL;
+    div = 41U;
+    numerator = 178956970UL;
 
     if (config->ssEnable && (config->ss != NULL))
     {
@@ -1089,8 +1100,8 @@ void CLOCK_GPC_SetSysPll1OutputFreq(const clock_sys_pll1_gpc_config_t *config)
 {
     assert(config != NULL);
 
-    ANADIG_PLL->SYS_PLL1_DIV_SELECT  = config->loopDivider;
-    ANADIG_PLL->SYS_PLL1_NUMERATOR   = config->numerator;
+    ANADIG_PLL->SYS_PLL1_DIV_SELECT = config->loopDivider;
+    ANADIG_PLL->SYS_PLL1_NUMERATOR = config->numerator;
     ANADIG_PLL->SYS_PLL1_DENOMINATOR = config->denominator;
 
     if ((config->ss != NULL) && config->ssEnable)
@@ -1320,10 +1331,10 @@ void CLOCK_OSC_SetLocked1MHzCount(uint16_t count)
     uint16_t hystMinus;
     uint16_t diffCount;
 
-    tmp32       = ANATOP_AI_Read(kAI_Itf_400m, kAI_RCOSC400M_CTRL1);
+    tmp32 = ANATOP_AI_Read(kAI_Itf_400m, kAI_RCOSC400M_CTRL1);
     targetCount = (uint16_t)((tmp32 & AI_RCOSC400M_CTRL1_TARGET_COUNT_MASK) >> AI_RCOSC400M_CTRL1_TARGET_COUNT_SHIFT);
-    hystMinus   = (uint16_t)((tmp32 & AI_RCOSC400M_CTRL1_HYST_MINUS_MASK) >> AI_RCOSC400M_CTRL1_HYST_MINUS_SHIFT);
-    diffCount   = targetCount - hystMinus - count;
+    hystMinus = (uint16_t)((tmp32 & AI_RCOSC400M_CTRL1_HYST_MINUS_MASK) >> AI_RCOSC400M_CTRL1_HYST_MINUS_SHIFT);
+    diffCount = targetCount - hystMinus - count;
 
     /* The count for the locked 1MHz clock should be 4 to 8 counts less than CTRL[TARGET_COUNT] - CTRL1[HYST_MINUS]. */
     if ((diffCount >= 4U) && (diffCount <= 8U))
@@ -1397,14 +1408,14 @@ static uint32_t CLOCK_GetAvPllFreq(clock_pll_t pll)
 
     assert((pll == kCLOCK_PllAudio) || (pll == kCLOCK_PllVideo));
 
-    div      = ANATOP_AI_Read(pll == kCLOCK_PllAudio ? kAI_Itf_Audio : kAI_Itf_Video, PLL_AI_CTRL0_REG);
+    div = ANATOP_AI_Read(pll == kCLOCK_PllAudio ? kAI_Itf_Audio : kAI_Itf_Video, PLL_AI_CTRL0_REG);
     post_div = (div & (0xE000000UL)) >> 25UL;
     div &= 0x7fUL;
     denom = (double)ANATOP_AI_Read(pll == kCLOCK_PllAudio ? kAI_Itf_Audio : kAI_Itf_Video, PLL_AI_CTRL3_REG);
     numer = (double)ANATOP_AI_Read(pll == kCLOCK_PllAudio ? kAI_Itf_Audio : kAI_Itf_Video, PLL_AI_CTRL2_REG);
 
     tmpDouble = ((double)XTAL_FREQ * ((double)div + (numer / denom)) / (double)(uint32_t)(1UL << post_div));
-    freq      = (uint32_t)tmpDouble;
+    freq = (uint32_t)tmpDouble;
 
     return freq;
 }
@@ -1419,58 +1430,58 @@ uint32_t CLOCK_GetPllFreq(clock_pll_t pll)
 
     switch (pll)
     {
-        case kCLOCK_PllArm:
+    case kCLOCK_PllArm:
 #ifndef GET_FREQ_FROM_OBS
-            divSelect = (ANADIG_PLL->ARM_PLL_CTRL & ANADIG_PLL_ARM_PLL_CTRL_DIV_SELECT_MASK) >>
-                        ANADIG_PLL_ARM_PLL_CTRL_DIV_SELECT_SHIFT;
-            postDiv = (ANADIG_PLL->ARM_PLL_CTRL & ANADIG_PLL_ARM_PLL_CTRL_POST_DIV_SEL_MASK) >>
-                      ANADIG_PLL_ARM_PLL_CTRL_POST_DIV_SEL_SHIFT;
-            postDiv = (1UL << (postDiv + 1UL));
-            freq    = XTAL_FREQ / (2UL * postDiv);
-            freq *= divSelect;
+        divSelect = (ANADIG_PLL->ARM_PLL_CTRL & ANADIG_PLL_ARM_PLL_CTRL_DIV_SELECT_MASK) >>
+                    ANADIG_PLL_ARM_PLL_CTRL_DIV_SELECT_SHIFT;
+        postDiv = (ANADIG_PLL->ARM_PLL_CTRL & ANADIG_PLL_ARM_PLL_CTRL_POST_DIV_SEL_MASK) >>
+                  ANADIG_PLL_ARM_PLL_CTRL_POST_DIV_SEL_SHIFT;
+        postDiv = (1UL << (postDiv + 1UL));
+        freq = XTAL_FREQ / (2UL * postDiv);
+        freq *= divSelect;
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_ARM_PLL_OUT);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_ARM_PLL_OUT);
 #endif
-            break;
-        case kCLOCK_PllSys1:
+        break;
+    case kCLOCK_PllSys1:
 #ifndef GET_FREQ_FROM_OBS
-            freq = SYS_PLL1_FREQ;
+        freq = SYS_PLL1_FREQ;
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_SYS_PLL1_OUT);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_SYS_PLL1_OUT);
 #endif
-            break;
-        case kCLOCK_PllSys2:
+        break;
+    case kCLOCK_PllSys2:
 #ifndef GET_FREQ_FROM_OBS
-            freq = SYS_PLL2_FREQ;
+        freq = SYS_PLL2_FREQ;
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_SYS_PLL2_OUT);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_SYS_PLL2_OUT);
 #endif
-            break;
-        case kCLOCK_PllSys3:
+        break;
+    case kCLOCK_PllSys3:
 #ifndef GET_FREQ_FROM_OBS
-            freq = SYS_PLL3_FREQ;
+        freq = SYS_PLL3_FREQ;
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_SYS_PLL3_OUT);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_SYS_PLL3_OUT);
 #endif
-            break;
-        case kCLOCK_PllAudio:
+        break;
+    case kCLOCK_PllAudio:
 #ifndef GET_FREQ_FROM_OBS
-            freq = CLOCK_GetAvPllFreq(kCLOCK_PllAudio);
+        freq = CLOCK_GetAvPllFreq(kCLOCK_PllAudio);
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_PLL_AUDIO_OUT);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_PLL_AUDIO_OUT);
 #endif
-            break;
-        case kCLOCK_PllVideo:
+        break;
+    case kCLOCK_PllVideo:
 #ifndef GET_FREQ_FROM_OBS
-            freq = CLOCK_GetAvPllFreq(kCLOCK_PllVideo);
+        freq = CLOCK_GetAvPllFreq(kCLOCK_PllVideo);
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_PLL_VIDEO_OUT);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_PLL_VIDEO_OUT);
 #endif
-            break;
-        default:
-            /* Wrong input parameter pll. */
-            assert(false);
-            break;
+        break;
+    default:
+        /* Wrong input parameter pll. */
+        assert(false);
+        break;
     }
     assert(freq != 0UL);
     return freq;
@@ -1479,112 +1490,109 @@ uint32_t CLOCK_GetPllFreq(clock_pll_t pll)
 uint32_t CLOCK_GetFreq(clock_name_t name)
 {
     uint32_t freq = 0;
-
-    assert(name != kCLOCK_Reserved);
-
     switch (name)
     {
-        case kCLOCK_OscRc16M:
+    case kCLOCK_OscRc16M:
 #ifndef GET_FREQ_FROM_OBS
-            freq = 16000000U;
+        freq = 16000000U;
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_RC_16M);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_RC_16M);
 #endif
-            break;
-        case kCLOCK_OscRc48M:
+        break;
+    case kCLOCK_OscRc48M:
 #ifndef GET_FREQ_FROM_OBS
-            freq = 48000000U;
+        freq = 48000000U;
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_RC_48M);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_RC_48M);
 #endif
-            break;
-        case kCLOCK_OscRc48MDiv2:
+        break;
+    case kCLOCK_OscRc48MDiv2:
 #ifndef GET_FREQ_FROM_OBS
-            freq = 24000000U;
+        freq = 24000000U;
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_RC_48M_DIV2);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_RC_48M_DIV2);
 #endif
-            break;
-        case kCLOCK_OscRc400M:
+        break;
+    case kCLOCK_OscRc400M:
 #ifndef GET_FREQ_FROM_OBS
-            freq = 400000000U;
+        freq = 400000000U;
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_RC_400M);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_RC_400M);
 #endif
-            break;
-        case kCLOCK_Osc24MOut:
-        case kCLOCK_Osc24M:
+        break;
+    case kCLOCK_Osc24MOut:
+    case kCLOCK_Osc24M:
 #ifndef GET_FREQ_FROM_OBS
-            freq = 24000000U;
+        freq = 24000000U;
 #else
-            freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_24M_OUT);
+        freq = CLOCK_GetFreqFromObs(CCM_OBS_OSC_24M_OUT);
 #endif
-            break;
-        case kCLOCK_ArmPllOut:
-        case kCLOCK_ArmPll:
-            freq = CLOCK_GetPllFreq(kCLOCK_PllArm);
-            break;
-        case kCLOCK_SysPll2:
-        case kCLOCK_SysPll2Out:
-            freq = CLOCK_GetPllFreq(kCLOCK_PllSys2);
-            break;
-        case kCLOCK_SysPll2Pfd0:
-            freq = CLOCK_GetPfdFreq(kCLOCK_PllSys2, kCLOCK_Pfd0);
-            break;
-        case kCLOCK_SysPll2Pfd1:
-            freq = CLOCK_GetPfdFreq(kCLOCK_PllSys2, kCLOCK_Pfd1);
-            break;
-        case kCLOCK_SysPll2Pfd2:
-            freq = CLOCK_GetPfdFreq(kCLOCK_PllSys2, kCLOCK_Pfd2);
-            break;
-        case kCLOCK_SysPll2Pfd3:
-            freq = CLOCK_GetPfdFreq(kCLOCK_PllSys2, kCLOCK_Pfd3);
-            break;
-        case kCLOCK_SysPll3Out:
-        case kCLOCK_SysPll3:
-            freq = CLOCK_GetPllFreq(kCLOCK_PllSys3);
-            break;
-        case kCLOCK_SysPll3Div2:
-            freq = (CLOCK_GetPllFreq(kCLOCK_PllSys3) / 2UL);
-            break;
-        case kCLOCK_SysPll3Pfd0:
-            freq = CLOCK_GetPfdFreq(kCLOCK_PllSys3, kCLOCK_Pfd0);
-            break;
-        case kCLOCK_SysPll3Pfd1:
-            freq = CLOCK_GetPfdFreq(kCLOCK_PllSys3, kCLOCK_Pfd1);
-            break;
-        case kCLOCK_SysPll3Pfd2:
-            freq = CLOCK_GetPfdFreq(kCLOCK_PllSys3, kCLOCK_Pfd2);
-            break;
-        case kCLOCK_SysPll3Pfd3:
-            freq = CLOCK_GetPfdFreq(kCLOCK_PllSys3, kCLOCK_Pfd3);
-            break;
-        case kCLOCK_SysPll1:
-        case kCLOCK_SysPll1Out:
-            freq = CLOCK_GetPllFreq(kCLOCK_PllSys1);
-            break;
-        case kCLOCK_SysPll1Div2:
-            freq = CLOCK_GetPllFreq(kCLOCK_PllSys1) / 2UL;
-            break;
-        case kCLOCK_SysPll1Div5:
-            freq = CLOCK_GetPllFreq(kCLOCK_PllSys1) / 5UL;
-            break;
-        case kCLOCK_AudioPll:
-        case kCLOCK_AudioPllOut:
-            freq = CLOCK_GetPllFreq(kCLOCK_PllAudio);
-            break;
-        case kCLOCK_VideoPll:
-        case kCLOCK_VideoPllOut:
-            freq = CLOCK_GetPllFreq(kCLOCK_PllVideo);
-            break;
-        case kCLOCK_CpuClk:
-        case kCLOCK_CoreSysClk:
-            freq = CLOCK_GetCpuClkFreq();
-            break;
-        default:
-            /* Wrong input parameter name. */
-            assert(false);
-            break;
+        break;
+    case kCLOCK_ArmPllOut:
+    case kCLOCK_ArmPll:
+        freq = CLOCK_GetPllFreq(kCLOCK_PllArm);
+        break;
+    case kCLOCK_SysPll2:
+    case kCLOCK_SysPll2Out:
+        freq = CLOCK_GetPllFreq(kCLOCK_PllSys2);
+        break;
+    case kCLOCK_SysPll2Pfd0:
+        freq = CLOCK_GetPfdFreq(kCLOCK_PllSys2, kCLOCK_Pfd0);
+        break;
+    case kCLOCK_SysPll2Pfd1:
+        freq = CLOCK_GetPfdFreq(kCLOCK_PllSys2, kCLOCK_Pfd1);
+        break;
+    case kCLOCK_SysPll2Pfd2:
+        freq = CLOCK_GetPfdFreq(kCLOCK_PllSys2, kCLOCK_Pfd2);
+        break;
+    case kCLOCK_SysPll2Pfd3:
+        freq = CLOCK_GetPfdFreq(kCLOCK_PllSys2, kCLOCK_Pfd3);
+        break;
+    case kCLOCK_SysPll3Out:
+    case kCLOCK_SysPll3:
+        freq = CLOCK_GetPllFreq(kCLOCK_PllSys3);
+        break;
+    case kCLOCK_SysPll3Div2:
+        freq = (CLOCK_GetPllFreq(kCLOCK_PllSys3) / 2UL);
+        break;
+    case kCLOCK_SysPll3Pfd0:
+        freq = CLOCK_GetPfdFreq(kCLOCK_PllSys3, kCLOCK_Pfd0);
+        break;
+    case kCLOCK_SysPll3Pfd1:
+        freq = CLOCK_GetPfdFreq(kCLOCK_PllSys3, kCLOCK_Pfd1);
+        break;
+    case kCLOCK_SysPll3Pfd2:
+        freq = CLOCK_GetPfdFreq(kCLOCK_PllSys3, kCLOCK_Pfd2);
+        break;
+    case kCLOCK_SysPll3Pfd3:
+        freq = CLOCK_GetPfdFreq(kCLOCK_PllSys3, kCLOCK_Pfd3);
+        break;
+    case kCLOCK_SysPll1:
+    case kCLOCK_SysPll1Out:
+        freq = CLOCK_GetPllFreq(kCLOCK_PllSys1);
+        break;
+    case kCLOCK_SysPll1Div2:
+        freq = CLOCK_GetPllFreq(kCLOCK_PllSys1) / 2UL;
+        break;
+    case kCLOCK_SysPll1Div5:
+        freq = CLOCK_GetPllFreq(kCLOCK_PllSys1) / 5UL;
+        break;
+    case kCLOCK_AudioPll:
+    case kCLOCK_AudioPllOut:
+        freq = CLOCK_GetPllFreq(kCLOCK_PllAudio);
+        break;
+    case kCLOCK_VideoPll:
+    case kCLOCK_VideoPllOut:
+        freq = CLOCK_GetPllFreq(kCLOCK_PllVideo);
+        break;
+    case kCLOCK_CpuClk:
+    case kCLOCK_CoreSysClk:
+        freq = CLOCK_GetCpuClkFreq();
+        break;
+    default:
+        /* Wrong input parameter name. */
+        assert(false);
+        break;
     }
     assert(freq != 0UL);
     return freq;
@@ -1603,7 +1611,7 @@ void CLOCK_OSC_TrimOscRc400M(bool enable, bool bypass, uint16_t trim)
 {
     if (enable)
     {
-        ANADIG_MISC->VDDLPSR_AI400M_CTRL  = 0x20UL;
+        ANADIG_MISC->VDDLPSR_AI400M_CTRL = 0x20UL;
         ANADIG_MISC->VDDLPSR_AI400M_WDATA = ((uint32_t)bypass << 10UL) | ((uint32_t)trim << 24UL);
         ANADIG_MISC->VDDLPSR_AI400M_CTRL |= 0x100UL;
         SDK_DelayAtLeastUs(1, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
@@ -1619,7 +1627,7 @@ void CLOCK_OSC_EnableOscRc400M(void)
 
 uint32_t CLOCK_GetFreqFromObs(uint32_t obsSigIndex, uint32_t obsIndex)
 {
-    CCM_OBS->OBSERVE[obsIndex].CONTROL     = CCM_OBS_OBSERVE_CONTROL_OFF_MASK;   /* turn off detect */
+    CCM_OBS->OBSERVE[obsIndex].CONTROL = CCM_OBS_OBSERVE_CONTROL_OFF_MASK;       /* turn off detect */
     CCM_OBS->OBSERVE[obsIndex].CONTROL_SET = CCM_OBS_OBSERVE_CONTROL_RESET_MASK; /* reset slice */
     CCM_OBS->OBSERVE[obsIndex].CONTROL_CLR = CCM_OBS_OBSERVE_CONTROL_RAW_MASK;   /* select raw obsSigIndex */
     CCM_OBS->OBSERVE[obsIndex].CONTROL &= ~CCM_OBS_OBSERVE_CONTROL_SELECT_MASK;  /* Select observed obsSigIndex */
@@ -1661,9 +1669,9 @@ bool CLOCK_EnableUsbhs0Clock(clock_usb_src_t src, uint32_t freq)
  */
 bool CLOCK_EnableUsbhs0PhyPllClock(clock_usb_phy_src_t src, uint32_t freq)
 {
-    uint32_t phyPllDiv  = 0U;
+    uint32_t phyPllDiv = 0U;
     uint16_t multiplier = 0U;
-    bool err            = false;
+    bool err = false;
     CLOCK_EnableClock(kCLOCK_Usb);
 
     USBPHY1->CTRL_CLR = USBPHY_CTRL_SFTRST_MASK;
@@ -1677,51 +1685,51 @@ bool CLOCK_EnableUsbhs0PhyPllClock(clock_usb_phy_src_t src, uint32_t freq)
 
     switch (multiplier)
     {
-        case 13:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(0U);
-            break;
-        }
-        case 15:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(1U);
-            break;
-        }
-        case 16:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(2U);
-            break;
-        }
-        case 20:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(3U);
-            break;
-        }
-        case 22:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(4U);
-            break;
-        }
-        case 25:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(5U);
-            break;
-        }
-        case 30:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(6U);
-            break;
-        }
-        case 240:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(7U);
-            break;
-        }
-        default:
-        {
-            err = true;
-            break;
-        }
+    case 13:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(0U);
+        break;
+    }
+    case 15:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(1U);
+        break;
+    }
+    case 16:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(2U);
+        break;
+    }
+    case 20:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(3U);
+        break;
+    }
+    case 22:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(4U);
+        break;
+    }
+    case 25:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(5U);
+        break;
+    }
+    case 30:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(6U);
+        break;
+    }
+    case 240:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(7U);
+        break;
+    }
+    default:
+    {
+        err = true;
+        break;
+    }
     }
 
     if (err)
@@ -1735,11 +1743,7 @@ bool CLOCK_EnableUsbhs0PhyPllClock(clock_usb_phy_src_t src, uint32_t freq)
     USBPHY1->PLL_SIC_SET = (USBPHY_PLL_SIC_PLL_EN_USB_CLKS_MASK);
 
     USBPHY1->CTRL_CLR = USBPHY_CTRL_CLR_CLKGATE_MASK;
-#ifndef __rtems__
-    USBPHY1->PWD_SET  = 0x0;
-#else /* __rtems__ */
-    USBPHY1->PWD = 0x0;
-#endif /* __rtems__ */
+    USBPHY1->PWD_SET = 0x0;
 
     while (0UL == (USBPHY1->PLL_SIC & USBPHY_PLL_SIC_PLL_LOCK_MASK))
     {
@@ -1772,9 +1776,9 @@ bool CLOCK_EnableUsbhs1Clock(clock_usb_src_t src, uint32_t freq)
 }
 bool CLOCK_EnableUsbhs1PhyPllClock(clock_usb_phy_src_t src, uint32_t freq)
 {
-    uint32_t phyPllDiv  = 0U;
+    uint32_t phyPllDiv = 0U;
     uint16_t multiplier = 0U;
-    bool err            = false;
+    bool err = false;
     CLOCK_EnableClock(kCLOCK_Usb);
 
     USBPHY2->CTRL_CLR = USBPHY_CTRL_SFTRST_MASK;
@@ -1788,51 +1792,51 @@ bool CLOCK_EnableUsbhs1PhyPllClock(clock_usb_phy_src_t src, uint32_t freq)
 
     switch (multiplier)
     {
-        case 13:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(0U);
-            break;
-        }
-        case 15:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(1U);
-            break;
-        }
-        case 16:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(2U);
-            break;
-        }
-        case 20:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(3U);
-            break;
-        }
-        case 22:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(4U);
-            break;
-        }
-        case 25:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(5U);
-            break;
-        }
-        case 30:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(6U);
-            break;
-        }
-        case 240:
-        {
-            phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(7U);
-            break;
-        }
-        default:
-        {
-            err = true;
-            break;
-        }
+    case 13:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(0U);
+        break;
+    }
+    case 15:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(1U);
+        break;
+    }
+    case 16:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(2U);
+        break;
+    }
+    case 20:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(3U);
+        break;
+    }
+    case 22:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(4U);
+        break;
+    }
+    case 25:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(5U);
+        break;
+    }
+    case 30:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(6U);
+        break;
+    }
+    case 240:
+    {
+        phyPllDiv = USBPHY_PLL_SIC_PLL_DIV_SEL(7U);
+        break;
+    }
+    default:
+    {
+        err = true;
+        break;
+    }
     }
 
     if (err)
@@ -1845,11 +1849,7 @@ bool CLOCK_EnableUsbhs1PhyPllClock(clock_usb_phy_src_t src, uint32_t freq)
     USBPHY2->PLL_SIC_SET = (USBPHY_PLL_SIC_PLL_EN_USB_CLKS_MASK);
 
     USBPHY2->CTRL_CLR = USBPHY_CTRL_CLR_CLKGATE_MASK;
-#ifndef __rtems__
-    USBPHY2->PWD_SET  = 0x0;
-#else /* __rtems__ */
-    USBPHY2->PWD = 0x0;
-#endif /* __rtems__ */
+    USBPHY2->PWD_SET = 0x0;
 
     while (0UL == (USBPHY2->PLL_SIC & USBPHY_PLL_SIC_PLL_LOCK_MASK))
     {

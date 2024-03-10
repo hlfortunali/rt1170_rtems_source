@@ -51,32 +51,32 @@ typedef struct _ivt_
     uint32_t reserved2;
 } ivt;
 
-#define IVT_MAJOR_VERSION       0x4
+#define IVT_MAJOR_VERSION 0x4
 #define IVT_MAJOR_VERSION_SHIFT 0x4
-#define IVT_MAJOR_VERSION_MASK  0xF
-#define IVT_MINOR_VERSION       0x1
+#define IVT_MAJOR_VERSION_MASK 0xF
+#define IVT_MINOR_VERSION 0x1
 #define IVT_MINOR_VERSION_SHIFT 0x0
-#define IVT_MINOR_VERSION_MASK  0xF
+#define IVT_MINOR_VERSION_MASK 0xF
 
-#define IVT_VERSION(major, minor)                                    \
-    ((((major)&IVT_MAJOR_VERSION_MASK) << IVT_MAJOR_VERSION_SHIFT) | \
-     (((minor)&IVT_MINOR_VERSION_MASK) << IVT_MINOR_VERSION_SHIFT))
+#define IVT_VERSION(major, minor)                                      \
+    ((((major) & IVT_MAJOR_VERSION_MASK) << IVT_MAJOR_VERSION_SHIFT) | \
+     (((minor) & IVT_MINOR_VERSION_MASK) << IVT_MINOR_VERSION_SHIFT))
 
 /* IVT header */
 #define IVT_TAG_HEADER 0xD1 /**< Image Vector Table */
-#define IVT_SIZE       0x2000
-#define IVT_PAR        IVT_VERSION(IVT_MAJOR_VERSION, IVT_MINOR_VERSION)
-#define IVT_HEADER     (IVT_TAG_HEADER | (IVT_SIZE << 8) | (IVT_PAR << 24))
+#define IVT_SIZE 0x2000
+#define IVT_PAR IVT_VERSION(IVT_MAJOR_VERSION, IVT_MINOR_VERSION)
+#define IVT_HEADER (IVT_TAG_HEADER | (IVT_SIZE << 8) | (IVT_PAR << 24))
 
 /* Set resume entry */
 #if defined(__CC_ARM) || defined(__ARMCC_VERSION)
 extern uint32_t Reset_Handler[];
 #define IMAGE_ENTRY_ADDRESS ((uint32_t)Reset_Handler)
-#define BOOT_IMAGE_BASE     ((uint32_t)FLASH_BASE)
-#define BOOT_IMAGE_SIZE     ((uint32_t)FLASH_SIZE)
-#define BOOT_DATA_ADDRESS   &g_boot_data
-#define IVT_ADDRESS         &image_vector_table
-#define DCD_DATA_ADDRESS    dcd_data
+#define BOOT_IMAGE_BASE ((uint32_t)FLASH_BASE)
+#define BOOT_IMAGE_SIZE ((uint32_t)FLASH_SIZE)
+#define BOOT_DATA_ADDRESS &g_boot_data
+#define IVT_ADDRESS &image_vector_table
+#define DCD_DATA_ADDRESS dcd_data
 #elif defined(__MCUXPRESSO)
 extern uint32_t ResetISR[];
 extern uint32_t __boot_hdr_start__[];
@@ -86,27 +86,27 @@ extern uint32_t __boot_hdr_dcd_loadaddr__[];
 extern uint32_t _boot_loadaddr[];
 extern uint32_t _boot_size[];
 #define IMAGE_ENTRY_ADDRESS ((uint32_t)ResetISR)
-#define BOOT_IMAGE_BASE     ((uint32_t)_boot_loadaddr)
-#define BOOT_IMAGE_SIZE     ((uint32_t)_boot_size)
-#define BOOT_DATA_ADDRESS   ((uint32_t)__boot_hdr_boot_data_loadaddr__)
-#define IVT_ADDRESS         ((uint32_t)__boot_hdr_ivt_loadaddr__)
-#define DCD_DATA_ADDRESS    ((uint32_t)__boot_hdr_dcd_loadaddr__)
+#define BOOT_IMAGE_BASE ((uint32_t)_boot_loadaddr)
+#define BOOT_IMAGE_SIZE ((uint32_t)_boot_size)
+#define BOOT_DATA_ADDRESS ((uint32_t)__boot_hdr_boot_data_loadaddr__)
+#define IVT_ADDRESS ((uint32_t)__boot_hdr_ivt_loadaddr__)
+#define DCD_DATA_ADDRESS ((uint32_t)__boot_hdr_dcd_loadaddr__)
 #elif defined(__ICCARM__)
 extern uint32_t Reset_Handler[];
 #define IMAGE_ENTRY_ADDRESS ((uint32_t)Reset_Handler)
-#define BOOT_IMAGE_BASE     ((uint32_t)FLASH_BASE)
-#define BOOT_IMAGE_SIZE     ((uint32_t)FLASH_SIZE)
-#define BOOT_DATA_ADDRESS   &g_boot_data
-#define IVT_ADDRESS         &image_vector_table
-#define DCD_DATA_ADDRESS    dcd_data
+#define BOOT_IMAGE_BASE ((uint32_t)FLASH_BASE)
+#define BOOT_IMAGE_SIZE ((uint32_t)FLASH_SIZE)
+#define BOOT_DATA_ADDRESS &g_boot_data
+#define IVT_ADDRESS &image_vector_table
+#define DCD_DATA_ADDRESS dcd_data
 #elif defined(__GNUC__)
 extern uint32_t Reset_Handler[];
 #define IMAGE_ENTRY_ADDRESS ((uint32_t)Reset_Handler)
-#define BOOT_IMAGE_BASE     ((uint32_t)FLASH_BASE)
-#define BOOT_IMAGE_SIZE     ((uint32_t)FLASH_SIZE)
-#define BOOT_DATA_ADDRESS   &g_boot_data
-#define IVT_ADDRESS         &image_vector_table
-#define DCD_DATA_ADDRESS    dcd_data
+#define BOOT_IMAGE_BASE ((uint32_t)FLASH_BASE)
+#define BOOT_IMAGE_SIZE ((uint32_t)FLASH_SIZE)
+#define BOOT_DATA_ADDRESS &g_boot_data
+#define IVT_ADDRESS &image_vector_table
+#define DCD_DATA_ADDRESS dcd_data
 #endif
 #if defined(XIP_BOOT_HEADER_ENABLE) && (XIP_BOOT_HEADER_ENABLE == 1)
 #if defined(XIP_BOOT_HEADER_DCD_ENABLE) && (1 == XIP_BOOT_HEADER_DCD_ENABLE)
@@ -116,7 +116,7 @@ extern uint32_t Reset_Handler[];
 #endif
 #endif
 #define CSF_ADDRESS 0
-#define IVT_RSVD    (uint32_t)(0x00000000)
+#define IVT_RSVD (uint32_t)(0x00000000)
 
 /*************************************
  *  Boot Data

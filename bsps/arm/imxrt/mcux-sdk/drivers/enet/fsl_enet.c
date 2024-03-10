@@ -27,8 +27,6 @@
 /*! @brief NanoSecond in one second. */
 #define ENET_NANOSECOND_ONE_SECOND 1000000000U
 
-
-
 /*! @brief Define the ENET ring/class bumber . */
 enum
 {
@@ -410,7 +408,7 @@ void ENET_SetRxISRHandler(ENET_Type *base, enet_isr_ring_t ISRHandler)
     uint32_t instance = ENET_GetInstance(base);
 
     s_enetRxIsr[instance] = ISRHandler;
-//    (void)EnableIRQ(s_enetRxIrqId[instance]);
+    //    (void)EnableIRQ(s_enetRxIrqId[instance]);
 }
 
 void ENET_SetTxISRHandler(ENET_Type *base, enet_isr_ring_t ISRHandler)
@@ -418,7 +416,7 @@ void ENET_SetTxISRHandler(ENET_Type *base, enet_isr_ring_t ISRHandler)
     uint32_t instance = ENET_GetInstance(base);
 
     s_enetTxIsr[instance] = ISRHandler;
-//    (void)EnableIRQ(s_enetTxIrqId[instance]);
+    //    (void)EnableIRQ(s_enetTxIrqId[instance]);
 }
 #else
 void ENET_SetRxISRHandler(ENET_Type *base, enet_isr_t ISRHandler)
@@ -426,7 +424,7 @@ void ENET_SetRxISRHandler(ENET_Type *base, enet_isr_t ISRHandler)
     uint32_t instance = ENET_GetInstance(base);
 
     s_enetRxIsr[instance] = ISRHandler;
-//    (void)EnableIRQ(s_enetRxIrqId[instance]);
+    //    (void)EnableIRQ(s_enetRxIrqId[instance]);
 }
 
 void ENET_SetTxISRHandler(ENET_Type *base, enet_isr_t ISRHandler)
@@ -434,7 +432,7 @@ void ENET_SetTxISRHandler(ENET_Type *base, enet_isr_t ISRHandler)
     uint32_t instance = ENET_GetInstance(base);
 
     s_enetTxIsr[instance] = ISRHandler;
-//    (void)EnableIRQ(s_enetTxIrqId[instance]);
+    //    (void)EnableIRQ(s_enetTxIrqId[instance]);
 }
 #endif
 
