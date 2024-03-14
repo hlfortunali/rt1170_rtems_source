@@ -9,7 +9,7 @@ default:
 - enabled-by:
   - arm/imxrt1170-evk
   - arm/imxrt1166-cm7-saltshaker
-  value: 0x20340000
+  value: 0x20240000
 - enabled-by: true
   value: 0x20200000
 description: |

@@ -7,7 +7,7 @@ copyrights:
 - Copyright (C) 2020 embedded brains GmbH & Co. KG
 default:
 - enabled-by: true
-  value: 0x00100000
+  value: 0x001000000
 description: |
   Size of the nocache area at the end of the external RAM in bytes.  Must not be
   bigger than IMXRT_MEMORY_EXTRAM_SIZE.

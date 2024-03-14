@@ -1,0 +1,139 @@
+[0mSetting top to                           :[0m [32m/home/linux/Documents/RTEMS/src/rt1170_rtems_source[0m 
+[0mSetting out to                           :[0m [32m/home/linux/Documents/RTEMS/src/rt1170_rtems_source/build[0m 
+[0mConfigure board support package (BSP)    :[0m [33marm/imxrt1166-cm7-saltshaker[0m 
+[0mChecking for program 'arm-rtems6-gcc'    :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-gcc[0m 
+[0mChecking for program 'arm-rtems6-g++'    :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-g++[0m 
+[0mChecking for program 'arm-rtems6-ar'     :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-ar[0m 
+[0mChecking for program 'arm-rtems6-ld'     :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-ld[0m 
+[0mChecking for program 'ar'                :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-ar[0m 
+[0mChecking for program 'g++, c++'          :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-g++[0m 
+[0mChecking for program 'ar'                :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-ar[0m 
+[0mChecking for program 'gas, gcc'          :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-gcc[0m 
+[0mChecking for program 'ar'                :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-ar[0m 
+[0mChecking for program 'gcc, cc'           :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-gcc[0m 
+[0mChecking for program 'ar'                :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/arm-rtems6-ar[0m 
+[0mChecking for asm flags '-MMD'            :[0m [32myes[0m 
+[0mChecking for c flags '-MMD'              :[0m [32myes[0m 
+[0mChecking for cxx flags '-MMD'            :[0m [32myes[0m 
+[0mChecking for program 'rtems-bin2c'       :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/rtems-bin2c[0m 
+[0mChecking for program 'gzip'              :[0m [32m/usr/bin/gzip[0m 
+[0mChecking for program 'xz'                :[0m [32m/usr/bin/xz[0m 
+[0mChecking for program 'rtems-ld'          :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/rtems-ld[0m 
+[0mChecking for program 'rtems-syms'        :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/rtems-syms[0m 
+[0mChecking for program 'rtems-bin2c'       :[0m [32m/home/linux/Documents/RTEMS/rtems/6/bin/rtems-bin2c[0m 
+[0mChecking for program 'gzip'              :[0m [32m/usr/bin/gzip[0m 
+[0mChecking for program 'xz'                :[0m [32m/usr/bin/xz[0m 
+'configure' finished successfully (0.123s)
+Waf: Entering directory `/home/linux/Documents/RTEMS/src/rt1170_rtems_source/build'
+Waf: Leaving directory `/home/linux/Documents/RTEMS/src/rt1170_rtems_source/build'
+'build' finished successfully (0.038s)
+Waf: Entering directory `/home/linux/Documents/RTEMS/src/rt1170_rtems_source/build/arm/imxrt1166-cm7-saltshaker'
+[  14/4519] Compiling bsps/arm/imxrt/start/bspstarthooks.c
+[3839/4519] Linking build/arm/imxrt1166-cm7-saltshaker/librtemsbsp.a
+[3840/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/benchmarks/dhrystone.exe
+[3841/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/benchmarks/linpack.exe
+[3842/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/benchmarks/whetstone.exe
+[3843/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsbdpart01.exe
+[3844/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsclose01.exe
+[3845/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsdosfsformat01.exe
+[3846/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsdosfsname01.exe
+[3847/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsdosfsname02.exe
+[3848/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsdosfssync01.exe
+[3849/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsdosfswrite01.exe
+[3850/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsfseeko01.exe
+[3851/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsimfsconfig01.exe
+[3852/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsimfsconfig02.exe
+[3853/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsimfsconfig03.exe
+[3854/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsimfsgeneric01.exe
+[3855/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsjffs2gc01.exe
+[3856/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsnofs01.exe
+[3857/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsrfsbitmap01.exe
+[3858/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/fsrofs01.exe
+[3859/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/imfs_fserror.exe
+[3860/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/imfs_fslink.exe
+[3861/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/imfs_fspatheval.exe
+[3862/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/imfs_fspermission.exe
+[3863/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/imfs_fsrdwr.exe
+[3864/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/imfs_fsscandir01.exe
+[3865/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/imfs_fssymlink.exe
+[3866/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/imfs_fstime.exe
+[3867/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2_fserror.exe
+[3868/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2_fslink.exe
+[3869/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2_fspatheval.exe
+[3870/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2_fspermission.exe
+[3871/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2_fsrdwr.exe
+[3872/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2_fsscandir01.exe
+[3873/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2_fssymlink.exe
+[3874/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2_fstime.exe
+[3875/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2nand_fserror.exe
+[3876/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2nand_fslink.exe
+[3877/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2nand_fspatheval.exe
+[3878/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2nand_fspermission.exe
+[3879/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2nand_fsrdwr.exe
+[3880/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2nand_fsscandir01.exe
+[3881/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2nand_fssymlink.exe
+[3882/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/jffs2nand_fstime.exe
+[3883/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mdosfs_fserror.exe
+[3884/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mdosfs_fspatheval.exe
+[3885/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mdosfs_fsrdwr.exe
+[3886/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mdosfs_fsscandir01.exe
+[3887/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mdosfs_fsstatvfs.exe
+[3888/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mdosfs_fstime.exe
+[3889/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mimfs_fserror.exe
+[3890/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mimfs_fslink.exe
+[3891/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mimfs_fspatheval.exe
+[3892/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mimfs_fspermission.exe
+[3893/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mimfs_fsrdwr.exe
+[3894/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mimfs_fsrename.exe
+[3895/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mimfs_fsscandir01.exe
+[3896/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mimfs_fssymlink.exe
+[3897/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mimfs_fstime.exe
+[3898/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fserror.exe
+[3899/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fsfpathconf.exe
+[3900/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fslink.exe
+[3901/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fspatheval.exe
+[3902/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fspermission.exe
+[3903/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fsrdwr.exe
+[3904/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fsrename.exe
+[3905/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fsscandir01.exe
+[3906/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fssymlink.exe
+[3907/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/mrfs_fstime.exe
+[3908/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/fstests/tftpfs.exe
+[3909/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block01.exe
+[3910/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block02.exe
+[3911/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block03.exe
+[3912/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block04.exe
+[3913/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block05.exe
+[3914/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block06.exe
+[3915/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block07.exe
+[3916/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block08.exe
+[3917/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block09.exe
+[3918/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block10.exe
+[3919/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block11.exe
+[3920/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block12.exe
+[3921/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block13.exe
+[3922/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block14.exe
+[3923/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block15.exe
+[3924/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block16.exe
+[3925/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/block17.exe
+[3926/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/bspcmdline01.exe
+[3927/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/calloc.norun.exe
+[3928/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/capture01.exe
+[3929/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/clock_gettime.norun.exe
+[3930/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/close.norun.exe
+[3931/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/complex.exe
+[3932/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/cpuuse.exe
+[3933/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/crypt01.exe
+[3934/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/defaultconfig01.exe
+[3935/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/devfs01.exe
+[3936/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/devfs04.exe
+[3937/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/deviceio01.exe
+[3938/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/devnullfatal01.exe
+[3939/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/dl03.exe
+[3940/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/dumpbuf01.exe
+[3941/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/dup2.norun.exe
+[3942/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/exit01.exe
+[3943/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/exit02.exe
+[3944/4519] Linking build/arm/imxrt1166-cm7-saltshaker/testsuites/libtests/exit03.exe
+Waf: Leaving directory `/home/linux/Documents/RTEMS/src/rt1170_rtems_source/build/arm/imxrt1166-cm7-saltshaker'
+[01;31mInterrupted[0m 

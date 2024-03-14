@@ -1,3 +1,13 @@
+/*
+ * @Author: LiHeng
+ * @Date: 2024-03-11 09:52:44
+ * @LastEditors: LiHeng
+ * @LastEditTime: 2024-03-13 16:00:58
+ * @FilePath: /RTEMS/src/rt1170_rtems_source/bsps/arm/imxrt/start/bspstarthooks.c
+ * @Description:
+ *
+ * Copyright (c) 2024 by LiHeng, All Rights Reserved.
+ */
 /* SPDX-License-Identifier: BSD-2-Clause */
 
 /*
@@ -35,21 +45,24 @@
 
 BSP_START_TEXT_SECTION void bsp_start_hook_0(void)
 {
-  if ((SCB->CCR & SCB_CCR_IC_Msk) == 0) {
+  if ((SCB->CCR & SCB_CCR_IC_Msk) == 0)
+  {
     SCB_EnableICache();
   }
 
-  if ((SCB->CCR & SCB_CCR_DC_Msk) == 0) {
-    SCB_EnableDCache();
-  }
+  //  if ((SCB->CCR & SCB_CCR_DC_Msk) == 0)
+  //  {
+  //    SCB_EnableDCache();
+  //  }
 
+  SCB_DisableDCache();
   _ARMV7M_MPU_Setup(ARMV7M_MPU_CTRL_DEFAULT, imxrt_config_mpu_region, imxrt_config_mpu_region_count);
 }
 
 BSP_START_TEXT_SECTION void bsp_start_hook_1(void)
 {
   bsp_start_copy_sections_compact();
-  SCB_CleanDCache();
+  //  SCB_CleanDCache();
   SCB_InvalidateICache();
   bsp_start_clear_bss();
 
