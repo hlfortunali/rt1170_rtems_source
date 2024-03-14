@@ -55,3 +55,14 @@ RTEMS Mailing Lists : https://lists.rtems.org/mailman/listinfo
      rtems-devel ml: https://lists.rtems.org/mailman/listinfo/devel
 
 The version number for this software is indicated in the VERSION file.
+
+
+##################
+##################
+User guide 
+##################
+##################
+1. compile the RTEMS tools just follow the guide. (https://docs.rtems.org/branches/master/user/index.html)
+2. set  RTEMS_HOME in /etc/profile
+3. run rt1166_build.sh
+4. enjoy the RTEMS system !!!
