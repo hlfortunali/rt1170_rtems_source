@@ -68,4 +68,6 @@ User guide
 4. enjoy the RTEMS system !!!
 
 
-Note: currently the RT1170 bsp is changed from the 1166 repo. So the rt1166_build script is used. Latter the imxrt1170-evk repo will online.
+Note:
+  1. currently the RT1170 bsp is changed from the 1166 repo. So the rt1166_build script is used. Latter the imxrt1170-evk repo will online.
+  2. the user application repo is  rt1170_rtems6_mcuxpresso. It will online soon.
