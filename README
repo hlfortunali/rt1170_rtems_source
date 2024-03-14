@@ -63,6 +63,6 @@ User guide
 ##################
 ##################
 1. compile the RTEMS tools just follow the guide. (https://docs.rtems.org/branches/master/user/index.html)
-2. set  RTEMS_HOME in /etc/profile
+2. set  RTEMS_HOME and add RTEMS compile tools path in /etc/profile
 3. run rt1166_build.sh
 4. enjoy the RTEMS system !!!
