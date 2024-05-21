@@ -56,9 +56,9 @@ void *SDK_Malloc(size_t size, size_t alignbytes)
 
     p_align_addr.unsigned_value = SDK_SIZEALIGN(p_addr.unsigned_value + sizeof(mem_align_cb_t), alignbytes);
 
-    p_cb             = (mem_align_cb_t *)(p_align_addr.unsigned_value - 4U);
+    p_cb = (mem_align_cb_t *)(p_align_addr.unsigned_value - 4U);
     p_cb->identifier = SDK_MEM_MAGIC_NUMBER;
-    p_cb->offset     = (uint16_t)(p_align_addr.unsigned_value - p_addr.unsigned_value);
+    p_cb->offset = (uint16_t)(p_align_addr.unsigned_value - p_addr.unsigned_value);
 
     return p_align_addr.pointer_value;
 }

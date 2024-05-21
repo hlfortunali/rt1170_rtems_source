@@ -1,3 +1,13 @@
+/*
+ * @Author: LiHeng
+ * @Date: 2024-03-14 16:03:17
+ * @LastEditors: LiHeng
+ * @LastEditTime: 2024-04-02 17:03:52
+ * @FilePath: /rt1170_rtems_source/cpukit/score/cpu/arm/armv7-thread-idle.c
+ * @Description:
+ *
+ * Copyright (c) 2024 by LiHeng, All Rights Reserved.
+ */
 /* SPDX-License-Identifier: BSD-2-Clause */
 
 /**
@@ -40,18 +50,17 @@
 
 #include <rtems/score/cpu.h>
 
-
-void *_CPU_Thread_Idle_body( uintptr_t ignored )
+void *_CPU_Thread_Idle_body(uintptr_t ignored)
 {
-  while ( true ) {
+  while (true)
+  {
 #ifdef ARM_MULTILIB_HAS_WFI
 //    __asm__ volatile ("wfi");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
+// __asm__ volatile ("nop");
+// __asm__ volatile ("nop");
+// __asm__ volatile ("nop");
+// __asm__ volatile ("nop");
+// __asm__ volatile ("nop");
 #endif /* ARM_MULTILIB_HAS_WFI */
   }
 }
-

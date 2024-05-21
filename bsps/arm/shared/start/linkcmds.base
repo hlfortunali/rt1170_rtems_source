@@ -364,8 +364,8 @@ SECTIONS {
 
 	.nocache : ALIGN_WITH_INPUT {
 		bsp_section_nocache_begin = .;
+		*(NonCacheable.init)
 		*(SORT_BY_ALIGNMENT (SORT_BY_NAME (.bsp_nocache*)))
-		*(NonCacheable)
 		bsp_section_nocache_end = .;
 	} > REGION_NOCACHE AT > REGION_NOCACHE_LOAD
 	bsp_section_nocache_size = bsp_section_nocache_end - bsp_section_nocache_begin;
@@ -374,6 +374,7 @@ SECTIONS {
 
 	.nocachenoload (NOLOAD) : ALIGN_WITH_INPUT {
 		bsp_section_nocachenoload_begin = .;
+		*(NonCacheable)
 		*(SORT_BY_ALIGNMENT (SORT_BY_NAME (.bsp_noload_nocache*)))
 		bsp_section_nocacheheap_begin = .;
 		. += ORIGIN (REGION_NOCACHE) + LENGTH (REGION_NOCACHE) - ABSOLUTE (.);

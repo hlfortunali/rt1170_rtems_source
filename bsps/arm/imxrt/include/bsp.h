@@ -68,17 +68,17 @@ extern "C"
 #define BSP_FEATURE_IRQ_EXTENSION
 
 #define BSP_FDT_IS_SUPPORTED
-  extern const unsigned char imxrt_dtb[] __attribute__((__aligned__(8)));
-  extern const size_t imxrt_dtb_size;
+extern const unsigned char imxrt_dtb[] __attribute__((__aligned__(8)));
+extern const size_t imxrt_dtb_size;
 
-  void *imx_get_reg_of_node(const void *fdt, int node);
+void *imx_get_reg_of_node(const void *fdt, int node);
 
-  rtems_vector_number imx_get_irq_of_node(
-      const void *fdt,
-      int node,
-      size_t index);
+rtems_vector_number imx_get_irq_of_node(
+		const void *fdt,
+		int node,
+		size_t index);
 
-  bool imxrt_fdt_node_is_enabled(const void *fdt, int node);
+bool imxrt_fdt_node_is_enabled(const void *fdt, int node);
 
 /*
  * About 50% between `basepri` in arm_interrupt_disable and the maximum for this
@@ -86,15 +86,16 @@ extern "C"
  */
 #define BSP_ARMV7M_IRQ_PRIORITY_DEFAULT (13 << 4)
 #define BSP_ARMV7M_SYSTICK_PRIORITY (14 << 4)
-
 #define BSP_ARMV7M_SYSTICK_FREQUENCY imxrt_systick_frequency()
-  uint32_t imxrt_systick_frequency(void);
+uint32_t imxrt_systick_frequency(void);
 
-  void imxrt_lpspi_init(void);
-  void imxrt_lpi2c_init(void);
-  void imxrt_ffec_init(void);
-  void BOARD_InitDEBUG_UARTPins(void);
-  void BOARD_InitEnet1GPins(void);
+
+#define USE_I2C5	//enable i2c5
+void imxrt_lpspi_init(void);
+void imxrt_lpi2c_init(void);
+void imxrt_ffec_init(void);
+void BOARD_InitDEBUG_UARTPins(void);
+void BOARD_InitEnet1GPins(void);
 
 #ifdef __cplusplus
 }

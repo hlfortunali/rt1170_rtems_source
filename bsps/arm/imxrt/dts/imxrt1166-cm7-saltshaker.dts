@@ -86,10 +86,6 @@
 	pinctrl-0 = <&pinctrl_lpi2c1>;
 };
 
-&lpi2c5 {
-	pinctrl-0 = <&pinctrl_lpi2c5>;
-};
-
 &lpi2c6 {
 	pinctrl-0 = <&pinctrl_lpi2c6>;
 };
@@ -168,11 +164,14 @@
 		>;
 	};
 
+
+
+
 	pinctrl_lpspi3: lpspi3grp {
 		fsl,pins = <
-			IMXRT_PAD_GPIO_EMC_B2_04_LPSPI3_SCK	0x04
+			IMXRT_PAD_GPIO_EMC_B2_04_LPSPI3_SCK		0x04
 			IMXRT_PAD_GPIO_EMC_B2_06_LPSPI3_SOUT	0x04
-			IMXRT_PAD_GPIO_EMC_B2_07_LPSPI3_SIN	0x04
+			IMXRT_PAD_GPIO_EMC_B2_07_LPSPI3_SIN		0x04
 			IMXRT_PAD_GPIO_EMC_B2_05_LPSPI3_PCS0	0x04
 			IMXRT_PAD_GPIO_EMC_B2_08_LPSPI3_PCS1	0x04
 			IMXRT_PAD_GPIO_EMC_B2_09_LPSPI3_PCS2	0x04
@@ -277,13 +276,6 @@
 };
 
 &iomuxc_lpsr {
-	pinctrl_lpi2c5: lpi2c5grp {
-		fsl,pins = <
-			IMXRT_PAD_GPIO_LPSR_09_LPI2C5_SCL	0x40000011
-			IMXRT_PAD_GPIO_LPSR_08_LPI2C5_SDA	0x40000011
-		>;
-	};
-
 	pinctrl_lpi2c6: lpi2c6grp {
 		fsl,pins = <
 			IMXRT_PAD_GPIO_LPSR_07_LPI2C6_SCL	0x40000011

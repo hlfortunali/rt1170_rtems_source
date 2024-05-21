@@ -1,3 +1,13 @@
+/*
+ * @Author: LiHeng
+ * @Date: 2024-03-14 16:03:18
+ * @LastEditors: LiHeng
+ * @LastEditTime: 2024-05-06 11:17:03
+ * @FilePath: /rt1170_rtems_source/testsuites/libtests/dl01/dl01-o1.c
+ * @Description:
+ *
+ * Copyright (c) 2024 by LiHeng, All Rights Reserved.
+ */
 /* SPDX-License-Identifier: BSD-2-Clause */
 
 /*
@@ -37,13 +47,15 @@
  * Yes a decl in the source. This is a modules main and I could not find which
  * header main is defined in.
  */
-int rtems_main (int argc, char* argv[]);
+int rtems_main(int argc, char *argv[]);
 
-int rtems_main (int argc, char* argv[])
+int rtems_main(int argc, char *argv[])
 {
   int arg;
   printf("Loaded module: argc:%d [%s]\n", argc, __FILE__);
   for (arg = 0; arg < argc; ++arg)
     printf("  %d: %s\n", arg, argv[arg]);
+
+  printf("in rtems_main: %d\n\r", __LINE__);
   return argc;
 }

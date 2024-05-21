@@ -392,7 +392,7 @@ _Pragma("diag_suppress=Pm120")
     __attribute__((section("NonCacheable.init"))) var __attribute__((aligned(alignbytes)))
 #define AT_NONCACHEABLE_SECTION(var) __attribute__((section("NonCacheable,\"aw\",%nobits " __CS))) var
 #define AT_NONCACHEABLE_SECTION_ALIGN(var, alignbytes) \
-    __attribute__((section(".bsp_nocache,\"aw\",%nobits " __CS))) var __attribute__((aligned(alignbytes)))
+    __attribute__((section("NonCacheable,\"aw\",%nobits " __CS))) var __attribute__((aligned(alignbytes)))
 #else
 #error Toolchain not supported.
 #endif

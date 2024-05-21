@@ -3,14 +3,14 @@
  # @Author: LiHeng
  # @Date: 2024-02-07 19:36:50
  # @LastEditors: LiHeng
- # @LastEditTime: 2024-02-20 20:22:57
- # @FilePath: /rtems/rt1166_build.sh
+ # @LastEditTime: 2024-05-09 08:57:52
+ # @FilePath: /rt1170_rtems_source/rt1166_build.sh
  # @Description: 
  # 
  # Copyright (c) 2024 by LiHeng, All Rights Reserved. 
 ### 
   echo "[arm/imxrt1166-cm7-saltshaker]" > config.ini   
-  echo "BUILD_TESTS = True" >> config.ini 
+  echo "BUILD_TESTS =True" >> config.ini 
   echo "BUILD_SAMPLES=True" >> config.ini     
   echo "RTEMS_DEBUG=True" >> config.ini     
   echo "OPTIMIZATION_FLAGS = -O0 -g3 -fdata-sections -ffunction-sections" >> config.ini

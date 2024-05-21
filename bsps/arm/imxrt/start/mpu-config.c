@@ -1,3 +1,13 @@
+/*
+ * @Author: LiHeng
+ * @Date: 2024-03-14 16:03:17
+ * @LastEditors: LiHeng
+ * @LastEditTime: 2024-03-15 15:21:41
+ * @FilePath: /rt1170_rtems_source/bsps/arm/imxrt/start/mpu-config.c
+ * @Description:
+ *
+ * Copyright (c) 2024 by LiHeng, All Rights Reserved.
+ */
 /* SPDX-License-Identifier: BSD-2-Clause */
 
 /*
@@ -30,52 +40,42 @@
 #include <rtems/score/armv7m.h>
 
 BSP_START_DATA_SECTION const ARMV7M_MPU_Region_config
-  imxrt_config_mpu_region [] = {
-    {
-      .begin = imxrt_memory_extram_begin,
-      .end = imxrt_memory_extram_end,
-      .rasr = ARMV7M_MPU_RASR_AP(0x3)
-        | ARMV7M_MPU_RASR_TEX(0x1) | ARMV7M_MPU_RASR_C | ARMV7M_MPU_RASR_B
-        | ARMV7M_MPU_RASR_ENABLE,
-    }, {
-      .begin = imxrt_memory_ocram_begin,
-      .end = imxrt_memory_ocram_end,
-      .rasr = ARMV7M_MPU_RASR_AP(0x3)
-        | ARMV7M_MPU_RASR_TEX(0x1) | ARMV7M_MPU_RASR_C | ARMV7M_MPU_RASR_B
-        | ARMV7M_MPU_RASR_ENABLE,
-    }, {
-      .begin = imxrt_memory_flash_raw_begin,
-      .end = imxrt_memory_flash_raw_end,
-      .rasr = ARMV7M_MPU_RASR_AP(0x3)
-        | ARMV7M_MPU_RASR_TEX(0x1) | ARMV7M_MPU_RASR_C | ARMV7M_MPU_RASR_B
-        | ARMV7M_MPU_RASR_ENABLE,
-    }, {
-      .begin = imxrt_memory_extram_nocache_begin,
-      .end = imxrt_memory_extram_nocache_end,
-      .rasr = ARMV7M_MPU_RASR_AP(0x3)
-        | ARMV7M_MPU_RASR_TEX(0x1)
-        | ARMV7M_MPU_RASR_ENABLE,
-    }, {
-      .begin = imxrt_memory_ocram_nocache_begin,
-      .end = imxrt_memory_ocram_nocache_end,
-      .rasr = ARMV7M_MPU_RASR_AP(0x3)
-        | ARMV7M_MPU_RASR_TEX(0x1)
-        | ARMV7M_MPU_RASR_ENABLE,
-    }, {
-      .begin = imxrt_memory_peripheral_begin,
-      .end = imxrt_memory_peripheral_end,
-      .rasr = ARMV7M_MPU_RASR_XN
-        | ARMV7M_MPU_RASR_AP(0x3)
-        | ARMV7M_MPU_RASR_TEX(0x2)
-        | ARMV7M_MPU_RASR_ENABLE,
-    }, {
-      .begin = imxrt_memory_null_begin,
-      .end = imxrt_memory_null_end,
-      .rasr = ARMV7M_MPU_RASR_XN
-        | ARMV7M_MPU_RASR_AP(0x0)
-        | ARMV7M_MPU_RASR_ENABLE,
-    }
-  };
+    imxrt_config_mpu_region[] = {
+        {
+            .begin = imxrt_memory_extram_begin,
+            .end = imxrt_memory_extram_end,
+            .rasr = ARMV7M_MPU_RASR_AP(0x3) | ARMV7M_MPU_RASR_TEX(0x1) | ARMV7M_MPU_RASR_C | ARMV7M_MPU_RASR_B | ARMV7M_MPU_RASR_ENABLE,
+        },
+        {
+            .begin = imxrt_memory_ocram_begin,
+            .end = imxrt_memory_ocram_end,
+            .rasr = ARMV7M_MPU_RASR_AP(0x3) | ARMV7M_MPU_RASR_TEX(0x1) | ARMV7M_MPU_RASR_C | ARMV7M_MPU_RASR_B | ARMV7M_MPU_RASR_ENABLE,
+        },
+        {
+            .begin = imxrt_memory_flash_raw_begin,
+            .end = imxrt_memory_flash_raw_end,
+            .rasr = ARMV7M_MPU_RASR_AP(0x3) | ARMV7M_MPU_RASR_TEX(0x1) | ARMV7M_MPU_RASR_C | ARMV7M_MPU_RASR_B | ARMV7M_MPU_RASR_ENABLE,
+        },
+        {
+            .begin = imxrt_memory_extram_nocache_begin,
+            .end = imxrt_memory_extram_nocache_end,
+            .rasr = ARMV7M_MPU_RASR_AP(0x3) | ARMV7M_MPU_RASR_TEX(0x1) | ARMV7M_MPU_RASR_ENABLE,
+        },
+        {
+            .begin = imxrt_memory_ocram_nocache_begin,
+            .end = imxrt_memory_ocram_nocache_end,
+            .rasr = ARMV7M_MPU_RASR_AP(0x3) | ARMV7M_MPU_RASR_TEX(0x1) | ARMV7M_MPU_RASR_ENABLE,
+        },
+        {
+            .begin = imxrt_memory_peripheral_begin,
+            .end = imxrt_memory_peripheral_end,
+            .rasr = ARMV7M_MPU_RASR_XN | ARMV7M_MPU_RASR_AP(0x3) | ARMV7M_MPU_RASR_TEX(0x2) | ARMV7M_MPU_RASR_ENABLE,
+        },
+        {
+            .begin = imxrt_memory_null_begin,
+            .end = imxrt_memory_null_end,
+            .rasr = ARMV7M_MPU_RASR_XN | ARMV7M_MPU_RASR_AP(0x0) | ARMV7M_MPU_RASR_ENABLE,
+        }};
 
 BSP_START_DATA_SECTION const size_t imxrt_config_mpu_region_count =
-  RTEMS_ARRAY_SIZE(imxrt_config_mpu_region);
+    RTEMS_ARRAY_SIZE(imxrt_config_mpu_region);
