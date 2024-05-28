@@ -1,3 +1,4 @@
+
 Real-Time Executive for Multiprocessing Systems (RTEMS)
 -------------------------------------------------------
 
@@ -64,10 +65,9 @@ User guide
 ##################
 1. compile the RTEMS tools just follow the guide. (https://docs.rtems.org/branches/master/user/index.html)
 2. set  RTEMS_HOME and add RTEMS compile tools path in /etc/profile
-3. run rt1166_build.sh
+3. run rt1176_build.sh
 4. enjoy the RTEMS system !!!
 
 
 Note:
-  1. currently the RT1170 bsp is changed from the 1166 repo. So the rt1166_build script is used. Latter the imxrt1170-evk repo will online.
-  2. the user application repo is  rt1170_rtems6_mcuxpresso. It will online soon.
+  1. the user application repo is  rt1170_rtems6_mcuxpresso. It will online soon.
