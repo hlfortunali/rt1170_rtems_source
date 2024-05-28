@@ -60,16 +60,16 @@
 
 #define LPI2C_INT_TRANSMITTED (LPI2C_INT_ERRORS | LPI2C_MSR_TDF_MASK)
 
-//##################################################
+// ##################################################
 #include <bsp.h>
 // i2c5
-#ifdef USE_I2C5
+#ifdef USE_LPI2C5
 #define I2C5_PATH "/dev/i2c5"
 #define I2C5_REG_BASE 0x40c34000
 #define I2C5_IRQ 36
 #endif
 
-//##################################################
+// ##################################################
 
 struct imxrt_lpi2c_bus
 {
@@ -396,7 +396,7 @@ static int imxrt_lpi2c_hw_init(struct imxrt_lpi2c_bus *bus)
 	bus->clock = I2C_BUS_CLOCK_DEFAULT;
 	imxrt_lpi2c_do_reinit(bus, regs);
 
-	I2C_InitPins();
+	LPI2C_InitPins();
 
 	sc = rtems_interrupt_handler_install(
 		bus->irq,
@@ -471,9 +471,9 @@ static clock_ip_name_t imxrt_lpi2c_clock_ip(volatile LPI2C_Type *regs)
 	return kCLOCK_IpInvalid;
 }
 
+#if 0 // do not use ftd, too complicated
 void imxrt_lpi2c_init(void)
 {
-#if 0
 	const void *fdt;
 	int node;
 
@@ -543,26 +543,34 @@ void imxrt_lpi2c_init(void)
 			}
 		}
 	} while (node >= 0);
+}
 #endif
 
-	// ##########################################################
-	//  						I2C5
-	// ##########################################################
-	/*
-	 #address-cells = <1>;
-	   #size-cells = <0>;
-	   compatible = "nxp,imxrt-lpi2c";
-	   reg = <0x40c34000 0x4000>;
-	   interrupts = <36>;
-	   status = "disabled";
-	   rtems,path = "/dev/i2c5";
-	   dmas = <&edma 0 52>;
-	 */
+typedef enum
+{
+	i2c1 = 0,
+	i2c2,
+	i2c3,
+	i2c4,
+	i2c5,
+	i2c6
+} I2c_sel;
 
-#ifdef USE_I2C5
+static const Interface_config_t lpi2c_config[] = {
+	{0x40104000, 32, "/dev/i2c1"},
+	{0x40108000, 33, "/dev/i2c2"},
+	{0x4010c000, 34, "/dev/i2c3"},
+	{0x40110000, 35, "/dev/i2c4"},
+	{0x40C34000, 36, "/dev/i2c5"},
+	{0x40C38000, 37, "/dev/i2c6"},
+};
+
+void lpi2c_interface_init(I2c_sel i2c_sel);
+void lpi2c_interface_init(I2c_sel i2c_sel)
+{
 	struct imxrt_lpi2c_bus *bus;
 	int eno;
-	const char *bus_path = I2C5_PATH;
+	const char *bus_path = lpi2c_config[i2c_sel].path;
 
 	bus = (struct imxrt_lpi2c_bus *)i2c_bus_alloc_and_init(sizeof(*bus));
 	if (bus == NULL)
@@ -572,23 +580,21 @@ void imxrt_lpi2c_init(void)
 
 	rtems_binary_semaphore_init(&bus->sem, "LPI2C");
 
-	//	bus->regs = imx_get_reg_of_node(fdt, node);
-	bus->regs = (void *)(I2C5_REG_BASE);
+	uint32_t base_reg = lpi2c_config[i2c_sel].base_reg;
+	bus->regs = (void *)base_reg;
 	if (bus->regs == NULL)
 	{
 		(*bus->base.destroy)(&bus->base);
 		bsp_fatal(IMXRT_FATAL_LPI2C_INVALID_FDT);
 	}
 
-	//	bus->irq = imx_get_irq_of_node(fdt, node, 0);
-	bus->irq = I2C5_IRQ;
+	bus->irq = lpi2c_config[i2c_sel].interrupt;
 	if (bus->irq == BSP_INTERRUPT_VECTOR_INVALID)
 	{
 		(*bus->base.destroy)(&bus->base);
 		bsp_fatal(IMXRT_FATAL_LPI2C_INVALID_FDT);
 	}
 
-	//	bus_path = fdt_getprop(fdt, node, "rtems,path", NULL);
 	if (bus_path == NULL)
 	{
 		(*bus->base.destroy)(&bus->base);
@@ -626,7 +632,26 @@ void imxrt_lpi2c_init(void)
 	{
 		bsp_fatal(IMXRT_FATAL_LPI2C_REGISTER_FAILED);
 	}
-#endif	//end of USE_I2C5
+}
 
-
+void imxrt_lpi2c_init(void)
+{
+#ifdef USE_LPI2C1
+	lpi2c_interface_init(i2c1);
+#endif
+#ifdef USE_LPI2C2
+	lpi2c_interface_init(i2c2);
+#endif
+#ifdef USE_LPI2C3
+	lpi2c_interface_init(i2c3);
+#endif
+#ifdef USE_LPI2C4
+	lpi2c_interface_init(i2c4);
+#endif
+#ifdef USE_LPI2C5
+	lpi2c_interface_init(i2c5);
+#endif
+#ifdef USE_LPI2C6
+	lpi2c_interface_init(i2c6);
+#endif
 }

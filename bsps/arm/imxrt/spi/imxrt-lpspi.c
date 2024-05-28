@@ -41,7 +41,8 @@
 #error IMXRT_LPSPI_MAX_CS hast to be either 0 or at least 4.
 #endif
 
-struct imxrt_lpspi_bus {
+struct imxrt_lpspi_bus
+{
   spi_bus base;
   volatile LPSPI_Type *regs;
   rtems_vector_number irq;
@@ -64,7 +65,8 @@ struct imxrt_lpspi_bus {
   uint32_t fifo_size;
 
 #if IMXRT_LPSPI_MAX_CS != 0
-  struct {
+  struct
+  {
     bool is_gpio;
     struct imx_gpio_pin gpio;
     uint32_t active;
@@ -85,11 +87,10 @@ static unsigned div_round_up(unsigned divident, unsigned divisor)
 }
 
 static void imxrt_lpspi_find_clockdivs(
-  struct imxrt_lpspi_bus *bus,
-  uint32_t max_baud_hz,
-  unsigned *sckdiv,
-  unsigned *prescale
-)
+    struct imxrt_lpspi_bus *bus,
+    uint32_t max_baud_hz,
+    unsigned *sckdiv,
+    unsigned *prescale)
 {
   const unsigned max_sckdif = LPSPI_CCR_SCKDIV_MASK >> LPSPI_CCR_SCKDIV_SHIFT;
   const unsigned max_prescale =
@@ -107,23 +108,27 @@ static void imxrt_lpspi_find_clockdivs(
   best_sckdif = max_sckdif;
   best_prescale = max_prescale;
   best_baud_hz = div_round_up(bus->src_clock_hz,
-      (1 << best_prescale) * (best_sckdif + 2));
+                              (1 << best_prescale) * (best_sckdif + 2));
 
   for (check_prescale = 0;
-      check_prescale <= max_prescale && best_baud_hz < max_baud_hz;
-      ++check_prescale) {
+       check_prescale <= max_prescale && best_baud_hz < max_baud_hz;
+       ++check_prescale)
+  {
 
     check_sckdif = div_round_up(bus->src_clock_hz,
-        (1 << check_prescale) * max_baud_hz) - 2;
+                                (1 << check_prescale) * max_baud_hz) -
+                   2;
 
-    if (check_sckdif > max_sckdif) {
+    if (check_sckdif > max_sckdif)
+    {
       check_sckdif = max_sckdif;
     }
 
     check_baud_hz = div_round_up(bus->src_clock_hz,
-        (1 << check_prescale) * (check_sckdif + 2));
+                                 (1 << check_prescale) * (check_sckdif + 2));
 
-    if (check_baud_hz <= max_baud_hz && check_baud_hz > best_baud_hz) {
+    if (check_baud_hz <= max_baud_hz && check_baud_hz > best_baud_hz)
+    {
       best_baud_hz = check_baud_hz;
       best_sckdif = check_sckdif;
       best_prescale = check_prescale;
@@ -135,10 +140,9 @@ static void imxrt_lpspi_find_clockdivs(
 }
 
 static void imxrt_lpspi_config(
-  struct imxrt_lpspi_bus *bus,
-  volatile LPSPI_Type *regs,
-  const spi_ioc_transfer *msg
-)
+    struct imxrt_lpspi_bus *bus,
+    volatile LPSPI_Type *regs,
+    const spi_ioc_transfer *msg)
 {
   uint32_t ccr_orig;
   uint32_t ccr;
@@ -153,38 +157,46 @@ static void imxrt_lpspi_config(
 
   /* Currently just force half a clock after and before chip select. */
   ccr = LPSPI_CCR_SCKDIV(sckdiv) | LPSPI_CCR_SCKPCS(sckdiv) |
-      LPSPI_CCR_PCSSCK(sckdiv) | LPSPI_CCR_DBT(sckdiv);
+        LPSPI_CCR_PCSSCK(sckdiv) | LPSPI_CCR_DBT(sckdiv);
   tcr |= LPSPI_TCR_PRESCALE(prescale);
 
-  if ((msg->mode & SPI_CPOL) != 0) {
+  if ((msg->mode & SPI_CPOL) != 0)
+  {
     tcr |= LPSPI_TCR_CPOL_MASK;
   }
-  if ((msg->mode & SPI_CPHA) != 0) {
+  if ((msg->mode & SPI_CPHA) != 0)
+  {
     tcr |= LPSPI_TCR_CPHA_MASK;
   }
-  if (msg->mode & SPI_LSB_FIRST) {
+  if (msg->mode & SPI_LSB_FIRST)
+  {
     tcr |= LPSPI_TCR_LSBF_MASK;
   }
 
 #if IMXRT_LPSPI_MAX_CS > 0
-  if (bus->cs[msg->cs].is_gpio || (msg->mode & SPI_NO_CS) != 0) {
+  if (bus->cs[msg->cs].is_gpio || (msg->mode & SPI_NO_CS) != 0)
+  {
     tcr |= LPSPI_TCR_PCS(bus->dummy_cs);
-  } else {
+  }
+  else
+  {
     tcr |= LPSPI_TCR_PCS(msg->cs);
   }
 #else
   tcr |= LPSPI_TCR_PCS(msg->cs);
 #endif
   tcr |= LPSPI_TCR_CONT_MASK;
-  tcr |= LPSPI_TCR_FRAMESZ(word_size-1);
+  tcr |= LPSPI_TCR_FRAMESZ(word_size - 1);
 
-  if (ccr_orig != ccr) {
+  if (ccr_orig != ccr)
+  {
     regs->CR &= ~LPSPI_CR_MEN_MASK;
     regs->CCR = ccr;
     regs->CR |= LPSPI_CR_MEN_MASK;
   }
 
-  if (bus->cs_change_on_last_msg) {
+  if (bus->cs_change_on_last_msg)
+  {
     /* No CONTC on first write. Otherwise upper 8 bits are not written. */
     regs->TCR = tcr;
   }
@@ -194,31 +206,29 @@ static void imxrt_lpspi_config(
 }
 
 static inline bool imxrt_lpspi_rx_fifo_not_empty(
-  volatile LPSPI_Type *regs
-)
+    volatile LPSPI_Type *regs)
 {
   return ((regs->RSR & LPSPI_RSR_RXEMPTY_MASK) == 0);
 }
 
 static inline bool imxrt_lpspi_tx_fifo_not_full(
-  struct imxrt_lpspi_bus *bus,
-  volatile LPSPI_Type *regs
-)
+    struct imxrt_lpspi_bus *bus,
+    volatile LPSPI_Type *regs)
 {
   /*
    * We might add two things to the FIFO: A TCR and data. Therefore leave one
    * extra space.
    */
   return ((regs->FSR & LPSPI_FSR_TXCOUNT_MASK) >> LPSPI_FSR_TXCOUNT_SHIFT) <
-      bus->fifo_size - 2;
+         bus->fifo_size - 2;
 }
 
 static void imxrt_lpspi_next_tx_msg(
-  struct imxrt_lpspi_bus *bus,
-  volatile LPSPI_Type *regs
-)
+    struct imxrt_lpspi_bus *bus,
+    volatile LPSPI_Type *regs)
 {
-  if (bus->tx_msg_todo > 0) {
+  if (bus->tx_msg_todo > 0)
+  {
     const spi_ioc_transfer *msg;
 
     msg = bus->tx_msg;
@@ -230,14 +240,15 @@ static void imxrt_lpspi_next_tx_msg(
 }
 
 static void imxrt_lpspi_fill_tx_fifo(
-  struct imxrt_lpspi_bus *bus,
-  volatile LPSPI_Type *regs
-)
+    struct imxrt_lpspi_bus *bus,
+    volatile LPSPI_Type *regs)
 {
-  while(imxrt_lpspi_tx_fifo_not_full(bus, regs)
-      && (bus->tx_msg_todo > 0 || bus->remaining_tx_size > 0)) {
-    if (bus->remaining_tx_size > 0) {
-      if (bus->remaining_tx_size == 1 && bus->tx_msg->cs_change) {
+  while (imxrt_lpspi_tx_fifo_not_full(bus, regs) && (bus->tx_msg_todo > 0 || bus->remaining_tx_size > 0))
+  {
+    if (bus->remaining_tx_size > 0)
+    {
+      if (bus->remaining_tx_size == 1 && bus->tx_msg->cs_change)
+      {
         /*
          * Necessary for getting the last data out of the Rx FIFO. See "i.MX
          * RT1050 Processor Reference Manual Rev. 4" Chapter 47.3.2.2 "Receive
@@ -251,15 +262,19 @@ static void imxrt_lpspi_fill_tx_fifo(
         regs->TCR &= ~(LPSPI_TCR_CONT_MASK);
       }
 
-      if (bus->tx_buf != NULL) {
+      if (bus->tx_buf != NULL)
+      {
         regs->TDR = bus->tx_buf[0];
         ++bus->tx_buf;
-      } else {
+      }
+      else
+      {
         regs->TDR = 0;
       }
       --bus->remaining_tx_size;
     }
-    if (bus->remaining_tx_size == 0) {
+    if (bus->remaining_tx_size == 0)
+    {
       --bus->tx_msg_todo;
       ++bus->tx_msg;
       imxrt_lpspi_next_tx_msg(bus, regs);
@@ -268,11 +283,11 @@ static void imxrt_lpspi_fill_tx_fifo(
 }
 
 static void imxrt_lpspi_next_rx_msg(
-  struct imxrt_lpspi_bus *bus,
-  volatile LPSPI_Type *regs
-)
+    struct imxrt_lpspi_bus *bus,
+    volatile LPSPI_Type *regs)
 {
-  if (bus->rx_msg_todo > 0) {
+  if (bus->rx_msg_todo > 0)
+  {
     const spi_ioc_transfer *msg;
 
     msg = bus->rx_msg;
@@ -283,22 +298,24 @@ static void imxrt_lpspi_next_rx_msg(
 }
 
 static void imxrt_lpspi_pull_data_from_rx_fifo(
-  struct imxrt_lpspi_bus *bus,
-  volatile LPSPI_Type *regs
-)
+    struct imxrt_lpspi_bus *bus,
+    volatile LPSPI_Type *regs)
 {
   uint32_t data;
-  while (imxrt_lpspi_rx_fifo_not_empty(regs)
-      && (bus->rx_msg_todo > 0 || bus->remaining_rx_size > 0)) {
-    if (bus->remaining_rx_size > 0) {
+  while (imxrt_lpspi_rx_fifo_not_empty(regs) && (bus->rx_msg_todo > 0 || bus->remaining_rx_size > 0))
+  {
+    if (bus->remaining_rx_size > 0)
+    {
       data = regs->RDR;
-      if (bus->rx_buf != NULL) {
+      if (bus->rx_buf != NULL)
+      {
         *bus->rx_buf = data;
         ++bus->rx_buf;
       }
       --bus->remaining_rx_size;
     }
-    if (bus->remaining_rx_size == 0) {
+    if (bus->remaining_rx_size == 0)
+    {
       --bus->rx_msg_todo;
       ++bus->rx_msg;
       imxrt_lpspi_next_rx_msg(bus, regs);
@@ -317,32 +334,38 @@ static void imxrt_lpspi_interrupt(void *arg)
   imxrt_lpspi_pull_data_from_rx_fifo(bus, regs);
   imxrt_lpspi_fill_tx_fifo(bus, regs);
 
-  if (bus->tx_msg_todo > 0 || bus->remaining_tx_size > 0) {
+  if (bus->tx_msg_todo > 0 || bus->remaining_tx_size > 0)
+  {
     regs->IER = LPSPI_IER_TDIE_MASK;
-  } else if (bus->rx_msg_todo > 0 || bus->remaining_rx_size > 0) {
+  }
+  else if (bus->rx_msg_todo > 0 || bus->remaining_rx_size > 0)
+  {
     regs->IER = LPSPI_IER_RDIE_MASK;
-  } else {
+  }
+  else
+  {
     regs->IER = 0;
     rtems_binary_semaphore_post(&bus->sem);
   }
 }
 
 static inline int imxrt_lpspi_settings_ok(
-  struct imxrt_lpspi_bus *bus,
-  const spi_ioc_transfer *msg,
-  const spi_ioc_transfer *prev_msg
-)
+    struct imxrt_lpspi_bus *bus,
+    const spi_ioc_transfer *msg,
+    const spi_ioc_transfer *prev_msg)
 {
   /* most of this is currently just not implemented */
   if (msg->speed_hz > bus->base.max_speed_hz ||
       msg->delay_usecs != 0 ||
       (msg->mode & ~(SPI_CPHA | SPI_CPOL | SPI_LSB_FIRST | SPI_NO_CS)) != 0 ||
-      msg->bits_per_word != word_size) {
+      msg->bits_per_word != word_size)
+  {
     return -EINVAL;
   }
 
 #if IMXRT_LPSPI_MAX_CS == 0
-  if (msg->cs > 3 || (msg->mode & SPI_NO_CS) != 0) {
+  if (msg->cs > 3 || (msg->mode & SPI_NO_CS) != 0)
+  {
     return -EINVAL;
   }
 #else /* IMXRT_LPSPI_MAX_CS != 0 */
@@ -350,25 +373,30 @@ static inline int imxrt_lpspi_settings_ok(
    * Chip select is a bit tricky. This depends on whether it's a native or a
    * GPIO chip select.
    */
-  if (msg->cs > IMXRT_LPSPI_MAX_CS) {
+  if (msg->cs > IMXRT_LPSPI_MAX_CS)
+  {
     return -EINVAL;
   }
-  if (!bus->cs[msg->cs].is_gpio && msg->cs > 3) {
+  if (!bus->cs[msg->cs].is_gpio && msg->cs > 3)
+  {
     return -EINVAL;
   }
-  if ((msg->mode & SPI_NO_CS) != 0 && bus->dummy_cs < 0) {
+  if ((msg->mode & SPI_NO_CS) != 0 && bus->dummy_cs < 0)
+  {
     return -EINVAL;
   }
 #endif
 
-  if (prev_msg != NULL && !prev_msg->cs_change) {
+  if (prev_msg != NULL && !prev_msg->cs_change)
+  {
     /*
      * A lot of settings have to be the same in this case because the upper 8
      * bit of TCR can't be changed if it is a continuous transfer.
      */
     if (prev_msg->cs != msg->cs ||
         prev_msg->speed_hz != msg->speed_hz ||
-        prev_msg->mode != msg->mode) {
+        prev_msg->mode != msg->mode)
+    {
       return -EINVAL;
     }
   }
@@ -377,17 +405,18 @@ static inline int imxrt_lpspi_settings_ok(
 }
 
 static int imxrt_lpspi_check_messages(
-  struct imxrt_lpspi_bus *bus,
-  const spi_ioc_transfer *msg,
-  uint32_t size
-)
+    struct imxrt_lpspi_bus *bus,
+    const spi_ioc_transfer *msg,
+    uint32_t size)
 {
   const spi_ioc_transfer *prev_msg = NULL;
 
-  while(size > 0) {
+  while (size > 0)
+  {
     int rv;
     rv = imxrt_lpspi_settings_ok(bus, msg, prev_msg);
-    if (rv != 0) {
+    if (rv != 0)
+    {
       return rv;
     }
 
@@ -405,7 +434,8 @@ static int imxrt_lpspi_check_messages(
    * different for the GPIO CS would add complexity. So keep it as a driver
    * limitation for now.
    */
-  if (!prev_msg->cs_change) {
+  if (!prev_msg->cs_change)
+  {
     return -EINVAL;
   }
 
@@ -418,39 +448,43 @@ static int imxrt_lpspi_check_messages(
  * is necessary to pause on CS changes when GPIO CS are used.
  */
 static int imxrt_lpspi_check_howmany(
-  struct imxrt_lpspi_bus *bus,
-  const spi_ioc_transfer *msgs,
-  uint32_t max
-)
+    struct imxrt_lpspi_bus *bus,
+    const spi_ioc_transfer *msgs,
+    uint32_t max)
 {
   int i;
 
-  if (max == 0) {
+  if (max == 0)
+  {
     return max;
   }
 
-  for (i = 0; i < max - 1; ++i) {
+  for (i = 0; i < max - 1; ++i)
+  {
     const spi_ioc_transfer *msg = &msgs[i];
-    const spi_ioc_transfer *next_msg = &msgs[i+1];
+    const spi_ioc_transfer *next_msg = &msgs[i + 1];
 
     bool cs_is_gpio = bus->cs[msg->cs].is_gpio;
     bool no_cs = msg->mode & SPI_NO_CS;
     bool no_cs_next = next_msg->mode & SPI_NO_CS;
 
-    if (cs_is_gpio && msg->cs_change) {
+    if (cs_is_gpio && msg->cs_change)
+    {
       break;
     }
 
-    if (no_cs != no_cs_next) {
+    if (no_cs != no_cs_next)
+    {
       break;
     }
 
-    if (cs_is_gpio && (msg->cs != next_msg->cs)) {
+    if (cs_is_gpio && (msg->cs != next_msg->cs))
+    {
       break;
     }
   }
 
-  return i+1;
+  return i + 1;
 }
 #endif
 
@@ -459,10 +493,9 @@ static int imxrt_lpspi_check_howmany(
  * used.
  */
 static void imxrt_lpspi_transfer_some(
-  struct imxrt_lpspi_bus *bus,
-  const spi_ioc_transfer *msgs,
-  uint32_t n
-)
+    struct imxrt_lpspi_bus *bus,
+    const spi_ioc_transfer *msgs,
+    uint32_t n)
 {
 #if IMXRT_LPSPI_MAX_CS > 0
   /*
@@ -470,7 +503,8 @@ static void imxrt_lpspi_transfer_some(
    * imxrt_lpspi_check_messages, the CS can't change in the middle of a
    * transfer. So we can just use the one from the first message.
    */
-  if ((msgs[0].mode & SPI_NO_CS) == 0 && bus->cs[msgs[0].cs].is_gpio) {
+  if ((msgs[0].mode & SPI_NO_CS) == 0 && bus->cs[msgs[0].cs].is_gpio)
+  {
     imx_gpio_set_output(&bus->cs[msgs[0].cs].gpio, bus->cs[msgs[0].cs].active);
   }
 #endif
@@ -492,28 +526,30 @@ static void imxrt_lpspi_transfer_some(
   rtems_binary_semaphore_wait(&bus->sem);
 
 #if IMXRT_LPSPI_MAX_CS > 0
-  if ((msgs[0].mode & SPI_NO_CS) == 0 && bus->cs[msgs[0].cs].is_gpio) {
+  if ((msgs[0].mode & SPI_NO_CS) == 0 && bus->cs[msgs[0].cs].is_gpio)
+  {
     imx_gpio_set_output(&bus->cs[msgs[0].cs].gpio, ~bus->cs[msgs[0].cs].active);
   }
 #endif
 }
 
 static int imxrt_lpspi_transfer(
-  spi_bus *base,
-  const spi_ioc_transfer *msgs,
-  uint32_t n
-)
+    spi_bus *base,
+    const spi_ioc_transfer *msgs,
+    uint32_t n)
 {
   struct imxrt_lpspi_bus *bus;
   int rv;
 
-  bus = (struct imxrt_lpspi_bus *) base;
+  bus = (struct imxrt_lpspi_bus *)base;
 
   rv = imxrt_lpspi_check_messages(bus, msgs, n);
 
-  if (rv == 0) {
+  if (rv == 0)
+  {
 #if IMXRT_LPSPI_MAX_CS > 0
-    while (n > 0) {
+    while (n > 0)
+    {
       uint32_t howmany;
 
       howmany = imxrt_lpspi_check_howmany(bus, msgs, n);
@@ -540,7 +576,7 @@ static void imxrt_lpspi_destroy(spi_bus *base)
   struct imxrt_lpspi_bus *bus;
   volatile LPSPI_Type *regs;
 
-  bus = (struct imxrt_lpspi_bus *) base;
+  bus = (struct imxrt_lpspi_bus *)base;
   regs = bus->regs;
   imxrt_lpspi_sw_reset(regs);
 
@@ -559,6 +595,8 @@ static int imxrt_lpspi_hw_init(struct imxrt_lpspi_bus *bus)
 
   CLOCK_EnableClock(bus->clock_ip);
 
+  LPSPI_InitPins();
+
   imxrt_lpspi_sw_reset(regs);
 
   regs->CFGR1 |= LPSPI_CFGR1_MASTER_MASK;
@@ -566,16 +604,16 @@ static int imxrt_lpspi_hw_init(struct imxrt_lpspi_bus *bus)
   regs->CR |= LPSPI_CR_MEN_MASK;
 
   bus->fifo_size = 1 << ((regs->PARAM & LPSPI_PARAM_TXFIFO_MASK) >>
-      LPSPI_PARAM_TXFIFO_SHIFT);
+                         LPSPI_PARAM_TXFIFO_SHIFT);
 
   sc = rtems_interrupt_handler_install(
-    bus->irq,
-    "LPSPI",
-    RTEMS_INTERRUPT_UNIQUE,
-    imxrt_lpspi_interrupt,
-    bus
-  );
-  if (sc != RTEMS_SUCCESSFUL) {
+      bus->irq,
+      "LPSPI",
+      RTEMS_INTERRUPT_UNIQUE,
+      imxrt_lpspi_interrupt,
+      bus);
+  if (sc != RTEMS_SUCCESSFUL)
+  {
     return EAGAIN;
   }
 
@@ -587,17 +625,17 @@ static int imxrt_lpspi_setup(spi_bus *base)
   struct imxrt_lpspi_bus *bus;
   int rv;
   spi_ioc_transfer msg = {
-    .cs_change = base->cs_change,
-    .cs = base->cs,
-    .bits_per_word = base->bits_per_word,
-    .mode = base->mode,
-    .speed_hz = base->speed_hz,
-    .delay_usecs = base->delay_usecs,
-    .rx_buf = NULL,
-    .tx_buf = NULL,
+      .cs_change = base->cs_change,
+      .cs = base->cs,
+      .bits_per_word = base->bits_per_word,
+      .mode = base->mode,
+      .speed_hz = base->speed_hz,
+      .delay_usecs = base->delay_usecs,
+      .rx_buf = NULL,
+      .tx_buf = NULL,
   };
 
-  bus = (struct imxrt_lpspi_bus *) base;
+  bus = (struct imxrt_lpspi_bus *)base;
 
   rv = imxrt_lpspi_settings_ok(bus, &msg, NULL);
 
@@ -616,11 +654,12 @@ static uint32_t imxrt_lpspi_get_src_freq(clock_ip_name_t clock_ip)
   uint32_t mux;
   uint32_t divider;
 
-  (void) clock_ip; /* Not necessary for i.MXRT1050 */
+  (void)clock_ip; /* Not necessary for i.MXRT1050 */
 
   mux = CLOCK_GetMux(kCLOCK_LpspiMux);
 
-  switch (mux) {
+  switch (mux)
+  {
   case 0: /* PLL3 PFD1 */
     freq = CLOCK_GetFreq(kCLOCK_Usb1PllPfd1Clk);
     break;
@@ -648,7 +687,7 @@ static uint32_t imxrt_lpspi_get_src_freq(clock_ip_name_t clock_ip)
 
   freq = CLOCK_GetRootClockFreq(clock_root);
 #else
-  #error Getting SPI frequency is not implemented for this chip.
+#error Getting SPI frequency is not implemented for this chip.
 #endif
 
   return freq;
@@ -660,8 +699,10 @@ static clock_ip_name_t imxrt_lpspi_clock_ip(volatile LPSPI_Type *regs)
   static const clock_ip_name_t lpspi_clocks[] = LPSPI_CLOCKS;
   size_t i;
 
-  for (i = 0; i < RTEMS_ARRAY_SIZE(base_addresses); ++i) {
-    if (base_addresses[i] == regs) {
+  for (i = 0; i < RTEMS_ARRAY_SIZE(base_addresses); ++i)
+  {
+    if (base_addresses[i] == regs)
+    {
       return lpspi_clocks[i];
     }
   }
@@ -672,21 +713,23 @@ static clock_ip_name_t imxrt_lpspi_clock_ip(volatile LPSPI_Type *regs)
 static int imxrt_lpspi_ioctl(spi_bus *base, ioctl_command_t command, void *arg)
 {
   struct imxrt_lpspi_bus *bus;
-  bus = (struct imxrt_lpspi_bus *) base;
+  bus = (struct imxrt_lpspi_bus *)base;
   int err = 0;
 
-  switch (command) {
-    case IMXRT_LPSPI_GET_REGISTERS:
-      *(volatile LPSPI_Type**)arg = bus->regs;
-      break;
-    default:
-      err = -EINVAL;
-      break;
+  switch (command)
+  {
+  case IMXRT_LPSPI_GET_REGISTERS:
+    *(volatile LPSPI_Type **)arg = bus->regs;
+    break;
+  default:
+    err = -EINVAL;
+    break;
   }
 
   return err;
 }
 
+#if 0 // do not use ftd parase, it's too complicated
 void imxrt_lpspi_init(void)
 {
   const void *fdt;
@@ -821,4 +864,103 @@ void imxrt_lpspi_init(void)
       }
     }
   } while (node >= 0);
+  }
+#endif
+
+typedef enum
+{
+  spi1 = 0,
+  spi2,
+  spi3,
+  spi4,
+  spi5,
+  spi6
+} Spi_sel;
+
+static const Interface_config_t lpspi_config[] = {
+    {0x40114000, 38, "/dev/spi1"},
+    {0x40118000, 39, "/dev/spi2"},
+    {0x4011c000, 40, "/dev/spi3"},
+    {0x40120000, 41, "/dev/spi4"},
+    {0x40C2C000, 42, "/dev/spi5"},
+    {0x40C30000, 43, "/dev/spi6"}};
+
+static void lpspi_interface_init(Spi_sel spi_sel);
+static void lpspi_interface_init(Spi_sel spi_sel)
+{
+  struct imxrt_lpspi_bus *bus;
+  int eno;
+  const char *bus_path;
+
+  bus = (struct imxrt_lpspi_bus *)spi_bus_alloc_and_init(sizeof(*bus));
+  if (bus == NULL)
+  {
+    bsp_fatal(IMXRT_FATAL_LPSPI_ALLOC_FAILED);
+  }
+
+  rtems_binary_semaphore_init(&bus->sem, "LPSPI");
+
+  uint32_t reg_addr = lpspi_config[spi_sel].base_reg;
+  bus->regs = (void *)reg_addr;
+  if (bus->regs == NULL)
+  {
+    bsp_fatal(IMXRT_FATAL_LPSPI_INVALID_FDT);
+  }
+
+  bus->irq = lpspi_config[spi_sel].interrupt;
+  if (bus->irq == BSP_INTERRUPT_VECTOR_INVALID)
+  {
+    bsp_fatal(IMXRT_FATAL_LPSPI_INVALID_FDT);
+  }
+
+  bus_path = lpspi_config[spi_sel].path;
+  if (bus_path == NULL)
+  {
+    bsp_fatal(IMXRT_FATAL_LPSPI_INVALID_FDT);
+  }
+
+  bus->clock_ip = imxrt_lpspi_clock_ip(bus->regs);
+  bus->src_clock_hz = imxrt_lpspi_get_src_freq(bus->clock_ip);
+  /* Absolut maximum is 30MHz according to electrical characteristics */
+  bus->base.max_speed_hz = MIN(bus->src_clock_hz / 2, 30000000);
+  bus->base.delay_usecs = 0;
+
+  eno = imxrt_lpspi_hw_init(bus);
+  if (eno != 0)
+  {
+    bsp_fatal(IMXRT_FATAL_LPSPI_HW_INIT_FAILED);
+  }
+
+  bus->base.transfer = imxrt_lpspi_transfer;
+  bus->base.destroy = imxrt_lpspi_destroy;
+  bus->base.setup = imxrt_lpspi_setup;
+  bus->base.ioctl = imxrt_lpspi_ioctl;
+
+  eno = spi_bus_register(&bus->base, bus_path);
+  if (eno != 0)
+  {
+    bsp_fatal(IMXRT_FATAL_LPSPI_REGISTER_FAILED);
+  }
+}
+
+void imxrt_lpspi_init(void)
+{
+#ifdef USE_LPSPI1
+  lpspi_interface_init(spi1);
+#endif
+#ifdef USE_LPSPI2
+  lpspi_interface_init(spi2);
+#endif
+#ifdef USE_LPSPI3
+  lpspi_interface_init(spi3);
+#endif
+#ifdef USE_LPSPI4
+  lpspi_interface_init(spi4);
+#endif
+#ifdef USE_LPSPI5
+  lpspi_interface_init(spi5);
+#endif
+#ifdef USE_LPSPI6
+  lpspi_interface_init(spi6);
+#endif
 }

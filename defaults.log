@@ -1,0 +1,4438 @@
+[aarch64/a53_ilp32_qemu]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a53 -mabi=ilp32
+# offset of RAM region from memory area base
+BSP_A53_LOAD_OFFSET = 0x00008000
+# length of nocache RAM region
+BSP_A53_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_A53_RAM_LENGTH = 0x08000000
+# base address of memory area available to the BSP
+BSP_A53_RAM_BASE = 0x40000000
+# Defines the initial value of the ICC_BPR1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_BPR1 = 0x00000003
+# Defines the initial value of the ICC_CTRL register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_CTRL = 0x00000000
+# Defines the initial value of the ICC_IGRPEN1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_IGRPEN1 = 0x00000001
+# Defines the initial value of the ICC_PMR register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_PMR = 0x000000ff
+# Defines the initial value of the ICC_SRE register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_SRE = 0x00000003
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = False
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/a53_lp64_qemu]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a53
+# offset of RAM region from memory area base
+BSP_A53_LOAD_OFFSET = 0x00008000
+# length of nocache RAM region
+BSP_A53_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_A53_RAM_LENGTH = 0x08000000
+# base address of memory area available to the BSP
+BSP_A53_RAM_BASE = 0x40000000
+# Defines the initial value of the ICC_BPR1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_BPR1 = 0x00000003
+# Defines the initial value of the ICC_CTRL register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_CTRL = 0x00000000
+# Defines the initial value of the ICC_IGRPEN1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_IGRPEN1 = 0x00000001
+# Defines the initial value of the ICC_PMR register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_PMR = 0x000000ff
+# Defines the initial value of the ICC_SRE register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_SRE = 0x00000003
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = False
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/a72_ilp32_qemu]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a72 -mabi=ilp32
+# offset of RAM region from memory area base
+BSP_A72_LOAD_OFFSET = 0x00008000
+# length of nocache RAM region
+BSP_A72_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_A72_RAM_LENGTH = 0x08000000
+# base address of memory area available to the BSP
+BSP_A72_RAM_BASE = 0x40000000
+# Defines the initial value of the ICC_BPR1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_BPR1 = 0x00000003
+# Defines the initial value of the ICC_CTRL register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_CTRL = 0x00000000
+# Defines the initial value of the ICC_IGRPEN1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_IGRPEN1 = 0x00000001
+# Defines the initial value of the ICC_PMR register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_PMR = 0x000000ff
+# Defines the initial value of the ICC_SRE register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_SRE = 0x00000003
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = False
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/a72_lp64_qemu]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a72
+# offset of RAM region from memory area base
+BSP_A72_LOAD_OFFSET = 0x00008000
+# length of nocache RAM region
+BSP_A72_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_A72_RAM_LENGTH = 0x08000000
+# base address of memory area available to the BSP
+BSP_A72_RAM_BASE = 0x40000000
+# Defines the initial value of the ICC_BPR1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_BPR1 = 0x00000003
+# Defines the initial value of the ICC_CTRL register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_CTRL = 0x00000000
+# Defines the initial value of the ICC_IGRPEN1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_IGRPEN1 = 0x00000001
+# Defines the initial value of the ICC_PMR register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_PMR = 0x000000ff
+# Defines the initial value of the ICC_SRE register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_SRE = 0x00000003
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = False
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/raspberrypi4b]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Defines the number of MMU translation table pages to provide.
+AARCH64_MMU_TRANSLATION_TABLE_PAGES = 0x00000040
+# If set to true, then the clock driver uses the Virtual Timer of the
+# AARCH64 Generic Timer, otherwise it uses the Physical Non-Secure
+# Timer (EL1).
+AARCH64_GENERIC_TIMER_USE_VIRTUAL = False
+# If set to true, and AARCH64_GENERIC_TIMER_USE_VIRTUAL is false, then
+# the clock driver uses the Physical Secure Timer of the AARCH64
+# Generic Timer, otherwise it uses the Physical Non-Secure Timer
+# (EL1).
+AARCH64_GENERIC_TIMER_USE_PHYSICAL_SECURE = False
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a72 -march=armv8-a
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = True
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = True
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/xilinx_versal_aiedge]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Defines the number of MMU translation table pages to provide.
+AARCH64_MMU_TRANSLATION_TABLE_PAGES = 0x00000040
+# If set to true, then the clock driver uses the Virtual Timer of the
+# AARCH64 Generic Timer, otherwise it uses the Physical Non-Secure
+# Timer (EL1).
+AARCH64_GENERIC_TIMER_USE_VIRTUAL = False
+# If set to true, and AARCH64_GENERIC_TIMER_USE_VIRTUAL is false, then
+# the clock driver uses the Physical Secure Timer of the AARCH64
+# Generic Timer, otherwise it uses the Physical Non-Secure Timer
+# (EL1).
+AARCH64_GENERIC_TIMER_USE_PHYSICAL_SECURE = False
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a72
+# use interrupt driven mode for console devices (used by default)
+VERSAL_CONSOLE_USE_INTERRUPTS = True
+# offset of RAM region from memory area base
+BSP_XILINX_VERSAL_LOAD_OFFSET = 0x00000000
+# length of nocache RAM region
+BSP_XILINX_VERSAL_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_XILINX_VERSAL_RAM_LENGTH = 0x10000000
+# base address of memory area available to the BSP
+BSP_XILINX_VERSAL_RAM_BASE = 0x10000000
+# Versal i2c0 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C0_REF_CTRL register.
+VERSAL_CLOCK_I2C0 = 99999001
+# Versal i2c1 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C1_REF_CTRL register.
+VERSAL_CLOCK_I2C1 = 99999001
+# Versal UART clock frequency in Hz
+VERSAL_CLOCK_UART = 100000000
+# minor number of console device
+BSP_CONSOLE_MINOR = 0
+# Defines the initial value of the ICC_BPR1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_BPR1 = 0x00000003
+# Defines the initial value of the ICC_CTRL register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_CTRL = 0x00000000
+# Defines the initial value of the ICC_IGRPEN1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_IGRPEN1 = 0x00000001
+# Defines the initial value of the ICC_PMR register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_PMR = 0x000000ff
+# Defines the initial value of the ICC_SRE register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_SRE = 0x00000003
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = True
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = True
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/xilinx_versal_qemu]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Defines the number of MMU translation table pages to provide.
+AARCH64_MMU_TRANSLATION_TABLE_PAGES = 0x00000040
+# If set to true, then the clock driver uses the Virtual Timer of the
+# AARCH64 Generic Timer, otherwise it uses the Physical Non-Secure
+# Timer (EL1).
+AARCH64_GENERIC_TIMER_USE_VIRTUAL = False
+# If set to true, and AARCH64_GENERIC_TIMER_USE_VIRTUAL is false, then
+# the clock driver uses the Physical Secure Timer of the AARCH64
+# Generic Timer, otherwise it uses the Physical Non-Secure Timer
+# (EL1).
+AARCH64_GENERIC_TIMER_USE_PHYSICAL_SECURE = False
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a72
+# use interrupt driven mode for console devices (used by default)
+VERSAL_CONSOLE_USE_INTERRUPTS = True
+# offset of RAM region from memory area base
+BSP_XILINX_VERSAL_LOAD_OFFSET = 0x00008000
+# length of nocache RAM region
+BSP_XILINX_VERSAL_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_XILINX_VERSAL_RAM_LENGTH = 0x10000000
+# base address of memory area available to the BSP
+BSP_XILINX_VERSAL_RAM_BASE = 0x20000000
+# Versal i2c0 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C0_REF_CTRL register.
+VERSAL_CLOCK_I2C0 = 99999001
+# Versal i2c1 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C1_REF_CTRL register.
+VERSAL_CLOCK_I2C1 = 99999001
+# Versal UART clock frequency in Hz
+VERSAL_CLOCK_UART = 24000000
+# minor number of console device
+BSP_CONSOLE_MINOR = 0
+# Defines the initial value of the ICC_BPR1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_BPR1 = 0x00000003
+# Defines the initial value of the ICC_CTRL register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_CTRL = 0x00000000
+# Defines the initial value of the ICC_IGRPEN1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_IGRPEN1 = 0x00000001
+# Defines the initial value of the ICC_PMR register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_PMR = 0x000000ff
+# Defines the initial value of the ICC_SRE register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_SRE = 0x00000003
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = False
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/xilinx_versal_vck190]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Defines the number of MMU translation table pages to provide.
+AARCH64_MMU_TRANSLATION_TABLE_PAGES = 0x00000040
+# If set to true, then the clock driver uses the Virtual Timer of the
+# AARCH64 Generic Timer, otherwise it uses the Physical Non-Secure
+# Timer (EL1).
+AARCH64_GENERIC_TIMER_USE_VIRTUAL = False
+# If set to true, and AARCH64_GENERIC_TIMER_USE_VIRTUAL is false, then
+# the clock driver uses the Physical Secure Timer of the AARCH64
+# Generic Timer, otherwise it uses the Physical Non-Secure Timer
+# (EL1).
+AARCH64_GENERIC_TIMER_USE_PHYSICAL_SECURE = False
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a72
+# use interrupt driven mode for console devices (used by default)
+VERSAL_CONSOLE_USE_INTERRUPTS = True
+# offset of RAM region from memory area base
+BSP_XILINX_VERSAL_LOAD_OFFSET = 0x00000000
+# length of nocache RAM region
+BSP_XILINX_VERSAL_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_XILINX_VERSAL_RAM_LENGTH = 0x10000000
+# base address of memory area available to the BSP
+BSP_XILINX_VERSAL_RAM_BASE = 0x10000000
+# Versal i2c0 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C0_REF_CTRL register.
+VERSAL_CLOCK_I2C0 = 99999001
+# Versal i2c1 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C1_REF_CTRL register.
+VERSAL_CLOCK_I2C1 = 99999001
+# Versal UART clock frequency in Hz
+VERSAL_CLOCK_UART = 100000000
+# minor number of console device
+BSP_CONSOLE_MINOR = 0
+# Defines the initial value of the ICC_BPR1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_BPR1 = 0x00000003
+# Defines the initial value of the ICC_CTRL register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_CTRL = 0x00000000
+# Defines the initial value of the ICC_IGRPEN1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_IGRPEN1 = 0x00000001
+# Defines the initial value of the ICC_PMR register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_PMR = 0x000000ff
+# Defines the initial value of the ICC_SRE register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_SRE = 0x00000003
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = True
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = True
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/xilinx_zynqmp_ilp32_qemu]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the Symmetric Multiprocessing (SMP) support
+RTEMS_SMP = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Defines the number of MMU translation table pages to provide.
+AARCH64_MMU_TRANSLATION_TABLE_PAGES = 0x00000040
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a53 -mno-outline-atomics -mabi=ilp32
+# base address of XPS
+XPS_SYS_CTRL_BASEADDR = 0xff180000
+# offset of RAM region from memory area base
+BSP_XILINX_ZYNQMP_LOAD_OFFSET = 0x00008000
+# length of nocache RAM region
+BSP_XILINX_ZYNQMP_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_LENGTH = 0x10000000
+# base address of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_BASE = 0x40018000
+# ZynqMP i2c0 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C0_REF_CTRL register.
+ZYNQMP_CLOCK_I2C0 = 111111111
+# ZynqMP i2c1 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C1_REF_CTRL register.
+ZYNQMP_CLOCK_I2C1 = 111111111
+# Zynq UART clock frequency in Hz
+ZYNQ_CLOCK_UART = 100000000
+# minor number of console device
+BSP_CONSOLE_MINOR = 1
+# Set the Xilinx support path
+XIL_SUPPORT_PATH = arm/ARMv8/32bit
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = False
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/xilinx_zynqmp_ilp32_zu3eg]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the Symmetric Multiprocessing (SMP) support
+RTEMS_SMP = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Defines the number of MMU translation table pages to provide.
+AARCH64_MMU_TRANSLATION_TABLE_PAGES = 0x00000040
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a53 -mno-outline-atomics -mabi=ilp32
+# base address of XPS
+XPS_SYS_CTRL_BASEADDR = 0xff180000
+# offset of RAM region from memory area base
+BSP_XILINX_ZYNQMP_LOAD_OFFSET = 0x00000000
+# length of nocache RAM region
+BSP_XILINX_ZYNQMP_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_LENGTH = 0x10000000
+# base address of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_BASE = 0x10000000
+# ZynqMP i2c0 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C0_REF_CTRL register.
+ZYNQMP_CLOCK_I2C0 = 111111111
+# ZynqMP i2c1 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C1_REF_CTRL register.
+ZYNQMP_CLOCK_I2C1 = 111111111
+# Zynq UART clock frequency in Hz
+ZYNQ_CLOCK_UART = 100000000
+# minor number of console device
+BSP_CONSOLE_MINOR = 1
+# Set the Xilinx support path
+XIL_SUPPORT_PATH = arm/ARMv8/32bit
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = True
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = True
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/xilinx_zynqmp_lp64_cfc400x]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the Symmetric Multiprocessing (SMP) support
+RTEMS_SMP = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Defines the number of MMU translation table pages to provide.
+AARCH64_MMU_TRANSLATION_TABLE_PAGES = 0x00000040
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a53 -mno-outline-atomics
+# base address of XPS
+XPS_SYS_CTRL_BASEADDR = 0xff180000
+# offset of RAM region from memory area base
+BSP_XILINX_ZYNQMP_LOAD_OFFSET = 0x00000000
+# length of nocache RAM region
+BSP_XILINX_ZYNQMP_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_LENGTH = 0x10000000
+# base address of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_BASE = 0x10000000
+# ZynqMP i2c0 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C0_REF_CTRL register.
+ZYNQMP_CLOCK_I2C0 = 111111111
+# ZynqMP i2c1 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C1_REF_CTRL register.
+ZYNQMP_CLOCK_I2C1 = 111111111
+# Zynq UART clock frequency in Hz
+ZYNQ_CLOCK_UART = 100000000
+# minor number of console device
+BSP_CONSOLE_MINOR = 1
+# Set the Xilinx support path
+XIL_SUPPORT_PATH = arm/ARMv8/64bit
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = True
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = True
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/xilinx_zynqmp_lp64_qemu]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the Symmetric Multiprocessing (SMP) support
+RTEMS_SMP = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Defines the number of MMU translation table pages to provide.
+AARCH64_MMU_TRANSLATION_TABLE_PAGES = 0x00000040
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a53 -mno-outline-atomics
+# base address of XPS
+XPS_SYS_CTRL_BASEADDR = 0xff180000
+# offset of RAM region from memory area base
+BSP_XILINX_ZYNQMP_LOAD_OFFSET = 0x00008000
+# length of nocache RAM region
+BSP_XILINX_ZYNQMP_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_LENGTH = 0x10000000
+# base address of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_BASE = 0x40018000
+# ZynqMP i2c0 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C0_REF_CTRL register.
+ZYNQMP_CLOCK_I2C0 = 111111111
+# ZynqMP i2c1 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C1_REF_CTRL register.
+ZYNQMP_CLOCK_I2C1 = 111111111
+# Zynq UART clock frequency in Hz
+ZYNQ_CLOCK_UART = 100000000
+# minor number of console device
+BSP_CONSOLE_MINOR = 1
+# Set the Xilinx support path
+XIL_SUPPORT_PATH = arm/ARMv8/64bit
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = False
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[aarch64/xilinx_zynqmp_lp64_zu3eg]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the RTEMS Exception Extensions for manipulating and acting on
+# exception frames.
+RTEMS_EXCEPTION_EXTENSIONS = True
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the Symmetric Multiprocessing (SMP) support
+RTEMS_SMP = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Defines the number of MMU translation table pages to provide.
+AARCH64_MMU_TRANSLATION_TABLE_PAGES = 0x00000040
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a53 -mno-outline-atomics
+# base address of XPS
+XPS_SYS_CTRL_BASEADDR = 0xff180000
+# offset of RAM region from memory area base
+BSP_XILINX_ZYNQMP_LOAD_OFFSET = 0x00000000
+# length of nocache RAM region
+BSP_XILINX_ZYNQMP_NOCACHE_LENGTH = 0x00100000
+# length of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_LENGTH = 0x10000000
+# base address of memory area available to the BSP
+BSP_XILINX_ZYNQMP_RAM_BASE = 0x10000000
+# ZynqMP i2c0 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C0_REF_CTRL register.
+ZYNQMP_CLOCK_I2C0 = 111111111
+# ZynqMP i2c1 clock frequency in Hz. This is the frequency after the
+# signal has been processed using the values passed to the
+# I2C1_REF_CTRL register.
+ZYNQMP_CLOCK_I2C1 = 111111111
+# Zynq UART clock frequency in Hz
+ZYNQ_CLOCK_UART = 100000000
+# minor number of console device
+BSP_CONSOLE_MINOR = 1
+# Set the Xilinx support path
+XIL_SUPPORT_PATH = arm/ARMv8/64bit
+# Enable data cache
+BSP_DATA_CACHE_ENABLED = True
+# Enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = True
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/altcycv_devkit]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the Symmetric Multiprocessing (SMP) support
+RTEMS_SMP = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -mtune=cortex-a9
+# define to set ARM Cortex-A9 MPCore PERIPHCLK clock frequency in Hz,
+# otherwise alt_clk_freq_get() is used
+BSP_ARM_A9MPCORE_PERIPHCLK = False
+# enable data cache
+BSP_DATA_CACHE_ENABLED = True
+# enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = True
+# This sets a mode where the time runs as fast as possible when a
+# clock ISR occurs while the IDLE thread is executing.  This can
+# significantly reduce simulation times.
+CLOCK_DRIVER_USE_FAST_IDLE = False
+# configuration for console (UART 0)
+CYCLONE_V_CONFIG_CONSOLE = True
+# configuration for UART 1
+CYCLONE_V_CONFIG_UART_1 = True
+# copy the FDT blob into the read-only load area via bsp_fdt_copy()
+BSP_FDT_BLOB_COPY_TO_READ_ONLY_LOAD_AREA = True
+# define if FDT is supported
+BSP_FDT_IS_SUPPORTED = True
+# maximum size of the FDT blob in bytes
+BSP_FDT_BLOB_SIZE_MAX = 262144
+# place the FDT blob into the read-only data area
+BSP_FDT_BLOB_READ_ONLY = True
+# copy the U-Boot provided FDT to an internal storage
+BSP_START_COPY_FDT_FROM_U_BOOT = True
+# speed for I2C0 in HZ
+CYCLONE_V_I2C0_SPEED = 100000
+# Number of configured I2C buses. Note that each bus has to be
+# configured in an apropriate i2cdrv_config array.
+CYCLONE_V_NO_I2C = True
+# reset vector address for BSP start
+BSP_START_RESET_VECTOR = False
+# baud for UARTs
+CYCLONE_V_UART_BAUD = 115200
+# enable usage of interrupts for the UART modules
+BSP_USE_UART_INTERRUPTS = True
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/atsamv]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mthumb -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard
+# Move the functions that set up the clock into the SRAM.  This allows
+# to change the clock frequency even if the application is started
+# from SDRAM.  Requires a TCM_SIZE > 0.
+ATSAM_CHANGE_CLOCK_FROM_SRAM = False
+# Chip variant
+ATSAM_CHIP = samv71q21
+# initial baud for console devices (default 115200)
+ATSAM_CONSOLE_BAUD = 115200
+# device index for /dev/console (default 1, e.g. USART1)
+ATSAM_CONSOLE_DEVICE_INDEX = 1
+# use interrupt driven mode for console devices (used by default)
+ATSAM_CONSOLE_USE_INTERRUPTS = True
+# device type for /dev/console, use 0 for USART and 1 for UART
+# (default USART)
+ATSAM_CONSOLE_DEVICE_TYPE = 0
+# Frequency of the MCK in Hz. Set to 0 to force application defined
+# speed.  See start/pmc-config.c for available clock configurations.
+ATSAM_MCK = 123000000
+# size of NOCACHE section in bytes
+ATSAM_MEMORY_NOCACHE_SIZE = 0x00001000
+# Size of the NULL pointer protection area in bytes.  This memory area
+# reduces the size of the ITCM available to the application.
+ATSAM_MEMORY_NULL_SIZE = 0x00000000
+# Main oscillator frequency in Hz (default 12MHz)
+BOARD_MAINOSC = 12000000
+# size of QSPI flash in bytes
+ATSAM_MEMORY_QSPIFLASH_SIZE = 0x00200000
+# SDRAM variant. Known chips are "is42s16100e-7bli",
+# "is42s16320f-7bl", "mt48lc16m16a2p-6a". You can also set this to
+# "custom-<RAM_SIZE>" (for example "custom-0x1000000" for a 16MiB
+# RAM). In that case the BOARD_Sdram_Config has to be overwritten by
+# the application to get working applications.
+ATSAM_SDRAM = is42s16100e-7bli
+# Size of tightly coupled memories (TCM) in bytes.  Note that the ITCM
+# is reduced by the ATSAM_MEMORY_NULL_SIZE option.  DTCM is
+# unaffected.
+ATSAM_MEMORY_TCM_SIZE = 0x00000000
+# Use the external crystal as source for the slow clock instead of the
+# internal RC oscillator. Note that on the ATSAM the NRST pin seems to
+# depend on the slow clock as well as all watchdogs. If
+# ATSAM_SLOWCLOCK_USE_XTAL is set to 1 without a external crystal
+# connected, the controller might hang in the switching process
+# without a working NRST pin.
+ATSAM_SLOWCLOCK_USE_XTAL = True
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/beagleboardorig]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a8
+# true if SOC is AM335X
+IS_AM335X = False
+# initial baud for console UART
+CONSOLE_BAUD = 115200
+# polled console i/o (e.g. to run testsuite)
+CONSOLE_POLLED = False
+# Enable BBB debug
+BBB_DEBUG = False
+# true if SOC is DM3730
+IS_DM3730 = True
+# copy the FDT blob into the read-only load area via bsp_fdt_copy()
+BSP_FDT_BLOB_COPY_TO_READ_ONLY_LOAD_AREA = True
+# maximum size of the FDT blob in bytes
+BSP_FDT_BLOB_SIZE_MAX = 262144
+# place the FDT blob into the read-only data area
+BSP_FDT_BLOB_READ_ONLY = True
+# copy the U-Boot provided FDT to an internal storage
+BSP_START_COPY_FDT_FROM_U_BOOT = True
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/beagleboardxm]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a8
+# true if SOC is AM335X
+IS_AM335X = False
+# initial baud for console UART
+CONSOLE_BAUD = 115200
+# polled console i/o (e.g. to run testsuite)
+CONSOLE_POLLED = False
+# Enable BBB debug
+BBB_DEBUG = False
+# true if SOC is DM3730
+IS_DM3730 = True
+# copy the FDT blob into the read-only load area via bsp_fdt_copy()
+BSP_FDT_BLOB_COPY_TO_READ_ONLY_LOAD_AREA = True
+# maximum size of the FDT blob in bytes
+BSP_FDT_BLOB_SIZE_MAX = 262144
+# place the FDT blob into the read-only data area
+BSP_FDT_BLOB_READ_ONLY = True
+# copy the U-Boot provided FDT to an internal storage
+BSP_START_COPY_FDT_FROM_U_BOOT = True
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/beagleboneblack]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a8
+# true if SOC is AM335X
+IS_AM335X = True
+# initial baud for console UART
+CONSOLE_BAUD = 115200
+# polled console i/o (e.g. to run testsuite)
+CONSOLE_POLLED = False
+# Enable BBB debug
+BBB_DEBUG = False
+# true if SOC is DM3730
+IS_DM3730 = False
+# copy the FDT blob into the read-only load area via bsp_fdt_copy()
+BSP_FDT_BLOB_COPY_TO_READ_ONLY_LOAD_AREA = True
+# maximum size of the FDT blob in bytes
+BSP_FDT_BLOB_SIZE_MAX = 262144
+# place the FDT blob into the read-only data area
+BSP_FDT_BLOB_READ_ONLY = True
+# copy the U-Boot provided FDT to an internal storage
+BSP_START_COPY_FDT_FROM_U_BOOT = True
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/beaglebonewhite]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-a8
+# true if SOC is AM335X
+IS_AM335X = True
+# initial baud for console UART
+CONSOLE_BAUD = 115200
+# polled console i/o (e.g. to run testsuite)
+CONSOLE_POLLED = False
+# Enable BBB debug
+BBB_DEBUG = False
+# true if SOC is DM3730
+IS_DM3730 = False
+# copy the FDT blob into the read-only load area via bsp_fdt_copy()
+BSP_FDT_BLOB_COPY_TO_READ_ONLY_LOAD_AREA = True
+# maximum size of the FDT blob in bytes
+BSP_FDT_BLOB_SIZE_MAX = 262144
+# place the FDT blob into the read-only data area
+BSP_FDT_BLOB_READ_ONLY = True
+# copy the U-Boot provided FDT to an internal storage
+BSP_START_COPY_FDT_FROM_U_BOOT = True
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/csb336]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mcpu=arm920
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/csb337]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# ABI flags
+ABI_FLAGS = -mcpu=arm920
+# If defined, this indicates that the BSP is being built for the
+# csb637 variant.
+csb637 = False
+# If defined, enable use of the SED1356 controller and LCD.
+ENABLE_LCD = False
+# If defined, enable use of the uMon console.
+ENABLE_UMON = True
+# If defined, enable use of the MicroMonitor console device.
+ENABLE_UMON_CONSOLE = True
+# If defined, enable use of the USART 0.
+ENABLE_USART0 = True
+# If defined, enable use of the USART 1.
+ENABLE_USART1 = True
+# If defined, enable use of the USART 2.
+ENABLE_USART2 = True
+# If defined, enable use of the USART 3.
+ENABLE_USART3 = True
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/csb637]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# ABI flags
+ABI_FLAGS = -mcpu=arm920
+# If defined, this indicates that the BSP is being built for the
+# csb637 variant.
+csb637 = True
+# If defined, enable use of the SED1356 controller and LCD.
+ENABLE_LCD = False
+# If defined, enable use of the uMon console.
+ENABLE_UMON = True
+# If defined, enable use of the MicroMonitor console device.
+ENABLE_UMON_CONSOLE = True
+# If defined, enable use of the USART 0.
+ENABLE_USART0 = True
+# If defined, enable use of the USART 1.
+ENABLE_USART1 = True
+# If defined, enable use of the USART 2.
+ENABLE_USART2 = True
+# If defined, enable use of the USART 3.
+ENABLE_USART3 = True
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/edb7312]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mcpu=arm7tdmi
+# If defined, enable options which optimize executingon the Skyeye
+# simulator.  Speed up the clock ticks while the idle task is running
+# so time spent in the idle task is minimized.  This significantly
+# reduces the wall time required to execute the RTEMS test suites.
+ON_SKYEYE = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/fvp_cortex_r52]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the Symmetric Multiprocessing (SMP) support
+RTEMS_SMP = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# ABI flags
+ABI_FLAGS = -mcpu=cortex-r52 -mthumb -mfloat-abi=hard -mfpu=auto
+# Defines the initial value of the ICC_BPR0 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_BPR0 = 0x00000002
+# Defines the initial value of the ICC_BPR1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_BPR1 = 0x00000003
+# Defines the initial value of the ICC_CTRL register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_CTRL = 0x00000000
+# Defines the initial value of the ICC_IGRPEN0 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_IGRPEN0 = 0x00000001
+# Defines the initial value of the ICC_IGRPEN1 register of the ARM GIC
+# CPU Interface.  The value is optional.  If it is not defined, then
+# the register is not initialized.
+BSP_ARM_GIC_ICC_IGRPEN1 = 0x00000001
+# Defines the initial value of the ICC_PMR register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_PMR = 0x000000ff
+# Defines the initial value of the ICC_SRE register of the ARM GIC CPU
+# Interface.  The value is optional.  If it is not defined, then the
+# register is not initialized.
+BSP_ARM_GIC_ICC_SRE = 0x00000003
+# Defines the count of Shared Peripheral Interrupts (SPIs) supported
+# by the interrupt controller.
+BSP_ARM_SHARED_PERIPHERAL_INTERRUPT_COUNT = 64
+# Defines the base address of the GIC Distributor.
+BSP_ARM_GIC_DIST_BASE = 0xaf000000
+# Defines the base address of the GIC Redistributor.
+BSP_ARM_GIC_REDIST_BASE = 0xaf100000
+# Defines the frequency in Hz of the ARM Generic Timer.
+ARM_GENERIC_TIMER_FREQ = 100000000
+# Defines the base address of the memory-mapped system level ARM
+# Generic Timer.
+ARM_GENERIC_TIMER_SYSTEM_BASE = 0xaa430000
+# Defines the initialization value of the CNTCR register of the
+# memory-mapped system level ARM Generic Timer.
+ARM_GENERIC_TIMER_SYSTEM_CNTCR = 0x00000101
+# If set to true, then the clock driver uses the Virtual Timer of the
+# ARM Generic Timer, otherwise it uses the Physical Timer (EL1).
+ARM_GENERIC_TIMER_USE_VIRTUAL = False
+# If set to true, then the a system start in hypervisor mode (EL2) is
+# supported, otherwise it is unsupported.
+BSP_START_IN_HYP_SUPPORT = True
+# Defines the size in bytes of the NULL pointer protection area.
+ARM_FVP_MEMORY_NULL_SIZE = 0x00000400
+# Defines the begin address of the DRAM.  The begin address must take
+# the size of the NULL pointer protection area into account
+# (ARM_FVP_MEMORY_NULL_SIZE).
+ARM_FVP_MEMORY_DRAM_BEGIN = 0x00000400
+# Defines the size in bytes of the DRAM.  Increasing the size may
+# increase the startup time of the FVP.  The size must take the size
+# of the NULL pointer protection area into account
+# (ARM_FVP_MEMORY_NULL_SIZE).
+ARM_FVP_MEMORY_DRAM_SIZE = 0x01fffc00
+# Defines the begin address of the device area.
+ARM_FVP_MEMORY_DEVICE_BEGIN = 0x9a000000
+# Defines the size in bytes of the device area.
+ARM_FVP_MEMORY_DEVICE_SIZE = 0x15200000
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/gumstix]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mcpu=xscale
+# If defined, enable options which optimize executingon the Skyeye
+# simulator.  Speed up the clock ticks while the idle task is running
+# so time spent in the idle task is minimized.  This significantly
+# reduces the wall time required to execute the RTEMS test suites.
+ON_SKYEYE = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/imx7]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the Symmetric Multiprocessing (SMP) support
+RTEMS_SMP = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -mtune=cortex-a7
+# enable data cache
+BSP_DATA_CACHE_ENABLED = True
+# enable instruction cache
+BSP_INSTRUCTION_CACHE_ENABLED = True
+# AHB clock frequency in Hz
+IMX_CCM_AHB_HZ = 135000000
+# ECSPI clock frequency in Hz
+IMX_CCM_ECSPI_HZ = 67500000
+# IPG clock frequency in Hz
+IMX_CCM_IPG_HZ = 67500000
+# SDHCI clock frequency in Hz
+IMX_CCM_SDHCI_HZ = 196363000
+# UART clock frequency in Hz
+IMX_CCM_UART_HZ = 24000000
+# use interrupt driven mode for console devices (used by default)
+CONSOLE_USE_INTERRUPTS = 1
+# copy the FDT blob into the read-only load area via bsp_fdt_copy()
+BSP_FDT_BLOB_COPY_TO_READ_ONLY_LOAD_AREA = True
+# maximum size of the FDT blob in bytes
+BSP_FDT_BLOB_SIZE_MAX = 262144
+# place the FDT blob into the read-only data area
+BSP_FDT_BLOB_READ_ONLY = True
+# copy the U-Boot provided FDT to an internal storage
+BSP_START_COPY_FDT_FROM_U_BOOT = True
+# reset vector address for BSP start
+BSP_START_RESET_VECTOR = False
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/imxrt1052]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mthumb -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard
+# Default baud for console and other serial devices.
+BSP_CONSOLE_BAUD = 115200
+# Use the Termios interrupt mode in the console driver.
+BSP_CONSOLE_USE_INTERRUPTS = True
+# Enable the minor loop mapping of the Freescale EDMA.
+BSP_FSL_EDMA_EMLM = True
+# The default linker command file.  Must be linkcmds.sdram,
+# linkcmds.ocram or linkcmds.flexspi.
+IMXRT_DEFAULT_LINKCMDS = linkcmds.flexspi
+# Maximum number of (combined) native and GPIO chip selects per LPSPI.
+# If only native chip selects are used, this can be set to 0 to save
+# some processing cycles on SPI transfers.  Otherwise you have to set
+# it to at least 4.
+IMXRT_LPSPI_MAX_CS = 0
+# Size of the DTCM in bytes. Note that these sizes depend on fuses or
+# software settings done by a bootloader (together with ITCM and
+# OCRAM).
+IMXRT_MEMORY_DTCM_SIZE = 0x00020000
+# Size of the nocache area at the end of the external RAM in bytes.
+# Must not be bigger than IMXRT_MEMORY_EXTRAM_SIZE.
+IMXRT_MEMORY_EXTRAM_NOCACHE_SIZE = 0x01000000
+# Base address of the external RAM.  An external ram can be for
+# example be a SDRAM connected to SEMC or a HyperRAM connected to
+# FlexSPI.
+IMXRT_MEMORY_EXTRAM_ORIGIN = 0x80000000
+# Size of the external RAM in bytes.  An external ram can be for
+# example be a SDRAM connected to SEMC or a HyperRAM connected to
+# FlexSPI.  The size has to be at least big enough to hold the non
+# cached section with size IMXRT_MEMORY_EXTRAM_NOCACHE_SIZE at the end
+# of the RAM.
+IMXRT_MEMORY_EXTRAM_SIZE = 0x02000000
+# Ofset of the flash configuration area from the start of the FlexSPI
+# / SEMC flash in bytes. The example link files for the i.MX RT1050
+# set that to 0. On the i.MX RT1166, it's 0x400.
+IMXRT_MEMORY_FLASH_CFG_OFFSET = 0x00000000
+# Offset of the image vector table in flash in bytes. Either 4 KByte
+# for FlexSPI NOR / SEMC NOR or 1 KByte for most others (on
+# i.MXRT1050). Take a look at the i.MXRT1050 / i.MXRT1166 Processor
+# Reference Manual chapter "System Boot" / "Program image" for
+# details.
+IMXRT_MEMORY_FLASH_IVT_OFFSET = 0x00001000
+# Size of the image vector table, boot data structure, device
+# configuration data and similar program image header information.
+# Take a look at the i.MX RT1050 Processor Reference Manual chapter
+# 9.7 "Program image" for details.
+IMXRT_MEMORY_FLASH_IVT_SIZE = 0x00001000
+# Origin of the external flash memory.  That can be for example a
+# flash connected to FlexSPI or to SEMC.  The default value is for a
+# HyperFlash connected to FlexSPI or a board specific variant for
+# special BSPs.
+IMXRT_MEMORY_FLASH_ORIGIN = 0x60000000
+# Size of the external flash area in bytes.  Has to be big enough to
+# hold the i.MXRT initial vector table (IVT) and configuration
+# information.  The sizes of these are defined with
+# IMXRT_MEMORY_FLASH_IVT_SIZE and IMXRT_MEMORY_FLASH_CFG_SIZE.
+IMXRT_MEMORY_FLASH_SIZE = 0x04000000
+# Size of the ITCM in bytes.  Note that these sizes depend on fuses or
+# software settings done by a bootloader (together with DTCM and
+# OCRAM).  The ITCM size has to take the IMXRT_MEMORY_NULL_SIZE into
+# account!
+IMXRT_MEMORY_ITCM_SIZE = 0x0001ff00
+# Size of the NULL pointer protection area in bytes.  This memory area
+# reduces the size of the ITCM available to the application.  If you
+# adapt this, you have to adapt IMXRT_MEMORY_ITCM_SIZE too.
+IMXRT_MEMORY_NULL_SIZE = 0x00000100
+# Size of the nocache area at the end of the OCRAM in bytes.  Must not
+# be bigger than IMXRT_MEMORY_OCRAM_SIZE.
+IMXRT_MEMORY_OCRAM_NOCACHE_SIZE = 0x00000000
+# Origin of the OCRAM.
+IMXRT_MEMORY_OCRAM_ORIGIN = 0x20200000
+# Size of the OCRAM in bytes.  Note that these sizes depend on fuses
+# or software settings done by a bootloader (together with ITCM and
+# DTCM).  The size has to be at least big enough to hold the non
+# cached section with size IMXRT_MEMORY_OCRAM_NOCACHE_SIZE at the end
+# of the RAM.
+IMXRT_MEMORY_OCRAM_SIZE = 0x00040000
+# Select the i.MXRT series chip variant. Can be (for example)
+# MIMXRT1052CVJ5B or MIMXRT1166DVM6A_cm7.
+IMXRT_VARIANT = MIMXRT1052DVL6B
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Default value of the ARM MPU CTRL register
+ARMV7M_MPU_CTRL_DEFAULT = (ARMV7M_MPU_CTRL_ENABLE | ARMV7M_MPU_CTRL_PRIVDEFENA)
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/imxrt1166-cm7-saltshaker]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+# ABI flags
+ABI_FLAGS = -mthumb -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard
+# Default baud for console and other serial devices.
+BSP_CONSOLE_BAUD = 115200
+# Use the Termios interrupt mode in the console driver.
+BSP_CONSOLE_USE_INTERRUPTS = True
+# Enable the minor loop mapping of the Freescale EDMA.
+BSP_FSL_EDMA_EMLM = True
+# The default linker command file.  Must be linkcmds.sdram,
+# linkcmds.ocram or linkcmds.flexspi.
+IMXRT_DEFAULT_LINKCMDS = linkcmds.flexspi
+# Maximum number of (combined) native and GPIO chip selects per LPSPI.
+# If only native chip selects are used, this can be set to 0 to save
+# some processing cycles on SPI transfers.  Otherwise you have to set
+# it to at least 4.
+IMXRT_LPSPI_MAX_CS = 8
+# Size of the DTCM in bytes. Note that these sizes depend on fuses or
+# software settings done by a bootloader (together with ITCM and
+# OCRAM).
+IMXRT_MEMORY_DTCM_SIZE = 0x00040000
+# Size of the nocache area at the end of the external RAM in bytes.
+# Must not be bigger than IMXRT_MEMORY_EXTRAM_SIZE.
+IMXRT_MEMORY_EXTRAM_NOCACHE_SIZE = 0x01000000
+# Base address of the external RAM.  An external ram can be for
+# example be a SDRAM connected to SEMC or a HyperRAM connected to
+# FlexSPI.
+IMXRT_MEMORY_EXTRAM_ORIGIN = 0x80000000
+# Size of the external RAM in bytes.  An external ram can be for
+# example be a SDRAM connected to SEMC or a HyperRAM connected to
+# FlexSPI.  The size has to be at least big enough to hold the non
+# cached section with size IMXRT_MEMORY_EXTRAM_NOCACHE_SIZE at the end
+# of the RAM.
+IMXRT_MEMORY_EXTRAM_SIZE = 0x04000000
+# Ofset of the flash configuration area from the start of the FlexSPI
+# / SEMC flash in bytes. The example link files for the i.MX RT1050
+# set that to 0. On the i.MX RT1166, it's 0x400.
+IMXRT_MEMORY_FLASH_CFG_OFFSET = 0x00000400
+# Offset of the image vector table in flash in bytes. Either 4 KByte
+# for FlexSPI NOR / SEMC NOR or 1 KByte for most others (on
+# i.MXRT1050). Take a look at the i.MXRT1050 / i.MXRT1166 Processor
+# Reference Manual chapter "System Boot" / "Program image" for
+# details.
+IMXRT_MEMORY_FLASH_IVT_OFFSET = 0x00001000
+# Size of the image vector table, boot data structure, device
+# configuration data and similar program image header information.
+# Take a look at the i.MX RT1050 Processor Reference Manual chapter
+# 9.7 "Program image" for details.
+IMXRT_MEMORY_FLASH_IVT_SIZE = 0x00001000
+# Origin of the external flash memory.  That can be for example a
+# flash connected to FlexSPI or to SEMC.  The default value is for a
+# HyperFlash connected to FlexSPI or a board specific variant for
+# special BSPs.
+IMXRT_MEMORY_FLASH_ORIGIN = 0x30000000
+# Size of the external flash area in bytes.  Has to be big enough to
+# hold the i.MXRT initial vector table (IVT) and configuration
+# information.  The sizes of these are defined with
+# IMXRT_MEMORY_FLASH_IVT_SIZE and IMXRT_MEMORY_FLASH_CFG_SIZE.
+IMXRT_MEMORY_FLASH_SIZE = 0x01000000
+# Size of the ITCM in bytes.  Note that these sizes depend on fuses or
+# software settings done by a bootloader (together with DTCM and
+# OCRAM).  The ITCM size has to take the IMXRT_MEMORY_NULL_SIZE into
+# account!
+IMXRT_MEMORY_ITCM_SIZE = 0x0003ff00
+# Size of the NULL pointer protection area in bytes.  This memory area
+# reduces the size of the ITCM available to the application.  If you
+# adapt this, you have to adapt IMXRT_MEMORY_ITCM_SIZE too.
+IMXRT_MEMORY_NULL_SIZE = 0x00000100
+# Size of the nocache area at the end of the OCRAM in bytes.  Must not
+# be bigger than IMXRT_MEMORY_OCRAM_SIZE.
+IMXRT_MEMORY_OCRAM_NOCACHE_SIZE = 0x00000000
+# Origin of the OCRAM.
+IMXRT_MEMORY_OCRAM_ORIGIN = 0x20240000
+# Size of the OCRAM in bytes.  Note that these sizes depend on fuses
+# or software settings done by a bootloader (together with ITCM and
+# DTCM).  The size has to be at least big enough to hold the non
+# cached section with size IMXRT_MEMORY_OCRAM_NOCACHE_SIZE at the end
+# of the RAM.
+IMXRT_MEMORY_OCRAM_SIZE = 0x00040000
+# Select the i.MXRT series chip variant. Can be (for example)
+# MIMXRT1052CVJ5B or MIMXRT1166DVM6A_cm7.
+IMXRT_VARIANT = MIMXRT1166DVM6A_cm7
+# Default optimization flags for C and C++ compilers.
+OPTIMIZATION_FLAGS = -O2 -g -fdata-sections -ffunction-sections
+# Default value of the ARM MPU CTRL register
+ARMV7M_MPU_CTRL_DEFAULT = (ARMV7M_MPU_CTRL_ENABLE | ARMV7M_MPU_CTRL_PRIVDEFENA)
+# Optimization flags passed to C and C++ compilers for the BSP.
+BSP_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compilers for the CPU kit.
+CPUKIT_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# Optimization flags passed to C and C++ compiler for tests.
+TEST_OPTIMIZATION_FLAGS = ${OPTIMIZATION_FLAGS}
+# If defined to a non-zero value, prints the some information in case
+# of a fatal error.
+BSP_VERBOSE_FATAL_EXTENSION = 1
+# Flags passed to the linker.
+LINKFLAGS = 
+# Flags passed to the linker at the end of the link command.
+LDFLAGS = -Wl,--gc-sections
+# Install the legacy application Makefile framework.
+INSTALL_LEGACY_MAKEFILES = True
+# If defined to a non-zero value, prints the exception context when an
+# unexpected exception occurs.
+BSP_PRINT_EXCEPTION_CONTEXT = 1
+# If defined to a non-zero value, reset the board when the application
+# exits.
+BSP_RESET_BOARD_AT_EXIT = 1
+# If defined to a non-zero value, print a message and wait until
+# pressed before resetting board when application exits.
+BSP_PRESS_KEY_FOR_RESET = 0
+
+[arm/imxrt1170-evk]
+# Selects the compiler used to build the BSP (allowed values are "gcc" and
+# "clang").  Please note that the values of some options depend on the compiler
+# selection and changing the compiler may lead to unpredictable behaviour if
+# these options are not adjusted as well.  Use the --rtems-compiler command line
+# option to get the default values for a particular compiler via
+# ./waf bspdefaults.
+COMPILER = gcc
+# Defines the program prefix of tools (compiler, assembler, linker)
+# used to build RTEMS. This option may be used to build RTEMS with a
+# vendor tool suite. Please note, support issues related to using this
+# option with vendor tool suites should be directed to the vendor of
+# the tools.
+PROGRAM_PREFIX = ${ARCH}-rtems${__RTEMS_MAJOR__}-
+# Flags passed to the library archiver
+ARFLAGS = crD
+# Warning flags passed to the C and C++ compiler
+WARNING_FLAGS = -Wall
+# Warning flags passed to the C compiler
+CC_WARNING_FLAGS = -Wmissing-prototypes -Wimplicit-function-declaration -Wstrict-prototypes -Wnested-externs
+# Warning flags passed to the C++ compiler
+CXX_WARNING_FLAGS = 
+# Enable the Ada support
+__RTEMS_ADA__ = False
+# Defines the build label returned by rtems_get_build_label().
+RTEMS_BUILD_LABEL = DEFAULT
+# Enable the RTEMS internal debug support
+RTEMS_DEBUG = False
+# Enable the Driver Manager startup
+RTEMS_DRVMGR_STARTUP = False
+# Enable the Newlib C library support
+RTEMS_NEWLIB = True
+# Enable the para-virtualization support
+RTEMS_PARAVIRT = False
+# Enable support for POSIX signals
+RTEMS_POSIX_API = False
+# Enable the SMP lock profiling support
+RTEMS_PROFILING = False
+# Enable the code and branch coverage support.
+RTEMS_GCOV_COVERAGE = False
+# Compiler flags recommended for components which should generate
+# coverage information.
+COVERAGE_COMPILER_FLAGS = 
+# Linker flags recommended for executables which contain modules which
+# generate coverage information.
+COVERAGE_LINKER_FLAGS = 
+# Build the test programs
+BUILD_TESTS = False
+# Build the Ada test programs (may be also enabled by BUILD_TESTS)
+BUILD_ADATESTS = False
+# Build the benchmark programs (may be also enabled by BUILD_TESTS)
+BUILD_BENCHMARKS = False
+# Build the file system test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_FSTESTS = False
+# Build the library test programs (may be also enabled by BUILD_TESTS)
+BUILD_LIBTESTS = False
+# Build the MPCI test programs (may be also enabled by BUILD_TESTS)
+BUILD_MPTESTS = False
+# Build the POSIX test programs (may be also enabled by BUILD_TESTS)
+BUILD_PSXTESTS = False
+# Build the POSIX timing test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_PSXTMTESTS = False
+# Build the Rhealstone benchmark programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_RHEALSTONE = False
+# Build the sample programs (may be also enabled by BUILD_TESTS)
+BUILD_SAMPLES = True
+# Build the SMP test programs (may be also enabled by BUILD_TESTS)
+BUILD_SMPTESTS = False
+# Build the single-processor test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_SPTESTS = False
+# Build the timing test programs (may be also enabled by BUILD_TESTS)
+BUILD_TMTESTS = False
+# Build the unit test programs (may be also enabled by BUILD_TESTS)
+BUILD_UNITTESTS = False
+# Build the validation test programs (may be also enabled by
+# BUILD_TESTS)
+BUILD_VALIDATIONTESTS = False
+# Sets the test verbosity of the RTEMS Test Framework.  Valid values
+# are "Verbose", "Normal", and "Quiet".  For normal test runs you can
+# use a verbosity of "Normal".  If you need a more detailed output,
+# then you can set it to "Verbose".  For example, in case a regression
+# occurred.  Reducing the verbosity level can significantly reduce the
+# test duration especially on targets with a slow serial output
+# device.  All verbosity levels produce enough output to notice failed
+# test cases.  In particular, the begin and end of test information is
+# not affected by the verbosity level.
+RTEMS_TEST_VERBOSITY = Normal
+Traceback (most recent call last):
+  File "/home/linux/Documents/RTEMS/src/rt1170_rtems_source/.waf3-2.0.25-767522112be77f8585812fcfaa08e805/waflib/Scripting.py", line 119, in waf_entry_point
+    run_commands()
+  File "/home/linux/Documents/RTEMS/src/rt1170_rtems_source/.waf3-2.0.25-767522112be77f8585812fcfaa08e805/waflib/Scripting.py", line 182, in run_commands
+    ctx=run_command(cmd_name)
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/linux/Documents/RTEMS/src/rt1170_rtems_source/.waf3-2.0.25-767522112be77f8585812fcfaa08e805/waflib/Scripting.py", line 173, in run_command
+    ctx.execute()
+  File "/home/linux/Documents/RTEMS/src/rt1170_rtems_source/.waf3-2.0.25-767522112be77f8585812fcfaa08e805/waflib/Context.py", line 92, in execute
+    self.recurse([os.path.dirname(g_module.root_path)])
+  File "/home/linux/Documents/RTEMS/src/rt1170_rtems_source/.waf3-2.0.25-767522112be77f8585812fcfaa08e805/waflib/Context.py", line 133, in recurse
+    user_function(self)
+  File "/home/linux/Documents/RTEMS/src/rt1170_rtems_source/wscript", line 1661, in bspdefaults
+    bsp_item.defaults(enabled)
+  File "/home/linux/Documents/RTEMS/src/rt1170_rtems_source/wscript", line 229, in defaults
+    for p in self.links():
+  File "/home/linux/Documents/RTEMS/src/rt1170_rtems_source/wscript", line 215, in _init_links
+    self._links.append(items[uid])
+                       ~~~~~^^^^^
+KeyError: '/bsps/arm/imxrt/obj-mimxrt1176-cm7'

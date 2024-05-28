@@ -2,8 +2,8 @@
  * @Author: LiHeng
  * @Date: 2024-03-02 11:50:24
  * @LastEditors: LiHeng
- * @LastEditTime: 2024-03-02 21:07:51
- * @FilePath: /rtems/bsps/arm/imxrt/boards/saltshaker/pin_mux.c
+ * @LastEditTime: 2024-05-24 09:56:57
+ * @FilePath: /rt1170_rtems_source/bsps/arm/imxrt/boards/saltshaker/pin_mux.c
  * @Description:
  *
  * Copyright (c) 2024 by LiHeng, All Rights Reserved.
@@ -101,6 +101,7 @@ BOARD_InitEnetPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
+#ifdef USE_ENET
 void BOARD_InitEnetPins(void)
 {
     CLOCK_EnableClock(kCLOCK_Iomuxc);      /* LPCG on: LPCG is ON. */
@@ -156,6 +157,7 @@ void BOARD_InitEnetPins(void)
                                                 Domain write protection: Both cores are allowed
                                                 Domain write protection lock: Neither of DWP bits is locked */
 }
+#endif
 
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
@@ -237,40 +239,116 @@ void BOARD_InitEnet1GPins(void)
         0U);                                /* Software Input On Field: Input Path is determined by functionality */
 }
 
-
-
-
-
-void I2C_InitPins(void)
+void LPI2C_InitPins(void)
 {
-#ifdef USE_I2C5
-	CLOCK_EnableClock(kCLOCK_Iomuxc);	   /* LPCG on: LPCG is ON. */
-	CLOCK_EnableClock(kCLOCK_Iomuxc_Lpsr); /* LPCG on: LPCG is ON. */
+#ifdef USE_LPI2C5
+    CLOCK_EnableClock(kCLOCK_Iomuxc);      /* LPCG on: LPCG is ON. */
+    CLOCK_EnableClock(kCLOCK_Iomuxc_Lpsr); /* LPCG on: LPCG is ON. */
 
-	IOMUXC_SetPinMux(
-		IOMUXC_GPIO_LPSR_04_LPI2C5_SDA, /* GPIO_LPSR_04 is configured as LPI2C5_SDA */
-		1U);							/* Software Input On Field: Force input path of pad GPIO_LPSR_04 */
-	IOMUXC_SetPinMux(
-		IOMUXC_GPIO_LPSR_05_LPI2C5_SCL, /* GPIO_LPSR_05 is configured as LPI2C5_SCL */
-		1U);							/* Software Input On Field: Force input path of pad GPIO_LPSR_05 */
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_LPSR_04_LPI2C5_SDA, /* GPIO_LPSR_04 is configured as LPI2C5_SDA */
+        1U);                            /* Software Input On Field: Force input path of pad GPIO_LPSR_04 */
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_LPSR_05_LPI2C5_SCL, /* GPIO_LPSR_05 is configured as LPI2C5_SCL */
+        1U);                            /* Software Input On Field: Force input path of pad GPIO_LPSR_05 */
 
-	IOMUXC_SetPinConfig(
-		IOMUXC_GPIO_LPSR_04_LPI2C5_SDA, /* GPIO_LPSR_04 PAD functional properties : */
-		0x20U);							/* Slew Rate Field: Slow Slew Rate
-										   Drive Strength Field: normal driver
-										   Pull / Keep Select Field: Pull Disable
-										   Pull Up / Down Config. Field: Weak pull down
-										   Open Drain LPSR Field: Enabled
-										   Domain write protection: Both cores are allowed
-										   Domain write protection lock: Neither of DWP bits is locked */
-	IOMUXC_SetPinConfig(
-		IOMUXC_GPIO_LPSR_05_LPI2C5_SCL, /* GPIO_LPSR_05 PAD functional properties : */
-		0x20U);							/* Slew Rate Field: Slow Slew Rate
-										   Drive Strength Field: normal driver
-										   Pull / Keep Select Field: Pull Disable
-										   Pull Up / Down Config. Field: Weak pull down
-										   Open Drain LPSR Field: Enabled
-										   Domain write protection: Both cores are allowed
-										   Domain write protection lock: Neither of DWP bits is locked */
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_LPSR_04_LPI2C5_SDA, /* GPIO_LPSR_04 PAD functional properties : */
+        0x20U);                         /* Slew Rate Field: Slow Slew Rate
+                                           Drive Strength Field: normal driver
+                                           Pull / Keep Select Field: Pull Disable
+                                           Pull Up / Down Config. Field: Weak pull down
+                                           Open Drain LPSR Field: Enabled
+                                           Domain write protection: Both cores are allowed
+                                           Domain write protection lock: Neither of DWP bits is locked */
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_LPSR_05_LPI2C5_SCL, /* GPIO_LPSR_05 PAD functional properties : */
+        0x20U);                         /* Slew Rate Field: Slow Slew Rate
+                                           Drive Strength Field: normal driver
+                                           Pull / Keep Select Field: Pull Disable
+                                           Pull Up / Down Config. Field: Weak pull down
+                                           Open Drain LPSR Field: Enabled
+                                           Domain write protection: Both cores are allowed
+                                           Domain write protection lock: Neither of DWP bits is locked */
+#endif
+}
+
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitPins:
+- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- pin_list:
+
+  - {pin_num: M17, peripheral: LPSPI1, signal: PCS0, pin_signal: GPIO_AD_29, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
+    open_drain: Disable, drive_strength: High, slew_rate: Slow}
+  - {pin_num: L17, peripheral: LPSPI1, signal: SCK, pin_signal: GPIO_AD_28, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
+    open_drain: Disable, drive_strength: High, slew_rate: Slow}
+  - {pin_num: J17, peripheral: LPSPI1, signal: SIN, pin_signal: GPIO_AD_31, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
+    open_drain: Disable, drive_strength: High, slew_rate: Slow}
+  - {pin_num: K17, peripheral: LPSPI1, signal: SOUT, pin_signal: GPIO_AD_30, software_input_on: Disable, pull_up_down_config: Pull_Down, pull_keeper_select: Keeper,
+    open_drain: Disable, drive_strength: High, slew_rate: Slow}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitPins, assigned for the Cortex-M7F core.
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void LPSPI_InitPins(void)
+{
+#ifdef USE_LPSPI1
+    CLOCK_EnableClock(kCLOCK_Iomuxc); /* LPCG on: LPCG is ON. */
+
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_28_LPSPI1_SCK, /* GPIO_AD_28 is configured as LPSPI1_SCK */
+        0U);                          /* Software Input On Field: Input Path is determined by functionality */
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_29_LPSPI1_PCS0, /* GPIO_AD_29 is configured as LPSPI1_PCS0 */
+        0U);                           /* Software Input On Field: Input Path is determined by functionality */
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_30_LPSPI1_SOUT, /* GPIO_AD_30 is configured as LPSPI1_SOUT */
+        0U);                           /* Software Input On Field: Input Path is determined by functionality */
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_31_LPSPI1_SIN, /* GPIO_AD_31 is configured as LPSPI1_SIN */
+        0U);                          /* Software Input On Field: Input Path is determined by functionality */
+
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_AD_28_LPSPI1_SCK, /* GPIO_AD_28 PAD functional properties : */
+        0x02U);                       /* Slew Rate Field: Slow Slew Rate
+                                         Drive Strength Field: high drive strength
+                                         Pull / Keep Select Field: Pull Disable, Highz
+                                         Pull Up / Down Config. Field: Weak pull down
+                                         Open Drain Field: Disabled
+                                         Domain write protection: Both cores are allowed
+                                         Domain write protection lock: Neither of DWP bits is locked */
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_AD_29_LPSPI1_PCS0, /* GPIO_AD_29 PAD functional properties : */
+        0x02U);                        /* Slew Rate Field: Slow Slew Rate
+                                          Drive Strength Field: high drive strength
+                                          Pull / Keep Select Field: Pull Disable, Highz
+                                          Pull Up / Down Config. Field: Weak pull down
+                                          Open Drain Field: Disabled
+                                          Domain write protection: Both cores are allowed
+                                          Domain write protection lock: Neither of DWP bits is locked */
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_AD_30_LPSPI1_SOUT, /* GPIO_AD_30 PAD functional properties : */
+        0x02U);                        /* Slew Rate Field: Slow Slew Rate
+                                          Drive Strength Field: high drive strength
+                                          Pull / Keep Select Field: Pull Disable, Highz
+                                          Pull Up / Down Config. Field: Weak pull down
+                                          Open Drain Field: Disabled
+                                          Domain write protection: Both cores are allowed
+                                          Domain write protection lock: Neither of DWP bits is locked */
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_AD_31_LPSPI1_SIN, /* GPIO_AD_31 PAD functional properties : */
+        0x02U);                       /* Slew Rate Field: Slow Slew Rate
+                                         Drive Strength Field: high drive strength
+                                         Pull / Keep Select Field: Pull Disable, Highz
+                                         Pull Up / Down Config. Field: Weak pull down
+                                         Open Drain Field: Disabled
+                                         Domain write protection: Both cores are allowed
+                                         Domain write protection lock: Neither of DWP bits is locked */
 #endif
 }
