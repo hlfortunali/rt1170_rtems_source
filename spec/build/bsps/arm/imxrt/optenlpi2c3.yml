@@ -1,0 +1,21 @@
+SPDX-License-Identifier: CC-BY-SA-4.0 OR BSD-2-Clause
+actions:
+- get-boolean: null
+- define-condition: null
+build-type: option
+copyrights:
+- Copyright (C) 2020 embedded brains GmbH & Co. KG
+default:
+- enabled-by: 
+  - arm/imxrt1170-evk
+  - arm/imxrt1166-cm7-saltshaker
+  value: false
+- enabled-by: true
+  value: false
+description: |
+  Enable lpi2c3.
+enabled-by: true
+format: '{}'
+links: []
+name: USE_LPI2C3
+type: build
