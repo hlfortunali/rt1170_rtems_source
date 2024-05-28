@@ -1,1 +1,0 @@
-/* This file intentionally left empty as a stub for wbuf.c */
