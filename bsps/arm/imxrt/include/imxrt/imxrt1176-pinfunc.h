@@ -46,8 +46,7 @@
 #define LIBBSP_ARM_IMXRT_IMXRT1176_PINFUNC_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif /* __cplusplus */
 
     /* LPSR pins. Base address is 0x40c08000 */

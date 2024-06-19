@@ -1,14 +1,14 @@
 /* ------------------------------------------------------------------------- */
-/*  @file:    startup_MIMXRT1166_cm4.s                                       */
+/*  @file:    startup_MIMXRT1176_cm4.s                                       */
 /*  @purpose: CMSIS Cortex-M4 Core Device Startup File                       */
-/*            MIMXRT1166_cm4                                                 */
+/*            MIMXRT1176_cm4                                                 */
 /*  @version: 0.1                                                            */
-/*  @date:    2020-12-29                                                     */
-/*  @build:   b220909                                                        */
+/*  @date:    2018-3-5                                                       */
+/*  @build:   b200610                                                        */
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /* Copyright 1997-2016 Freescale Semiconductor, Inc.                         */
-/* Copyright 2016-2022 NXP                                                   */
+/* Copyright 2016-2020 NXP                                                   */
 /* All rights reserved.                                                      */
 /*                                                                           */
 /* SPDX-License-Identifier: BSD-3-Clause                                     */
@@ -94,8 +94,8 @@ __isr_vector:
     .long   KPP_IRQHandler                                  /* Keypad nterrupt*/
     .long   Reserved68_IRQHandler                           /* Reserved interrupt*/
     .long   GPR_IRQ_IRQHandler                              /* GPR interrupt*/
-    .long   eLCDIF_IRQHandler                               /* eLCDIF interrupt*/
-    .long   LCDIFv2_IRQHandler                              /* LCDIFv2 interrupt*/
+    .long   LCDIF1_IRQHandler                               /* LCDIF1 interrupt*/
+    .long   LCDIF2_IRQHandler                               /* LCDIF2 interrupt*/
     .long   CSI_IRQHandler                                  /* CSI interrupt*/
     .long   PXP_IRQHandler                                  /* PXP interrupt*/
     .long   MIPI_CSI_IRQHandler                             /* MIPI_CSI interrupt*/
@@ -106,16 +106,16 @@ __isr_vector:
     .long   DAC_IRQHandler                                  /* DAC interrupt*/
     .long   KEY_MANAGER_IRQHandler                          /* PUF interrupt*/
     .long   WDOG2_IRQHandler                                /* WDOG2 interrupt*/
-    .long   SNVS_HP_NON_TZ_IRQHandler                       /* SRTC Consolidated Interrupt. Non TZ*/
-    .long   SNVS_HP_TZ_IRQHandler                           /* SRTC Security Interrupt. TZ*/
-    .long   SNVS_PULSE_EVENT_IRQHandler                     /* ON-OFF button press shorter than 5 secs (pulse event)*/
+    .long   SNVS_HP_WRAPPER_IRQHandler                      /* SRTC Consolidated Interrupt. Non TZ*/
+    .long   SNVS_HP_WRAPPER_TZ_IRQHandler                   /* SRTC Security Interrupt. TZ*/
+    .long   SNVS_LP_WRAPPER_IRQHandler                      /* ON-OFF button press shorter than 5 secs (pulse event)*/
     .long   CAAM_IRQ0_IRQHandler                            /* CAAM interrupt queue for JQ0*/
     .long   CAAM_IRQ1_IRQHandler                            /* CAAM interrupt queue for JQ1*/
     .long   CAAM_IRQ2_IRQHandler                            /* CAAM interrupt queue for JQ2*/
     .long   CAAM_IRQ3_IRQHandler                            /* CAAM interrupt queue for JQ3*/
     .long   CAAM_RECORVE_ERRPR_IRQHandler                   /* CAAM interrupt for recoverable error*/
-    .long   CAAM_RTIC_IRQHandler                            /* CAAM interrupt for RTIC*/
-    .long   CDOG_IRQHandler                                 /* CDOG interrupt*/
+    .long   CAAM_RTC_IRQHandler                             /* CAAM interrupt for RTC*/
+    .long   Reserved91_IRQHandler                           /* Reserved interrupt*/
     .long   SAI1_IRQHandler                                 /* SAI1 interrupt*/
     .long   SAI2_IRQHandler                                 /* SAI1 interrupt*/
     .long   SAI3_RX_IRQHandler                              /* SAI3 interrupt*/
@@ -123,18 +123,18 @@ __isr_vector:
     .long   SAI4_RX_IRQHandler                              /* SAI4 interrupt*/
     .long   SAI4_TX_IRQHandler                              /* SAI4 interrupt*/
     .long   SPDIF_IRQHandler                                /* SPDIF interrupt*/
-    .long   TMPSNS_INT_IRQHandler                           /* TMPSNS interrupt*/
-    .long   TMPSNS_LOW_HIGH_IRQHandler                      /* TMPSNS low high interrupt*/
-    .long   TMPSNS_PANIC_IRQHandler                         /* TMPSNS panic interrupt*/
-    .long   LPSR_LP8_BROWNOUT_IRQHandler                    /* LPSR 1p8 brownout interrupt*/
-    .long   LPSR_LP0_BROWNOUT_IRQHandler                    /* LPSR 1p0 brownout interrupt*/
+    .long   ANATOP_TEMP_INT_IRQHandler                      /* ANATOP interrupt*/
+    .long   ANATOP_TEMP_LOW_HIGH_IRQHandler                 /* ANATOP interrupt*/
+    .long   ANATOP_TEMP_PANIC_IRQHandler                    /* ANATOP interrupt*/
+    .long   ANATOP_LP8_BROWNOUT_IRQHandler                  /* ANATOP interrupt*/
+    .long   ANATOP_LP0_BROWNOUT_IRQHandler                  /* ANATOP interrupt*/
     .long   ADC1_IRQHandler                                 /* ADC1 interrupt*/
     .long   ADC2_IRQHandler                                 /* ADC2 interrupt*/
     .long   USBPHY1_IRQHandler                              /* USBPHY1 interrupt*/
     .long   USBPHY2_IRQHandler                              /* USBPHY2 interrupt*/
     .long   RDC_IRQHandler                                  /* RDC interrupt*/
     .long   GPIO13_Combined_0_31_IRQHandler                 /* Combined interrupt indication for GPIO13 signal 0 throughout 31*/
-    .long   Reserved110_IRQHandler                          /* Reserved interrupt*/
+    .long   SFA_IRQHandler                                  /* SFA interrupt*/
     .long   DCIC1_IRQHandler                                /* DCIC1 interrupt*/
     .long   DCIC2_IRQHandler                                /* DCIC2 interrupt*/
     .long   ASRC_IRQHandler                                 /* ASRC interrupt*/
@@ -179,12 +179,12 @@ __isr_vector:
     .long   USB_OTG1_IRQHandler                             /* USBO2 USB OTG1*/
     .long   ENET_IRQHandler                                 /* ENET interrupt*/
     .long   ENET_1588_Timer_IRQHandler                      /* ENET_1588_Timer interrupt*/
-    .long   ENET_1G_MAC0_Tx_Rx_1_IRQHandler                 /* ENET 1G MAC0 transmit/receive 1*/
-    .long   ENET_1G_MAC0_Tx_Rx_2_IRQHandler                 /* ENET 1G MAC0 transmit/receive 2*/
+    .long   ENET_MAC0_Tx_Rx_Done_0_IRQHandler               /* ENET 1G MAC0 transmit/receive done 0*/
+    .long   ENET_MAC0_Tx_Rx_Done_1_IRQHandler               /* ENET 1G MAC0 transmit/receive done 1*/
     .long   ENET_1G_IRQHandler                              /* ENET 1G interrupt*/
     .long   ENET_1G_1588_Timer_IRQHandler                   /* ENET_1G_1588_Timer interrupt*/
-    .long   XBAR1_IRQ_0_1_IRQHandler                        /* XBARA1 output signal 0, 1 interrupt*/
-    .long   XBAR1_IRQ_2_3_IRQHandler                        /* XBARA1 output signal 2, 3 interrupt*/
+    .long   XBAR1_IRQ_0_1_IRQHandler                        /* XBAR1 interrupt*/
+    .long   XBAR1_IRQ_2_3_IRQHandler                        /* XBAR1 interrupt*/
     .long   ADC_ETC_IRQ0_IRQHandler                         /* ADCETC IRQ0 interrupt*/
     .long   ADC_ETC_IRQ1_IRQHandler                         /* ADCETC IRQ1 interrupt*/
     .long   ADC_ETC_IRQ2_IRQHandler                         /* ADCETC IRQ2 interrupt*/
@@ -240,24 +240,24 @@ __isr_vector:
     .long   Reserved213_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved214_IRQHandler                          /* Reserved interrupt*/
     .long   Reserved215_IRQHandler                          /* Reserved interrupt*/
-    .long   PDM_HWVAD_EVENT_IRQHandler                      /* HWVAD event interrupt*/
-    .long   PDM_HWVAD_ERROR_IRQHandler                      /* HWVAD error interrupt*/
+    .long   Reserved216_IRQHandler                          /* Reserved interrupt*/
+    .long   Reserved217_IRQHandler                          /* Reserved interrupt*/
     .long   PDM_EVENT_IRQHandler                            /* PDM event interrupt*/
     .long   PDM_ERROR_IRQHandler                            /* PDM error interrupt*/
     .long   EMVSIM1_IRQHandler                              /* EMVSIM1 interrupt*/
     .long   EMVSIM2_IRQHandler                              /* EMVSIM2 interrupt*/
-    .long   MECC1_INT_IRQHandler                            /* MECC1 int*/
-    .long   MECC1_FATAL_INT_IRQHandler                      /* MECC1 fatal int*/
-    .long   MECC2_INT_IRQHandler                            /* MECC2 int*/
-    .long   MECC2_FATAL_INT_IRQHandler                      /* MECC2 fatal int*/
-    .long   XECC_FLEXSPI1_INT_IRQHandler                    /* XECC int*/
-    .long   XECC_FLEXSPI1_FATAL_INT_IRQHandler              /* XECC fatal int*/
-    .long   XECC_FLEXSPI2_INT_IRQHandler                    /* XECC int*/
-    .long   XECC_FLEXSPI2_FATAL_INT_IRQHandler              /* XECC fatal int*/
-    .long   XECC_SEMC_INT_IRQHandler                        /* XECC int*/
-    .long   XECC_SEMC_FATAL_INT_IRQHandler                  /* XECC fatal int*/
-    .long   Reserved232_IRQHandler                          /* Reserved interrupt*/
-    .long   Reserved233_IRQHandler                          /* Reserved interrupt*/
+    .long   MECC1_INIT_IRQHandler                           /* MECC1 init*/
+    .long   MECC1_FATAL_INIT_IRQHandler                     /* MECC1 fatal init*/
+    .long   MECC2_INIT_IRQHandler                           /* MECC2 init*/
+    .long   MECC2_FATAL_INIT_IRQHandler                     /* MECC2 fatal init*/
+    .long   XECC_FLEXSPI1_INIT_IRQHandler                   /* XECC init*/
+    .long   XECC_FLEXSPI1_FATAL_INIT_IRQHandler             /* XECC fatal init*/
+    .long   XECC_FLEXSPI2_INIT_IRQHandler                   /* XECC init*/
+    .long   XECC_FLEXSPI2_FATAL_INIT_IRQHandler             /* XECC fatal init*/
+    .long   XECC_SEMC_INIT_IRQHandler                       /* XECC init*/
+    .long   XECC_SEMC_FATAL_INIT_IRQHandler                 /* XECC fatal init*/
+    .long   ENET_QOS_IRQHandler                             /* ENET_QOS interrupt*/
+    .long   ENET_QOS_PMT_IRQHandler                         /* ENET_QOS_PMT interrupt*/
     .long   DefaultISR                                      /* 234*/
     .long   DefaultISR                                      /* 235*/
     .long   DefaultISR                                      /* 236*/
@@ -281,7 +281,7 @@ __isr_vector:
     .long   DefaultISR                                      /* 254*/
     .long   0xFFFFFFFF                                      /*  Reserved for user TRIM value*/
 
-    .size   __isr_vector, . - __isr_vector
+    .size    __isr_vector, . - __isr_vector
 
     .text
     .thumb
@@ -417,7 +417,7 @@ Reset_Handler:
 
     cpsie   i               /* Unmask interrupts */
 #ifndef __START
-#define __START _start
+#define __START main
 #endif
 #ifndef __ATOLLIC__
     ldr   r0,=__START
@@ -909,33 +909,6 @@ CAN3_ERROR_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak MIPI_CSI_IRQHandler
-    .type MIPI_CSI_IRQHandler, %function
-MIPI_CSI_IRQHandler:
-    ldr   r0,=MIPI_CSI_DriverIRQHandler
-    bx    r0
-    .size MIPI_CSI_IRQHandler, . - MIPI_CSI_IRQHandler
-
-    .align 1
-    .thumb_func
-    .weak MIPI_DSI_IRQHandler
-    .type MIPI_DSI_IRQHandler, %function
-MIPI_DSI_IRQHandler:
-    ldr   r0,=MIPI_DSI_DriverIRQHandler
-    bx    r0
-    .size MIPI_DSI_IRQHandler, . - MIPI_DSI_IRQHandler
-
-    .align 1
-    .thumb_func
-    .weak CDOG_IRQHandler
-    .type CDOG_IRQHandler, %function
-CDOG_IRQHandler:
-    ldr   r0,=CDOG_DriverIRQHandler
-    bx    r0
-    .size CDOG_IRQHandler, . - CDOG_IRQHandler
-
-    .align 1
-    .thumb_func
     .weak SAI1_IRQHandler
     .type SAI1_IRQHandler, %function
 SAI1_IRQHandler:
@@ -1080,21 +1053,21 @@ ENET_1588_Timer_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak ENET_1G_MAC0_Tx_Rx_1_IRQHandler
-    .type ENET_1G_MAC0_Tx_Rx_1_IRQHandler, %function
-ENET_1G_MAC0_Tx_Rx_1_IRQHandler:
-    ldr   r0,=ENET_1G_MAC0_Tx_Rx_1_DriverIRQHandler
+    .weak ENET_MAC0_Tx_Rx_Done_0_IRQHandler
+    .type ENET_MAC0_Tx_Rx_Done_0_IRQHandler, %function
+ENET_MAC0_Tx_Rx_Done_0_IRQHandler:
+    ldr   r0,=ENET_MAC0_Tx_Rx_Done_0_DriverIRQHandler
     bx    r0
-    .size ENET_1G_MAC0_Tx_Rx_1_IRQHandler, . - ENET_1G_MAC0_Tx_Rx_1_IRQHandler
+    .size ENET_MAC0_Tx_Rx_Done_0_IRQHandler, . - ENET_MAC0_Tx_Rx_Done_0_IRQHandler
 
     .align 1
     .thumb_func
-    .weak ENET_1G_MAC0_Tx_Rx_2_IRQHandler
-    .type ENET_1G_MAC0_Tx_Rx_2_IRQHandler, %function
-ENET_1G_MAC0_Tx_Rx_2_IRQHandler:
-    ldr   r0,=ENET_1G_MAC0_Tx_Rx_2_DriverIRQHandler
+    .weak ENET_MAC0_Tx_Rx_Done_1_IRQHandler
+    .type ENET_MAC0_Tx_Rx_Done_1_IRQHandler, %function
+ENET_MAC0_Tx_Rx_Done_1_IRQHandler:
+    ldr   r0,=ENET_MAC0_Tx_Rx_Done_1_DriverIRQHandler
     bx    r0
-    .size ENET_1G_MAC0_Tx_Rx_2_IRQHandler, . - ENET_1G_MAC0_Tx_Rx_2_IRQHandler
+    .size ENET_MAC0_Tx_Rx_Done_1_IRQHandler, . - ENET_MAC0_Tx_Rx_Done_1_IRQHandler
 
     .align 1
     .thumb_func
@@ -1116,24 +1089,6 @@ ENET_1G_1588_Timer_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak PDM_HWVAD_EVENT_IRQHandler
-    .type PDM_HWVAD_EVENT_IRQHandler, %function
-PDM_HWVAD_EVENT_IRQHandler:
-    ldr   r0,=PDM_HWVAD_EVENT_DriverIRQHandler
-    bx    r0
-    .size PDM_HWVAD_EVENT_IRQHandler, . - PDM_HWVAD_EVENT_IRQHandler
-
-    .align 1
-    .thumb_func
-    .weak PDM_HWVAD_ERROR_IRQHandler
-    .type PDM_HWVAD_ERROR_IRQHandler, %function
-PDM_HWVAD_ERROR_IRQHandler:
-    ldr   r0,=PDM_HWVAD_ERROR_DriverIRQHandler
-    bx    r0
-    .size PDM_HWVAD_ERROR_IRQHandler, . - PDM_HWVAD_ERROR_IRQHandler
-
-    .align 1
-    .thumb_func
     .weak PDM_EVENT_IRQHandler
     .type PDM_EVENT_IRQHandler, %function
 PDM_EVENT_IRQHandler:
@@ -1152,39 +1107,57 @@ PDM_ERROR_IRQHandler:
 
     .align 1
     .thumb_func
-    .weak XECC_FLEXSPI1_INT_IRQHandler
-    .type XECC_FLEXSPI1_INT_IRQHandler, %function
-XECC_FLEXSPI1_INT_IRQHandler:
-    ldr   r0,=XECC_FLEXSPI1_INT_DriverIRQHandler
+    .weak XECC_FLEXSPI1_INIT_IRQHandler
+    .type XECC_FLEXSPI1_INIT_IRQHandler, %function
+XECC_FLEXSPI1_INIT_IRQHandler:
+    ldr   r0,=XECC_FLEXSPI1_INIT_DriverIRQHandler
     bx    r0
-    .size XECC_FLEXSPI1_INT_IRQHandler, . - XECC_FLEXSPI1_INT_IRQHandler
+    .size XECC_FLEXSPI1_INIT_IRQHandler, . - XECC_FLEXSPI1_INIT_IRQHandler
 
     .align 1
     .thumb_func
-    .weak XECC_FLEXSPI1_FATAL_INT_IRQHandler
-    .type XECC_FLEXSPI1_FATAL_INT_IRQHandler, %function
-XECC_FLEXSPI1_FATAL_INT_IRQHandler:
-    ldr   r0,=XECC_FLEXSPI1_FATAL_INT_DriverIRQHandler
+    .weak XECC_FLEXSPI1_FATAL_INIT_IRQHandler
+    .type XECC_FLEXSPI1_FATAL_INIT_IRQHandler, %function
+XECC_FLEXSPI1_FATAL_INIT_IRQHandler:
+    ldr   r0,=XECC_FLEXSPI1_FATAL_INIT_DriverIRQHandler
     bx    r0
-    .size XECC_FLEXSPI1_FATAL_INT_IRQHandler, . - XECC_FLEXSPI1_FATAL_INT_IRQHandler
+    .size XECC_FLEXSPI1_FATAL_INIT_IRQHandler, . - XECC_FLEXSPI1_FATAL_INIT_IRQHandler
 
     .align 1
     .thumb_func
-    .weak XECC_FLEXSPI2_INT_IRQHandler
-    .type XECC_FLEXSPI2_INT_IRQHandler, %function
-XECC_FLEXSPI2_INT_IRQHandler:
-    ldr   r0,=XECC_FLEXSPI2_INT_DriverIRQHandler
+    .weak XECC_FLEXSPI2_INIT_IRQHandler
+    .type XECC_FLEXSPI2_INIT_IRQHandler, %function
+XECC_FLEXSPI2_INIT_IRQHandler:
+    ldr   r0,=XECC_FLEXSPI2_INIT_DriverIRQHandler
     bx    r0
-    .size XECC_FLEXSPI2_INT_IRQHandler, . - XECC_FLEXSPI2_INT_IRQHandler
+    .size XECC_FLEXSPI2_INIT_IRQHandler, . - XECC_FLEXSPI2_INIT_IRQHandler
 
     .align 1
     .thumb_func
-    .weak XECC_FLEXSPI2_FATAL_INT_IRQHandler
-    .type XECC_FLEXSPI2_FATAL_INT_IRQHandler, %function
-XECC_FLEXSPI2_FATAL_INT_IRQHandler:
-    ldr   r0,=XECC_FLEXSPI2_FATAL_INT_DriverIRQHandler
+    .weak XECC_FLEXSPI2_FATAL_INIT_IRQHandler
+    .type XECC_FLEXSPI2_FATAL_INIT_IRQHandler, %function
+XECC_FLEXSPI2_FATAL_INIT_IRQHandler:
+    ldr   r0,=XECC_FLEXSPI2_FATAL_INIT_DriverIRQHandler
     bx    r0
-    .size XECC_FLEXSPI2_FATAL_INT_IRQHandler, . - XECC_FLEXSPI2_FATAL_INT_IRQHandler
+    .size XECC_FLEXSPI2_FATAL_INIT_IRQHandler, . - XECC_FLEXSPI2_FATAL_INIT_IRQHandler
+
+    .align 1
+    .thumb_func
+    .weak ENET_QOS_IRQHandler
+    .type ENET_QOS_IRQHandler, %function
+ENET_QOS_IRQHandler:
+    ldr   r0,=ENET_QOS_DriverIRQHandler
+    bx    r0
+    .size ENET_QOS_IRQHandler, . - ENET_QOS_IRQHandler
+
+    .align 1
+    .thumb_func
+    .weak ENET_QOS_PMT_IRQHandler
+    .type ENET_QOS_PMT_IRQHandler, %function
+ENET_QOS_PMT_IRQHandler:
+    ldr   r0,=ENET_QOS_PMT_DriverIRQHandler
+    bx    r0
+    .size ENET_QOS_PMT_IRQHandler, . - ENET_QOS_PMT_IRQHandler
 
 
 /*    Macro to define default handlers. Default handler
@@ -1194,6 +1167,7 @@ XECC_FLEXSPI2_FATAL_INT_IRQHandler:
     .weak \handler_name
     .set  \handler_name, DefaultISR
     .endm
+
 /* Exception Handlers */
     def_irq_handler    MemManage_Handler
     def_irq_handler    BusFault_Handler
@@ -1253,28 +1227,28 @@ XECC_FLEXSPI2_FATAL_INT_IRQHandler:
     def_irq_handler    KPP_IRQHandler
     def_irq_handler    Reserved68_IRQHandler
     def_irq_handler    GPR_IRQ_IRQHandler
-    def_irq_handler    eLCDIF_IRQHandler
-    def_irq_handler    LCDIFv2_IRQHandler
+    def_irq_handler    LCDIF1_IRQHandler
+    def_irq_handler    LCDIF2_IRQHandler
     def_irq_handler    CSI_IRQHandler
     def_irq_handler    PXP_IRQHandler
-    def_irq_handler    MIPI_CSI_DriverIRQHandler
-    def_irq_handler    MIPI_DSI_DriverIRQHandler
+    def_irq_handler    MIPI_CSI_IRQHandler
+    def_irq_handler    MIPI_DSI_IRQHandler
     def_irq_handler    GPU2D_IRQHandler
     def_irq_handler    GPIO12_Combined_0_15_IRQHandler
     def_irq_handler    GPIO12_Combined_16_31_IRQHandler
     def_irq_handler    DAC_IRQHandler
     def_irq_handler    KEY_MANAGER_IRQHandler
     def_irq_handler    WDOG2_IRQHandler
-    def_irq_handler    SNVS_HP_NON_TZ_IRQHandler
-    def_irq_handler    SNVS_HP_TZ_IRQHandler
-    def_irq_handler    SNVS_PULSE_EVENT_IRQHandler
+    def_irq_handler    SNVS_HP_WRAPPER_IRQHandler
+    def_irq_handler    SNVS_HP_WRAPPER_TZ_IRQHandler
+    def_irq_handler    SNVS_LP_WRAPPER_IRQHandler
     def_irq_handler    CAAM_IRQ0_IRQHandler
     def_irq_handler    CAAM_IRQ1_IRQHandler
     def_irq_handler    CAAM_IRQ2_IRQHandler
     def_irq_handler    CAAM_IRQ3_IRQHandler
     def_irq_handler    CAAM_RECORVE_ERRPR_IRQHandler
-    def_irq_handler    CAAM_RTIC_IRQHandler
-    def_irq_handler    CDOG_DriverIRQHandler
+    def_irq_handler    CAAM_RTC_IRQHandler
+    def_irq_handler    Reserved91_IRQHandler
     def_irq_handler    SAI1_DriverIRQHandler
     def_irq_handler    SAI2_DriverIRQHandler
     def_irq_handler    SAI3_RX_DriverIRQHandler
@@ -1282,18 +1256,18 @@ XECC_FLEXSPI2_FATAL_INT_IRQHandler:
     def_irq_handler    SAI4_RX_DriverIRQHandler
     def_irq_handler    SAI4_TX_DriverIRQHandler
     def_irq_handler    SPDIF_DriverIRQHandler
-    def_irq_handler    TMPSNS_INT_IRQHandler
-    def_irq_handler    TMPSNS_LOW_HIGH_IRQHandler
-    def_irq_handler    TMPSNS_PANIC_IRQHandler
-    def_irq_handler    LPSR_LP8_BROWNOUT_IRQHandler
-    def_irq_handler    LPSR_LP0_BROWNOUT_IRQHandler
+    def_irq_handler    ANATOP_TEMP_INT_IRQHandler
+    def_irq_handler    ANATOP_TEMP_LOW_HIGH_IRQHandler
+    def_irq_handler    ANATOP_TEMP_PANIC_IRQHandler
+    def_irq_handler    ANATOP_LP8_BROWNOUT_IRQHandler
+    def_irq_handler    ANATOP_LP0_BROWNOUT_IRQHandler
     def_irq_handler    ADC1_IRQHandler
     def_irq_handler    ADC2_IRQHandler
     def_irq_handler    USBPHY1_IRQHandler
     def_irq_handler    USBPHY2_IRQHandler
     def_irq_handler    RDC_IRQHandler
     def_irq_handler    GPIO13_Combined_0_31_IRQHandler
-    def_irq_handler    Reserved110_IRQHandler
+    def_irq_handler    SFA_IRQHandler
     def_irq_handler    DCIC1_IRQHandler
     def_irq_handler    DCIC2_IRQHandler
     def_irq_handler    ASRC_DriverIRQHandler
@@ -1338,8 +1312,8 @@ XECC_FLEXSPI2_FATAL_INT_IRQHandler:
     def_irq_handler    USB_OTG1_IRQHandler
     def_irq_handler    ENET_DriverIRQHandler
     def_irq_handler    ENET_1588_Timer_DriverIRQHandler
-    def_irq_handler    ENET_1G_MAC0_Tx_Rx_1_DriverIRQHandler
-    def_irq_handler    ENET_1G_MAC0_Tx_Rx_2_DriverIRQHandler
+    def_irq_handler    ENET_MAC0_Tx_Rx_Done_0_DriverIRQHandler
+    def_irq_handler    ENET_MAC0_Tx_Rx_Done_1_DriverIRQHandler
     def_irq_handler    ENET_1G_DriverIRQHandler
     def_irq_handler    ENET_1G_1588_Timer_DriverIRQHandler
     def_irq_handler    XBAR1_IRQ_0_1_IRQHandler
@@ -1399,23 +1373,23 @@ XECC_FLEXSPI2_FATAL_INT_IRQHandler:
     def_irq_handler    Reserved213_IRQHandler
     def_irq_handler    Reserved214_IRQHandler
     def_irq_handler    Reserved215_IRQHandler
-    def_irq_handler    PDM_HWVAD_EVENT_DriverIRQHandler
-    def_irq_handler    PDM_HWVAD_ERROR_DriverIRQHandler
+    def_irq_handler    Reserved216_IRQHandler
+    def_irq_handler    Reserved217_IRQHandler
     def_irq_handler    PDM_EVENT_DriverIRQHandler
     def_irq_handler    PDM_ERROR_DriverIRQHandler
     def_irq_handler    EMVSIM1_IRQHandler
     def_irq_handler    EMVSIM2_IRQHandler
-    def_irq_handler    MECC1_INT_IRQHandler
-    def_irq_handler    MECC1_FATAL_INT_IRQHandler
-    def_irq_handler    MECC2_INT_IRQHandler
-    def_irq_handler    MECC2_FATAL_INT_IRQHandler
-    def_irq_handler    XECC_FLEXSPI1_INT_DriverIRQHandler
-    def_irq_handler    XECC_FLEXSPI1_FATAL_INT_DriverIRQHandler
-    def_irq_handler    XECC_FLEXSPI2_INT_DriverIRQHandler
-    def_irq_handler    XECC_FLEXSPI2_FATAL_INT_DriverIRQHandler
-    def_irq_handler    XECC_SEMC_INT_IRQHandler
-    def_irq_handler    XECC_SEMC_FATAL_INT_IRQHandler
-    def_irq_handler    Reserved232_IRQHandler
-    def_irq_handler    Reserved233_IRQHandler
+    def_irq_handler    MECC1_INIT_IRQHandler
+    def_irq_handler    MECC1_FATAL_INIT_IRQHandler
+    def_irq_handler    MECC2_INIT_IRQHandler
+    def_irq_handler    MECC2_FATAL_INIT_IRQHandler
+    def_irq_handler    XECC_FLEXSPI1_INIT_DriverIRQHandler
+    def_irq_handler    XECC_FLEXSPI1_FATAL_INIT_DriverIRQHandler
+    def_irq_handler    XECC_FLEXSPI2_INIT_DriverIRQHandler
+    def_irq_handler    XECC_FLEXSPI2_FATAL_INIT_DriverIRQHandler
+    def_irq_handler    XECC_SEMC_INIT_IRQHandler
+    def_irq_handler    XECC_SEMC_FATAL_INIT_IRQHandler
+    def_irq_handler    ENET_QOS_DriverIRQHandler
+    def_irq_handler    ENET_QOS_PMT_DriverIRQHandler
 
     .end

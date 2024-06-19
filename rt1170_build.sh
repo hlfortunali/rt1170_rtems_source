@@ -17,7 +17,6 @@
   echo "IMXRT_MEMORY_FLASH_SIZE=0x1000000" >> config.ini
   echo "IMXRT_MEMORY_ITCM_SIZE=0x40000" >> config.ini
   echo "IMXRT_MEMORY_NULL_SIZE=0" >> config.ini
-  echo "BSP_CONSOLE_USE_INTERRUPTS=False" >> config.ini
   ./waf configure --prefix=$RTEMS_HOME/rtems/6 &&   
   ./waf -j16 &&   
   ./waf install &&   
