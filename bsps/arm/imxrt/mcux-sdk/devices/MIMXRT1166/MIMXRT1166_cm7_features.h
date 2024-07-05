@@ -24,8 +24,8 @@
 ** ###################################################################
 */
 
-#ifndef _MIMXRT1176_cm7_FEATURES_H_
-#define _MIMXRT1176_cm7_FEATURES_H_
+#ifndef _MIMXRT1166_cm7_FEATURES_H_
+#define _MIMXRT1166_cm7_FEATURES_H_
 
 /* SOC module features */
 

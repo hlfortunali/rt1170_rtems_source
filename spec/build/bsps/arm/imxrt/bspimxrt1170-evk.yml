@@ -14,6 +14,7 @@ includes:
 - bsps/arm/imxrt/mcux-sdk/devices/MIMXRT1176/xip
 - bsps/arm/imxrt/mcux-sdk/drivers/common
 - bsps/arm/imxrt/mcux-sdk/drivers/semc
+- bsps/arm/imxrt/mcux-sdk/drivers/igpio
 install:
 - destination: ${BSP_INCLUDEDIR}/imxrt
   source:
@@ -24,9 +25,9 @@ links:
 - role: build-dependency
   uid: obj-mimxrt1176-cm7
 source:
-- bsps/arm/imxrt/boards/saltshaker/clock_config.c
-- bsps/arm/imxrt/boards/saltshaker/dcd.c
-- bsps/arm/imxrt/boards/saltshaker/flash-flexspi-config.c
-- bsps/arm/imxrt/boards/saltshaker/pin_mux.c
+- bsps/arm/imxrt/boards/evkimxrt1170/clock_config.c
+- bsps/arm/imxrt/boards/evkimxrt1170/dcd.c
+- bsps/arm/imxrt/boards/evkimxrt1170/flash-flexspi-config.c
+- bsps/arm/imxrt/boards/evkimxrt1170/pin_mux.c
 - bsps/arm/imxrt/dts/imxrt1170-evk.c
 type: build

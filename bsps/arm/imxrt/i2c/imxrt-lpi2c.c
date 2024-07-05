@@ -29,7 +29,6 @@
 #include <bsp/fatal.h>
 #include <bsp/fdt.h>
 #include <bsp/irq.h>
-#include <bspopts.h>
 
 #include <chip.h>
 #include <dev/i2c/i2c.h>
@@ -62,13 +61,6 @@
 #define LPI2C_INT_TRANSMITTED (LPI2C_INT_ERRORS | LPI2C_MSR_TDF_MASK)
 
 // ##################################################
-#include <bsp.h>
-// i2c5
-#ifdef USE_LPI2C5
-#define I2C5_PATH "/dev/i2c5"
-#define I2C5_REG_BASE 0x40c34000
-#define I2C5_IRQ 36
-#endif
 
 // ##################################################
 

@@ -2,8 +2,8 @@
  * @Author: LiHeng
  * @Date: 2024-03-02 11:50:24
  * @LastEditors: LiHeng
- * @LastEditTime: 2024-05-28 10:46:48
- * @FilePath: /rt1170_rtems_source_1176/bsps/arm/imxrt/boards/evkimxrt1170/pin_mux.c
+ * @LastEditTime: 2024-07-05 16:10:56
+ * @FilePath: /rt1170_rtems_source/bsps/arm/imxrt/boards/evkimxrt1170/pin_mux.c
  * @Description:
  *
  * Copyright (c) 2024 by LiHeng, All Rights Reserved.
@@ -16,49 +16,17 @@
  */
 
 #include "fsl_common.h"
+#include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
 #include <bsp.h>
-#include <bspopts.h>
 #include <bsp/start.h>
+
+// #include "igpio/fsl_gpio.h"
 
 BSP_START_TEXT_SECTION
 void BOARD_InitDEBUG_UARTPins(void)
 {
     CLOCK_EnableClock(kCLOCK_Iomuxc);
-
-/* for 1166*/
-#if 0
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_02_LPUART8_TXD, 0U);
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_03_LPUART8_RXD, 0U);
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_02_LPUART8_TXD, 0x10B0u);
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_03_LPUART8_RXD, 0x10B0u);
-
-  /* for 1176*/
-  IOMUXC_SetPinMux(
-       IOMUXC_GPIO_AD_24_LPUART1_TXD,          /* GPIO_AD_24 is configured as LPUART1_TXD */
-       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-   IOMUXC_SetPinMux(
-       IOMUXC_GPIO_AD_25_LPUART1_RXD,          /* GPIO_AD_25 is configured as LPUART1_RXD */
-       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-   IOMUXC_SetPinConfig(
-       IOMUXC_GPIO_AD_24_LPUART1_TXD,          /* GPIO_AD_24 PAD functional properties : */
-       0x02U);                                 /* Slew Rate Field: Slow Slew Rate
-                                                  Drive Strength Field: high drive strength
-                                                  Pull / Keep Select Field: Pull Disable, Highz
-                                                  Pull Up / Down Config. Field: Weak pull down
-                                                  Open Drain Field: Disabled
-                                                  Domain write protection: Both cores are allowed
-                                                  Domain write protection lock: Neither of DWP bits is locked */
-   IOMUXC_SetPinConfig(
-       IOMUXC_GPIO_AD_25_LPUART1_RXD,          /* GPIO_AD_25 PAD functional properties : */
-       0x02U);                                 /* Slew Rate Field: Slow Slew Rate
-                                                  Drive Strength Field: high drive strength
-                                                  Pull / Keep Select Field: Pull Disable, Highz
-                                                  Pull Up / Down Config. Field: Weak pull down
-                                                  Open Drain Field: Disabled
-                                                  Domain write protection: Both cores are allowed
-                                                  Domain write protection lock: Neither of DWP bits is locked */
-#endif
 
     IOMUXC_SetPinMux(
         IOMUXC_GPIO_DISP_B2_10_LPUART2_TXD, /* GPIO_DISP_B2_10 is configured as LPUART2_TXD */
@@ -352,4 +320,20 @@ void LPSPI_InitPins(void)
                                          Domain write protection: Both cores are allowed
                                          Domain write protection lock: Neither of DWP bits is locked */
 #endif
+}
+
+void User_GPIO_InitPins(void)
+{
+    // ####################################################
+    //  user led config
+    // ####################################################
+    //  /* Define the init structure for the output LED pin*/
+    gpio_pin_config_t led_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+
+    /* Init output LED GPIO. */
+    GPIO_PinInit(GPIO9, 3, &led_config);
+
+    CLOCK_EnableClock(kCLOCK_Iomuxc); /* LPCG on: LPCG is ON. */
+
+    IOMUXC_SetPinMux(IOMUXC_GPIO_AD_04_GPIO9_IO03, 0U); /* GPIO_AD_04 is configured as GPIO9_IO03, For user led */
 }

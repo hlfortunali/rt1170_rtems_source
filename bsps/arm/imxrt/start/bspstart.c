@@ -67,7 +67,7 @@ static void imxrt_disable_wait_mode(void)
    * hurt otherwise.
    */
 #else
-  #error Disabling wait mode not implemented for this chip.
+#error Disabling wait mode not implemented for this chip.
 #endif
 }
 
@@ -77,9 +77,8 @@ void bsp_start(void)
 
   bsp_interrupt_initialize();
   rtems_cache_coherent_add_area(
-    bsp_section_nocacheheap_begin,
-    (uintptr_t) bsp_section_nocacheheap_size
-  );
+      bsp_section_nocacheheap_begin,
+      (uintptr_t)bsp_section_nocacheheap_size);
 }
 
 const void *bsp_fdt_get(void)
@@ -94,7 +93,8 @@ bool imxrt_fdt_node_is_enabled(const void *fdt, int node)
 
   val = fdt_getprop(fdt, node, "status", &len);
   if (val != NULL &&
-      (strcmp((char*)val, "ok") == 0 || strcmp((char*)val, "okay") == 0)) {
+      (strcmp((char *)val, "ok") == 0 || strcmp((char *)val, "okay") == 0))
+  {
     return true;
   }
 
@@ -107,24 +107,25 @@ void *imx_get_reg_of_node(const void *fdt, int node)
   const uint32_t *val;
 
   val = fdt_getprop(fdt, node, "reg", &len);
-  if (val == NULL || len < 4) {
+  if (val == NULL || len < 4)
+  {
     return NULL;
   }
 
-  return (void *) fdt32_to_cpu(val[0]);
+  return (void *)fdt32_to_cpu(val[0]);
 }
 
 rtems_vector_number imx_get_irq_of_node(
-  const void *fdt,
-  int node,
-  size_t index
-)
+    const void *fdt,
+    int node,
+    size_t index)
 {
   int len;
   const uint32_t *val;
 
   val = fdt_getprop(fdt, node, "interrupts", &len);
-  if (val == NULL || len < (int) ((index) * 4)) {
+  if (val == NULL || len < (int)((index) * 4))
+  {
     return BSP_INTERRUPT_VECTOR_INVALID;
   }
 
@@ -144,11 +145,11 @@ uint32_t bsp_fdt_map_intr(const uint32_t *intr, size_t icells)
 uint32_t
 imx_ccm_sdhci_hz(void)
 {
-	/*
-	 * We don't know which SDHCI is used. So just return the clock frequency
-	 * of the first SDHCI and hope the best.
-	 */
-	return CLOCK_GetRootClockFreq(kCLOCK_Root_Usdhc1);
+  /*
+   * We don't know which SDHCI is used. So just return the clock frequency
+   * of the first SDHCI and hope the best.
+   */
+  return CLOCK_GetRootClockFreq(kCLOCK_Root_Usdhc1);
 }
 #endif
 
@@ -162,10 +163,10 @@ __attribute__((used)) static const void *hdr_fsc = &imxrt_flexspi_config;
 __attribute__((used)) static const void *drv_iomux = &imx_iomux_configure_pins;
 
 RTEMS_SYSINIT_ITEM(imxrt_lpspi_init, RTEMS_SYSINIT_DEVICE_DRIVERS,
-    RTEMS_SYSINIT_ORDER_MIDDLE);
+                   RTEMS_SYSINIT_ORDER_MIDDLE);
 RTEMS_SYSINIT_ITEM(imxrt_lpi2c_init, RTEMS_SYSINIT_DEVICE_DRIVERS,
-    RTEMS_SYSINIT_ORDER_MIDDLE);
+                   RTEMS_SYSINIT_ORDER_MIDDLE);
 RTEMS_SYSINIT_ITEM(imxrt_ffec_init, RTEMS_SYSINIT_DEVICE_DRIVERS,
-    RTEMS_SYSINIT_ORDER_MIDDLE);
+                   RTEMS_SYSINIT_ORDER_MIDDLE);
 RTEMS_SYSINIT_ITEM(fsl_edma_init, RTEMS_SYSINIT_DEVICE_DRIVERS,
-    RTEMS_SYSINIT_ORDER_FIRST);
+                   RTEMS_SYSINIT_ORDER_FIRST);

@@ -36,7 +36,6 @@
 #include <fsl_clock.h>
 #include <libfdt.h>
 #include <imxrt/lpspi.h>
-#include <bspopts.h>
 
 #if IMXRT_LPSPI_MAX_CS != 0 && IMXRT_LPSPI_MAX_CS < 4
 #error IMXRT_LPSPI_MAX_CS hast to be either 0 or at least 4.
@@ -944,6 +943,7 @@ static void lpspi_interface_init(Spi_sel spi_sel)
   }
 }
 
+#include <bsp.h>
 void imxrt_lpspi_init(void)
 {
 #ifdef USE_LPSPI1

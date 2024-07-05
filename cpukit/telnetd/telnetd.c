@@ -387,7 +387,7 @@ rtems_status_code rtems_telnetd_start(const rtems_telnetd_config_table *config)
 
   if (config->client_maximum == 0)
   {
-    client_maximum = 1;
+    client_maximum = 5;
   }
   else
   {

@@ -105,6 +105,7 @@ extern "C"
 	void BOARD_InitEnet1GPins(void);
 	void LPI2C_InitPins(void);
 	void LPSPI_InitPins(void);
+	void User_GPIO_InitPins(void);
 
 #ifdef __cplusplus
 }

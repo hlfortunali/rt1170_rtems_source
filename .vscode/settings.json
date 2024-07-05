@@ -19,6 +19,12 @@
         "numbers": "c",
         "config.h": "c",
         "ftpd.h": "c",
-        "test-printer.h": "c"
+        "test-printer.h": "c",
+        "bspopts.h": "c",
+        "fsl_iomuxc.h": "c",
+        "fsl_common.h": "c",
+        "start.h": "c",
+        "fsl_gpio.h": "c",
+        "assert.h": "c"
     }
 }
