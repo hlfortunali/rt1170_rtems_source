@@ -127,12 +127,15 @@ void BOARD_InitEnetPins(void)
                                                 Domain write protection lock: Neither of DWP bits is locked */
 }
 #endif
-
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitEnet1GPins:
 - options: {callFromInitBoot: 'false', coreID: cm7, enableClock: 'true'}
 - pin_list:
+  - {pin_num: A5, peripheral: GPIO11, signal: 'gpio_io, 14', pin_signal: GPIO_DISP_B2_13, direction: OUTPUT, gpio_init_state: 'true'}
+  - {pin_num: B6, peripheral: GPIO5, signal: 'gpio_mux_io, 13', pin_signal: GPIO_DISP_B2_12, direction: INPUT, gpio_interrupt: kGPIO_IntLowLevel}
+  - {pin_num: U2, peripheral: ENET_1G, signal: enet_mdc, pin_signal: GPIO_EMC_B2_19}
+  - {pin_num: R3, peripheral: ENET_1G, signal: enet_mdio, pin_signal: GPIO_EMC_B2_20}
   - {pin_num: E13, peripheral: ENET_1G, signal: enet_rx_en, pin_signal: GPIO_DISP_B1_00}
   - {pin_num: D13, peripheral: ENET_1G, signal: enet_rx_clk, pin_signal: GPIO_DISP_B1_01}
   - {pin_num: D11, peripheral: ENET_1G, signal: 'enet_rdata, 00', pin_signal: GPIO_DISP_B1_02}
@@ -145,9 +148,6 @@ BOARD_InitEnet1GPins:
   - {pin_num: C13, peripheral: ENET_1G, signal: 'enet_tdata, 00', pin_signal: GPIO_DISP_B1_09}
   - {pin_num: B14, peripheral: ENET_1G, signal: enet_tx_en, pin_signal: GPIO_DISP_B1_10}
   - {pin_num: A14, peripheral: ENET_1G, signal: enet_tx_clk_io, pin_signal: GPIO_DISP_B1_11}
-  - {pin_num: A5, peripheral: GPIO11, signal: 'gpio_io, 14', pin_signal: GPIO_DISP_B2_13}
-  - {pin_num: U2, peripheral: ENET_1G, signal: enet_mdc, pin_signal: GPIO_EMC_B2_19}
-  - {pin_num: R3, peripheral: ENET_1G, signal: enet_mdio, pin_signal: GPIO_EMC_B2_20}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -157,55 +157,77 @@ BOARD_InitEnet1GPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
-void BOARD_InitEnet1GPins(void)
-{
-    CLOCK_EnableClock(kCLOCK_Iomuxc); /* LPCG on: LPCG is ON. */
+void BOARD_InitEnet1GPins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
 
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_00_ENET_1G_RX_EN, /* GPIO_DISP_B1_00 is configured as ENET_1G_RX_EN */
-        0U);                                  /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_01_ENET_1G_RX_CLK, /* GPIO_DISP_B1_01 is configured as ENET_1G_RX_CLK */
-        0U);                                   /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_02_ENET_1G_RX_DATA00, /* GPIO_DISP_B1_02 is configured as ENET_1G_RX_DATA00 */
-        0U);                                      /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_03_ENET_1G_RX_DATA01, /* GPIO_DISP_B1_03 is configured as ENET_1G_RX_DATA01 */
-        0U);                                      /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_04_ENET_1G_RX_DATA02, /* GPIO_DISP_B1_04 is configured as ENET_1G_RX_DATA02 */
-        0U);                                      /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_05_ENET_1G_RX_DATA03, /* GPIO_DISP_B1_05 is configured as ENET_1G_RX_DATA03 */
-        0U);                                      /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_06_ENET_1G_TX_DATA03, /* GPIO_DISP_B1_06 is configured as ENET_1G_TX_DATA03 */
-        0U);                                      /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_07_ENET_1G_TX_DATA02, /* GPIO_DISP_B1_07 is configured as ENET_1G_TX_DATA02 */
-        0U);                                      /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_08_ENET_1G_TX_DATA01, /* GPIO_DISP_B1_08 is configured as ENET_1G_TX_DATA01 */
-        0U);                                      /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_09_ENET_1G_TX_DATA00, /* GPIO_DISP_B1_09 is configured as ENET_1G_TX_DATA00 */
-        0U);                                      /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_10_ENET_1G_TX_EN, /* GPIO_DISP_B1_10 is configured as ENET_1G_TX_EN */
-        0U);                                  /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B1_11_ENET_1G_TX_CLK_IO, /* GPIO_DISP_B1_11 is configured as ENET_1G_TX_CLK_IO */
-        0U);                                      /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_DISP_B2_13_GPIO11_IO14, /* GPIO_DISP_B2_13 is configured as GPIO11_IO14 */
-        0U);                                /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_EMC_B2_19_ENET_1G_MDC, /* GPIO_EMC_B2_19 is configured as ENET_1G_MDC */
-        0U);                               /* Software Input On Field: Input Path is determined by functionality */
-    IOMUXC_SetPinMux(
-        IOMUXC_GPIO_EMC_B2_20_ENET_1G_MDIO, /* GPIO_EMC_B2_20 is configured as ENET_1G_MDIO */
-        0U);                                /* Software Input On Field: Input Path is determined by functionality */
+  /* GPIO configuration of PHY_INTR on GPIO_DISP_B2_12 (pin B6) */
+  gpio_pin_config_t PHY_INTR_config = {
+      .direction = kGPIO_DigitalInput,
+      .outputLogic = 0U,
+      .interruptMode = kGPIO_IntLowLevel
+  };
+  /* Initialize GPIO functionality on GPIO_DISP_B2_12 (pin B6) */
+  GPIO_PinInit(GPIO5, 13U, &PHY_INTR_config);
+  /* Enable GPIO pin interrupt on GPIO_DISP_B2_12 (pin B6) */
+  GPIO_PortEnableInterrupts(GPIO5, 1U << 13U);
+
+  /* GPIO configuration of PHY_RESET on GPIO_DISP_B2_13 (pin A5) */
+  gpio_pin_config_t PHY_RESET_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 1U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on GPIO_DISP_B2_13 (pin A5) */
+  GPIO_PinInit(GPIO11, 14U, &PHY_RESET_config);
+
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_00_ENET_1G_RX_EN,   /* GPIO_DISP_B1_00 is configured as ENET_1G_RX_EN */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_01_ENET_1G_RX_CLK,  /* GPIO_DISP_B1_01 is configured as ENET_1G_RX_CLK */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_02_ENET_1G_RX_DATA00,  /* GPIO_DISP_B1_02 is configured as ENET_1G_RX_DATA00 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_03_ENET_1G_RX_DATA01,  /* GPIO_DISP_B1_03 is configured as ENET_1G_RX_DATA01 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_04_ENET_1G_RX_DATA02,  /* GPIO_DISP_B1_04 is configured as ENET_1G_RX_DATA02 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_05_ENET_1G_RX_DATA03,  /* GPIO_DISP_B1_05 is configured as ENET_1G_RX_DATA03 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_06_ENET_1G_TX_DATA03,  /* GPIO_DISP_B1_06 is configured as ENET_1G_TX_DATA03 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_07_ENET_1G_TX_DATA02,  /* GPIO_DISP_B1_07 is configured as ENET_1G_TX_DATA02 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_08_ENET_1G_TX_DATA01,  /* GPIO_DISP_B1_08 is configured as ENET_1G_TX_DATA01 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_09_ENET_1G_TX_DATA00,  /* GPIO_DISP_B1_09 is configured as ENET_1G_TX_DATA00 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_10_ENET_1G_TX_EN,   /* GPIO_DISP_B1_10 is configured as ENET_1G_TX_EN */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B1_11_ENET_1G_TX_CLK_IO,  /* GPIO_DISP_B1_11 is configured as ENET_1G_TX_CLK_IO */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B2_12_GPIO_MUX5_IO13,  /* GPIO_DISP_B2_12 is configured as GPIO_MUX5_IO13 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_DISP_B2_13_GPIO11_IO14,     /* GPIO_DISP_B2_13 is configured as GPIO11_IO14 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_EMC_B2_19_ENET_1G_MDC,      /* GPIO_EMC_B2_19 is configured as ENET_1G_MDC */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_EMC_B2_20_ENET_1G_MDIO,     /* GPIO_EMC_B2_20 is configured as ENET_1G_MDIO */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
 }
 
 void LPI2C_InitPins(void)
